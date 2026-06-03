@@ -1,15 +1,18 @@
-"""Optional paid geocoder — exact street-level address -> coordinates.
+"""Optional street-level geocoder — full address -> coordinates.
 
-Pluggable and cheap: at ~500 orders/month a paid geocode costs cents (Google
-~$5/1000 -> ~$2.50/mo; Mapbox/HERE free tiers cover it). Results are cached on
-disk so the same address is never charged twice.
+Pluggable. Two flavours:
+
+* **Free, no key:** ``nominatim`` (OpenStreetMap) or ``photon`` (Komoot). Great up to
+  ~1000 orders/month (well within Nominatim's acceptable-use of <=1 req/s). With the
+  on-disk cache each unique address is only ever requested once.
+* **Paid, needs key:** ``google`` / ``here`` / ``mapbox`` for higher volume / SLAs.
 
 Enable by setting environment variables:
-    GEOCODER_PROVIDER   # "google" (default) | "here" | "mapbox"
-    GEOCODER_API_KEY    # your key
+    GEOCODER_PROVIDER   # nominatim | photon | google | here | mapbox
+    GEOCODER_API_KEY    # only for the paid providers
 
-If no key is set, ``geocode_via_api`` returns None and the caller falls back to
-the free postal-code geocoder — so nothing breaks offline or without a key.
+If the provider is unset/paid-without-key, ``geocode_via_api`` returns None and the
+caller falls back to the free postal-code geocoder — nothing breaks offline.
 """
 from __future__ import annotations
 
@@ -21,6 +24,8 @@ from functools import lru_cache
 
 HERE_DIR = os.path.dirname(os.path.abspath(__file__))
 CACHE_PATH = os.path.normpath(os.path.join(HERE_DIR, "..", "data", "geocode_cache.json"))
+
+KEYLESS_PROVIDERS = {"nominatim", "photon"}
 
 
 def _load_cache() -> dict:
@@ -54,8 +59,8 @@ def geocode_via_api(
 ) -> tuple[float, float] | None:
     """Return (lat, lon) for a full address, or None if no key / no result."""
     provider, key = _config()
-    if not key:
-        return None
+    if not key and provider not in KEYLESS_PROVIDERS:
+        return None  # paid provider without a key, or geocoder simply not enabled
 
     country, street, postal, city = (country or "", street or "", postal or "", city or "")
     ck = _cache_key(country, street, postal, city)
@@ -76,13 +81,35 @@ def geocode_via_api(
 
 
 def _get_json(url: str) -> dict:
-    req = urllib.request.Request(url, headers={"User-Agent": "omnibox-geocoder"})
+    req = urllib.request.Request(
+        url, headers={"User-Agent": "omnibox-locker-finder/1.0 (Omniva parcel-locker app)"}
+    )
     with urllib.request.urlopen(req, timeout=20) as resp:
         return json.loads(resp.read())
 
 
-def _call_provider(provider: str, key: str, query: str, country: str) -> tuple[float, float] | None:
+def _call_provider(provider: str, key: str | None, query: str, country: str) -> tuple[float, float] | None:
     q = urllib.parse.quote(query)
+    if provider == "nominatim":
+        # OpenStreetMap, free, no key. Respect usage policy: descriptive UA, low rate.
+        url = (
+            "https://nominatim.openstreetmap.org/search"
+            f"?q={q}&format=json&limit=1&countrycodes={country.lower()}"
+        )
+        data = _get_json(url)
+        if data:
+            return float(data[0]["lat"]), float(data[0]["lon"])
+        return None
+
+    if provider == "photon":
+        url = f"https://photon.komoot.io/api/?q={q}&limit=1"
+        data = _get_json(url)
+        feats = data.get("features") or []
+        if feats:
+            lon, lat = feats[0]["geometry"]["coordinates"]
+            return float(lat), float(lon)
+        return None
+
     if provider == "google":
         url = (
             "https://maps.googleapis.com/maps/api/geocode/json"
