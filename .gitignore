@@ -1,0 +1,6 @@
+# Large raw build inputs (re-downloaded by `python -m omnibox.fetch_data`)
+data/_raw_*
+
+__pycache__/
+*.pyc
+.venv/

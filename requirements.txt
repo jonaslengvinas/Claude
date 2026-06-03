@@ -1,0 +1,5 @@
+# Runtime has zero third-party dependencies (Python 3.10+ standard library only).
+# fetch_data.py uses urllib; app.py uses http.server; everything else is stdlib.
+#
+# Optional, only if you later add full street-level geocoding via an API:
+# requests

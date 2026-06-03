@@ -1,0 +1,5024 @@
+[
+ {
+  "id": "96142",
+  "name": "Ahtme Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Ahtme linnaosa",
+  "address": "Maleva tänav 23, Ahtme linnaosa",
+  "lat": 59.3274266671023,
+  "lon": 27.4204368294097
+ },
+ {
+  "id": "9950",
+  "name": "Aizkraukles T/C Iga pakomāts",
+  "country": "LV",
+  "city": "Gaismas iela 35, Aizkraukle",
+  "address": "Gaismas iela 35, Aizkraukle",
+  "lat": 56.611536,
+  "lon": 25.263084
+ },
+ {
+  "id": "9980",
+  "name": "Aizputes TOP Zvaigžņu iela pakomāts",
+  "country": "LV",
+  "city": "Zvaigžņu iela 2, Aizpute",
+  "address": "Zvaigžņu iela 2, Aizpute",
+  "lat": 56.719004,
+  "lon": 21.607323
+ },
+ {
+  "id": "88895",
+  "name": "Alytaus NORFA Topolių paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Topolių g. 1, Alytus",
+  "address": "Topolių g. 1, Alytus",
+  "lat": 54.396616,
+  "lon": 24.028241
+ },
+ {
+  "id": "88854",
+  "name": "Alytaus PC ARENA paštomatas",
+  "country": "LT",
+  "city": "Naujoji g. 7E, Alytus",
+  "address": "Naujoji g. 7E, Alytus",
+  "lat": 54.409792,
+  "lon": 24.014968
+ },
+ {
+  "id": "88855",
+  "name": "Alytaus RIMI Pulko paštomatas",
+  "country": "LT",
+  "city": "Pulko g. 53A, Alytus",
+  "address": "Pulko g. 53A, Alytus",
+  "lat": 54.387953,
+  "lon": 24.043778
+ },
+ {
+  "id": "9951",
+  "name": "Alūksnes T/C Maxima X pakomāts",
+  "country": "LV",
+  "city": "Pils iela 9b, Alūksne",
+  "address": "Pils iela 9b, Alūksne",
+  "lat": 57.430149,
+  "lon": 27.039393
+ },
+ {
+  "id": "96118",
+  "name": "Antsla Konsum pakiautomaat",
+  "country": "EE",
+  "city": "Antsla linn",
+  "address": "Põllu tänav 15, Antsla linn",
+  "lat": 57.8288615289506,
+  "lon": 26.5328698824116
+ },
+ {
+  "id": "88800",
+  "name": "Anykščių NORFA Vilniaus g. paštomatas",
+  "country": "LT",
+  "city": "Vilniaus g. 22, Anykščiai",
+  "address": "Vilniaus g. 22, Anykščiai",
+  "lat": 55.522864,
+  "lon": 25.098652
+ },
+ {
+  "id": "96230",
+  "name": "Aravete Meie kaupluse pakiautomaat",
+  "country": "EE",
+  "city": "Aravete alevik",
+  "address": "Piibe maantee 16, Aravete alevik",
+  "lat": 59.1455321150806,
+  "lon": 25.7524439139048
+ },
+ {
+  "id": "96204",
+  "name": "Aruküla Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Aruküla alevik",
+  "address": "Tallinna maantee 8, Aruküla alevik",
+  "lat": 59.3709787035106,
+  "lon": 25.0778530196993
+ },
+ {
+  "id": "96211",
+  "name": "Aseri Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Aseri alevik",
+  "address": "Tehase tänav 23, Aseri alevik",
+  "lat": 59.4496301753562,
+  "lon": 26.8667878006586
+ },
+ {
+  "id": "9158",
+  "name": "Auces TOP pakomāts",
+  "country": "LV",
+  "city": "Baznīcas iela 1, Auce",
+  "address": "Baznīcas iela 1, Auce",
+  "lat": 56.464791,
+  "lon": 22.892116
+ },
+ {
+  "id": "9127",
+  "name": "Baldones MEGO pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 79, Baldone",
+  "address": "Rīgas iela 79, Baldone",
+  "lat": 56.742891,
+  "lon": 24.396305
+ },
+ {
+  "id": "9970",
+  "name": "Baloži Mego pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 14, Baloži",
+  "address": "Rīgas iela 14, Baloži",
+  "lat": 56.875234,
+  "lon": 24.118521
+ },
+ {
+  "id": "9982",
+  "name": "Balvu TOP pakomāts",
+  "country": "LV",
+  "city": "Partizānu iela 8, Balvi",
+  "address": "Partizānu iela 8, Balvi",
+  "lat": 57.132165,
+  "lon": 27.263967
+ },
+ {
+  "id": "9940",
+  "name": "Bauskas Mini RIMI pakomāts",
+  "country": "LV",
+  "city": "Zaļā iela 3,Bauska",
+  "address": "Zaļā iela 3,Bauska",
+  "lat": 56.40707,
+  "lon": 24.194196
+ },
+ {
+  "id": "88866",
+  "name": "Biržų NORFA paštomatas",
+  "country": "LT",
+  "city": "Respublikos g. 2E, Biržai",
+  "address": "Respublikos g. 2E, Biržai",
+  "lat": 56.194351,
+  "lon": 24.769201
+ },
+ {
+  "id": "9997",
+  "name": "Brocēnu MEGO pakomāts",
+  "country": "LV",
+  "city": "Lielcieceres iela 1, Brocēni",
+  "address": "Lielcieceres iela 1, Brocēni",
+  "lat": 56.682556,
+  "lon": 22.565434
+ },
+ {
+  "id": "9988",
+  "name": "Carnikavas Mego pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 14, Carnikava",
+  "address": "Rīgas iela 14, Carnikava",
+  "lat": 57.128349,
+  "lon": 24.276067
+ },
+ {
+  "id": "9137",
+  "name": "Cēsu Gaujas ielas Maxima pakomāts",
+  "country": "LV",
+  "city": "Gaujas iela 1/3, Cēsis,",
+  "address": "Gaujas iela 1/3, Cēsis,",
+  "lat": 57.309661,
+  "lon": 25.267184
+ },
+ {
+  "id": "9921",
+  "name": "Cēsu Maxima XX pakomāts",
+  "country": "LV",
+  "city": "Valmieras iela 17a, Cēsis",
+  "address": "Valmieras iela 17a, Cēsis",
+  "lat": 57.317123,
+  "lon": 25.280035
+ },
+ {
+  "id": "9989",
+  "name": "Dagdas TOP pakomāts",
+  "country": "LV",
+  "city": "Daugavpils iela 6, Dagda",
+  "address": "Daugavpils iela 6, Dagda",
+  "lat": 56.095957,
+  "lon": 27.539638
+ },
+ {
+  "id": "9916",
+  "name": "Daugavpils Aveņu centrs pakomāts",
+  "country": "LV",
+  "city": "Raipoles iela 11, Daugavpils",
+  "address": "Raipoles iela 11, Daugavpils",
+  "lat": 55.901089,
+  "lon": 26.526382
+ },
+ {
+  "id": "9998",
+  "name": "Daugavpils Mego Valkas iela pakomāts",
+  "country": "LV",
+  "city": "Valkas iela 1, Daugavpils",
+  "address": "Valkas iela 1, Daugavpils",
+  "lat": 55.879901,
+  "lon": 26.560687
+ },
+ {
+  "id": "9918",
+  "name": "Daugavpils T/C Ditton pakomāts",
+  "country": "LV",
+  "city": "Cietokšņa iela 60,Daugavpils",
+  "address": "Cietokšņa iela 60,Daugavpils",
+  "lat": 55.874596,
+  "lon": 26.516401
+ },
+ {
+  "id": "9941",
+  "name": "Dobeles RIMI pakomāts",
+  "country": "LV",
+  "city": "Brīvības iela 30,Dobele",
+  "address": "Brīvības iela 30,Dobele",
+  "lat": 56.62588,
+  "lon": 23.28663
+ },
+ {
+  "id": "88865",
+  "name": "Druskininkų IKI Čiurlionio paštomatas",
+  "country": "LT",
+  "city": "Čiurlionio g. 107, Druskininkai",
+  "address": "Čiurlionio g. 107, Druskininkai",
+  "lat": 54.011307,
+  "lon": 23.990209
+ },
+ {
+  "id": "9163",
+  "name": "Dundagas TOP pakomāts",
+  "country": "LV",
+  "city": "Talsu iela 1, Dundaga",
+  "address": "Talsu iela 1, Dundaga",
+  "lat": 57.509829,
+  "lon": 22.351642
+ },
+ {
+  "id": "88896",
+  "name": "Eišiškių NORFA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Vilniaus g. 19, Eišiškės",
+  "address": "Vilniaus g. 19, Eišiškės",
+  "lat": 54.171456,
+  "lon": 24.997282
+ },
+ {
+  "id": "9156",
+  "name": "Elejas TOP pakomāts",
+  "country": "LV",
+  "city": "Stacijas iela 2, Eleja",
+  "address": "Stacijas iela 2, Eleja",
+  "lat": 56.408564,
+  "lon": 23.681133
+ },
+ {
+  "id": "88853",
+  "name": "Elektrėnų MAXIMA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Rungos g. 4, Elektrėnai",
+  "address": "Rungos g. 4, Elektrėnai",
+  "lat": 54.785283,
+  "lon": 24.658095
+ },
+ {
+  "id": "96179",
+  "name": "Elva Arbimäe Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Elva linn",
+  "address": "Kirde tänav 3, Elva linn",
+  "lat": 58.2342741273131,
+  "lon": 26.4148209171354
+ },
+ {
+  "id": "96047",
+  "name": "Elva Turuplatsi Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Elva linn",
+  "address": "Kesk tänav 1, Elva linn",
+  "lat": 58.2209969937114,
+  "lon": 26.4086950442004
+ },
+ {
+  "id": "88801",
+  "name": "Gargždų NORFA paštomatas",
+  "country": "LT",
+  "city": "Klaipėdos g. 41, Gargždai",
+  "address": "Klaipėdos g. 41, Gargždai",
+  "lat": 55.712518,
+  "lon": 21.380646
+ },
+ {
+  "id": "88876",
+  "name": "Garliavos NORFA paštomatas",
+  "country": "LT",
+  "city": "Atgimimo g. 1, Jonučių k., Kauno raj. (Garliava)",
+  "address": "Atgimimo g. 1, Jonučių k., Kauno raj. (Garliava)",
+  "lat": 54.829127,
+  "lon": 23.873354
+ },
+ {
+  "id": "9126",
+  "name": "Grobiņas TOP pakomāts",
+  "country": "LV",
+  "city": "Lielā iela 74, Grobiņa",
+  "address": "Lielā iela 74, Grobiņa",
+  "lat": 56.535101,
+  "lon": 21.168138
+ },
+ {
+  "id": "9948",
+  "name": "Gulbenes Skolas iela 7 Maxima pakomāts",
+  "country": "LV",
+  "city": "Skolas iela 7,Gulbene",
+  "address": "Skolas iela 7,Gulbene",
+  "lat": 57.1709893,
+  "lon": 26.766695
+ },
+ {
+  "id": "96206",
+  "name": "Haabneeme Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Haabneeme alevik",
+  "address": "Rohuneeme tee 32, Haabneeme alevik",
+  "lat": 59.5129752639819,
+  "lon": 24.8199890965783
+ },
+ {
+  "id": "96128",
+  "name": "Haapsalu Kastani pakiautomaat",
+  "country": "EE",
+  "city": "Haapsalu linn",
+  "address": "Kuuse tänav 28, Haapsalu linn",
+  "lat": 58.936218718219,
+  "lon": 23.5523639177135
+ },
+ {
+  "id": "96033",
+  "name": "Haapsalu Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Haapsalu linn",
+  "address": "Tallinna maantee 1, Haapsalu linn",
+  "lat": 58.9404262624195,
+  "lon": 23.5422706804988
+ },
+ {
+  "id": "96164",
+  "name": "Haapsalu Uuemõisa Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Uuemõisa alevik",
+  "address": "Tallinna maantee 84, Uuemõisa alevik",
+  "lat": 58.9403326740402,
+  "lon": 23.5823763210879
+ },
+ {
+  "id": "96324",
+  "name": "Haljala Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Haljala alevik",
+  "address": "Võsu maantee 5, Haljala alevik",
+  "lat": 59.4337731434386,
+  "lon": 26.2665852612834
+ },
+ {
+  "id": "9987",
+  "name": "Iecavas Maxima X pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 27, Iecava",
+  "address": "Rīgas iela 27, Iecava",
+  "lat": 56.597865,
+  "lon": 24.196916
+ },
+ {
+  "id": "88802",
+  "name": "Ignalinos NORFA paštomatas",
+  "country": "LT",
+  "city": "Taikos g. 20, Ignalina",
+  "address": "Taikos g. 20, Ignalina",
+  "lat": 55.342599,
+  "lon": 26.170579
+ },
+ {
+  "id": "96170",
+  "name": "Ihaste Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Veibri küla",
+  "address": "Lillevälja tee 1, Veibri küla",
+  "lat": 58.3507166897853,
+  "lon": 26.7889136507636
+ },
+ {
+  "id": "96189",
+  "name": "Iisaku Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Iisaku alevik",
+  "address": "Tartu maantee 55, Iisaku alevik",
+  "lat": 59.0949296545533,
+  "lon": 27.3146204026924
+ },
+ {
+  "id": "9125",
+  "name": "Ikšķiles Maxima X pakomāts",
+  "country": "LV",
+  "city": "Skolas iela 4a, Ikšķile",
+  "address": "Skolas iela 4a, Ikšķile",
+  "lat": 56.838117,
+  "lon": 24.496888
+ },
+ {
+  "id": "9104",
+  "name": "Ilūkstes Pilskalnes ielas TOP! pakomāts",
+  "country": "LV",
+  "city": "Pilskalnes iela 2A,Ilūkste",
+  "address": "Pilskalnes iela 2A,Ilūkste",
+  "lat": 55.977276,
+  "lon": 26.29575
+ },
+ {
+  "id": "9140",
+  "name": "Inčukalna Aibe pakomāts",
+  "country": "LV",
+  "city": "Atmodas iela 6, Inčukalns",
+  "address": "Atmodas iela 6, Inčukalns",
+  "lat": 57.098333,
+  "lon": 24.686591
+ },
+ {
+  "id": "9155",
+  "name": "Jaunmārupes pakomāts",
+  "country": "LV",
+  "city": "Mazcenu aleja 33-1 Jaunmārupe",
+  "address": "Mazcenu aleja 33-1 Jaunmārupe",
+  "lat": 56.882096,
+  "lon": 23.941965
+ },
+ {
+  "id": "9106",
+  "name": "Jaunolaines TOP pakomāts",
+  "country": "LV",
+  "city": "Baznīcas iela 10, Jaunolaine",
+  "address": "Baznīcas iela 10, Jaunolaine",
+  "lat": 56.801617,
+  "lon": 23.984764
+ },
+ {
+  "id": "9919",
+  "name": "Jelgavas T/C RAF Centrs pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 48, Jelgava",
+  "address": "Rīgas iela 48, Jelgava",
+  "lat": 56.667986,
+  "lon": 23.760634
+ },
+ {
+  "id": "9981",
+  "name": "Jelgavas T/C RIMI Satiksmes pakomāts",
+  "country": "LV",
+  "city": "Satiksmes iela 35, Jelgava",
+  "address": "Satiksmes iela 35, Jelgava",
+  "lat": 56.656704,
+  "lon": 23.699647
+ },
+ {
+  "id": "9131",
+  "name": "Jelgavas T/C Valdeka pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 11a, Jelgava",
+  "address": "Rīgas iela 11a, Jelgava",
+  "lat": 56.661755,
+  "lon": 23.746968
+ },
+ {
+  "id": "9929",
+  "name": "Jelgavas Vivo RIMI pakomāts",
+  "country": "LV",
+  "city": "Katoļu iela 18, Jelgava",
+  "address": "Katoļu iela 18, Jelgava",
+  "lat": 56.647499,
+  "lon": 23.7265
+ },
+ {
+  "id": "88897",
+  "name": "Jonavos NORFA Žeimių paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Žeimių g. 26A, Jonava",
+  "address": "Žeimių g. 26A, Jonava",
+  "lat": 55.084468,
+  "lon": 24.273708
+ },
+ {
+  "id": "88867",
+  "name": "Jonavos RIMI paštomatas",
+  "country": "LT",
+  "city": "Vasario 16-osios g. 4, Jonava",
+  "address": "Vasario 16-osios g. 4, Jonava",
+  "lat": 55.07318,
+  "lon": 24.27637
+ },
+ {
+  "id": "88803",
+  "name": "Joniškio NORFA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Vilniaus g. 47B, Joniškis",
+  "address": "Vilniaus g. 47B, Joniškis",
+  "lat": 56.228109,
+  "lon": 23.604877
+ },
+ {
+  "id": "88864",
+  "name": "Jurbarko MAXIMA CENTRO paštomatas",
+  "country": "LT",
+  "city": "Dariaus ir Girėno g. 66, Jurbarkas",
+  "address": "Dariaus ir Girėno g. 66, Jurbarkas",
+  "lat": 55.0774,
+  "lon": 22.767105
+ },
+ {
+  "id": "96157",
+  "name": "Järva-Jaani Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Järva-Jaani alev",
+  "address": "Lai tänav 23, Järva-Jaani alev",
+  "lat": 59.0381029423197,
+  "lon": 25.884541483286
+ },
+ {
+  "id": "96224",
+  "name": "Järvakandi Kandi Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Järvakandi alev",
+  "address": "Tallinna maantee 37, Järvakandi alev",
+  "lat": 58.7737064092829,
+  "lon": 24.8164312458955
+ },
+ {
+  "id": "96044",
+  "name": "Jõgeva Postkontori pakiautomaat",
+  "country": "EE",
+  "city": "Jõgeva linn",
+  "address": "Aia tänav 8, Jõgeva linn",
+  "lat": 58.7466491531936,
+  "lon": 26.39596298921
+ },
+ {
+  "id": "96191",
+  "name": "Jõhvi Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Jõhvi linn",
+  "address": "Tartu maantee 15, Jõhvi linn",
+  "lat": 59.3528506338864,
+  "lon": 27.4112374946567
+ },
+ {
+  "id": "96030",
+  "name": "Jõhvi Jewe Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Jõhvi linn",
+  "address": "Narva maantee 8, Jõhvi linn",
+  "lat": 59.3574926190905,
+  "lon": 27.4178365491909
+ },
+ {
+  "id": "96089",
+  "name": "Jõhvi Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Jõhvi linn",
+  "address": "Rakvere tänav 29, Jõhvi linn",
+  "lat": 59.3622029348533,
+  "lon": 27.4013659690654
+ },
+ {
+  "id": "96188",
+  "name": "Jüri Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Jüri alevik",
+  "address": "Aruküla tee 7, Jüri alevik",
+  "lat": 59.3541072656843,
+  "lon": 24.8930163606283
+ },
+ {
+  "id": "96079",
+  "name": "Jüri Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Jüri alevik",
+  "address": "Aruküla tee 29, Jüri alevik",
+  "lat": 59.358511155872,
+  "lon": 24.9128720252297
+ },
+ {
+  "id": "9969",
+  "name": "Jēkabpils Maxima X pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 109, Jēkabpils",
+  "address": "Rīgas iela 109, Jēkabpils",
+  "lat": 56.501563,
+  "lon": 25.87377
+ },
+ {
+  "id": "9924",
+  "name": "Jēkabpils Mego pakomāts",
+  "country": "LV",
+  "city": "Vienības iela 1a, Jēkabpils",
+  "address": "Vienības iela 1a, Jēkabpils",
+  "lat": 56.49342,
+  "lon": 25.87512
+ },
+ {
+  "id": "9107",
+  "name": "Jūrmalas Dubultu TOP pakomāts",
+  "country": "LV",
+  "city": "Strēlnieku prospekts 1,Jūrmala",
+  "address": "Strēlnieku prospekts 1,Jūrmala",
+  "lat": 56.96753,
+  "lon": 23.770099
+ },
+ {
+  "id": "9920",
+  "name": "Jūrmalas Kauguru RIMI pakomāts",
+  "country": "LV",
+  "city": "Talsu šoseja 29,Jūrmala",
+  "address": "Talsu šoseja 29,Jūrmala",
+  "lat": 56.960899,
+  "lon": 23.615583
+ },
+ {
+  "id": "9943",
+  "name": "Jūrmalas Lielupes RIMI pakomāts",
+  "country": "LV",
+  "city": "Viestura iela 22,Jūrmala",
+  "address": "Viestura iela 22,Jūrmala",
+  "lat": 56.974873,
+  "lon": 23.85903
+ },
+ {
+  "id": "9142",
+  "name": "Jūrmalas Slokas T/C Liedags pakomāts",
+  "country": "LV",
+  "city": "Ventspils šoseja 32, Jūrmala",
+  "address": "Ventspils šoseja 32, Jūrmala",
+  "lat": 56.946816,
+  "lon": 23.617794
+ },
+ {
+  "id": "96117",
+  "name": "Kadrina Konsum pakiautomaat",
+  "country": "EE",
+  "city": "Kadrina alevik",
+  "address": "Viitna tee 4, Kadrina alevik",
+  "lat": 59.3437970422844,
+  "lon": 26.1304978177238
+ },
+ {
+  "id": "88804",
+  "name": "Kaišiadorių RIMI paštomatas",
+  "country": "LT",
+  "city": "Gedimino g. 115A, Kaišiadorys",
+  "address": "Gedimino g. 115A, Kaišiadorys",
+  "lat": 54.85612,
+  "lon": 24.443715
+ },
+ {
+  "id": "9979",
+  "name": "Kandavas Maxima X pakomāts",
+  "country": "LV",
+  "city": "Abavas iela 4b, Kandava",
+  "address": "Abavas iela 4b, Kandava",
+  "lat": 57.036176,
+  "lon": 22.78147
+ },
+ {
+  "id": "96110",
+  "name": "Karksi-Nuia pakiautomaat",
+  "country": "EE",
+  "city": "Karksi-Nuia linn",
+  "address": "Rahumäe tänav 1, Karksi-Nuia linn",
+  "lat": 58.1042755675538,
+  "lon": 25.5482808764525
+ },
+ {
+  "id": "77749",
+  "name": "Kauno EXPRESS MARKET Vytauto paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Vytauto pr. 11, Kaunas",
+  "address": "Vytauto pr. 11, Kaunas",
+  "lat": 54.888035,
+  "lon": 23.928545
+ },
+ {
+  "id": "88875",
+  "name": "Kauno IKI Girstučio paštomatas",
+  "country": "LT",
+  "city": "Kovo 11-osios g. 22, Kaunas",
+  "address": "Kovo 11-osios g. 22, Kaunas",
+  "lat": 54.905754,
+  "lon": 23.974659
+ },
+ {
+  "id": "88898",
+  "name": "Kauno IKI Ramučių paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Centrinė g. 56, Ramučiai",
+  "address": "Centrinė g. 56, Ramučiai",
+  "lat": 54.954106,
+  "lon": 24.031702
+ },
+ {
+  "id": "88829",
+  "name": "Kauno IKI Sukilėlių paštomatas",
+  "country": "LT",
+  "city": "Sukilėlių pr. 84, Kaunas",
+  "address": "Sukilėlių pr. 84, Kaunas",
+  "lat": 54.925103,
+  "lon": 23.929296
+ },
+ {
+  "id": "77700",
+  "name": "Kauno IKI Varnių paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Varnių g. 38A, Kaunas",
+  "address": "Varnių g. 38A, Kaunas",
+  "lat": 54.914537,
+  "lon": 23.896816
+ },
+ {
+  "id": "88830",
+  "name": "Kauno IKI Veiverių paštomatas",
+  "country": "LT",
+  "city": "Veiverių g. 150A, Kaunas",
+  "address": "Veiverių g. 150A, Kaunas",
+  "lat": 54.862465,
+  "lon": 23.88595
+ },
+ {
+  "id": "88883",
+  "name": "Kauno MAXIMA Masiulio paštomatas",
+  "country": "LT",
+  "city": "T.Masiulio g. 16E, Kaunas",
+  "address": "T.Masiulio g. 16E, Kaunas",
+  "lat": 54.885979,
+  "lon": 24.005189
+ },
+ {
+  "id": "77701",
+  "name": "Kauno MAXIMA Ringaudų paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Gėlių g. 2B, Ringaudai, Kauno raj.",
+  "address": "Gėlių g. 2B, Ringaudai, Kauno raj.",
+  "lat": 54.88817,
+  "lon": 23.799512
+ },
+ {
+  "id": "88863",
+  "name": "Kauno PC AKROPOLIS paštomatas",
+  "country": "LT",
+  "city": "Karaliaus Mindaugo pr. 49, Kaunas",
+  "address": "Karaliaus Mindaugo pr. 49, Kaunas",
+  "lat": 54.890926,
+  "lon": 23.919338
+ },
+ {
+  "id": "77702",
+  "name": "Kauno PC MOLAS paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Baršausko g. 66, Kaunas",
+  "address": "Baršausko g. 66, Kaunas",
+  "lat": 54.899461,
+  "lon": 23.966459
+ },
+ {
+  "id": "88827",
+  "name": "Kauno PC RIVER MALL paštomatas",
+  "country": "LT",
+  "city": "Jonavos g. 60, Kaunas",
+  "address": "Jonavos g. 60, Kaunas",
+  "lat": 54.903282,
+  "lon": 23.898021
+ },
+ {
+  "id": "88881",
+  "name": "Kauno PLC MEGA paštomatas",
+  "country": "LT",
+  "city": "Islandijos pl. 32, Kaunas",
+  "address": "Islandijos pl. 32, Kaunas",
+  "lat": 54.939289,
+  "lon": 23.889493
+ },
+ {
+  "id": "77703",
+  "name": "Kauno PM URMAS paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Pramonės pr. 16, Kaunas",
+  "address": "Pramonės pr. 16, Kaunas",
+  "lat": 54.916459,
+  "lon": 23.987895
+ },
+ {
+  "id": "77704",
+  "name": "Kauno RIMI Baltijos paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Baltijos g. 58, Kaunas",
+  "address": "Baltijos g. 58, Kaunas",
+  "lat": 54.920636,
+  "lon": 23.879736
+ },
+ {
+  "id": "88882",
+  "name": "Kauno RIMI Europos paštomatas",
+  "country": "LT",
+  "city": "Europos pr. 43, Kaunas",
+  "address": "Europos pr. 43, Kaunas",
+  "lat": 54.875631,
+  "lon": 23.912434
+ },
+ {
+  "id": "77705",
+  "name": "Kauno RIMI Juozapavičiaus paštomatas (naujas!)",
+  "country": "LT",
+  "city": "A.Juozapavičiaus pr. 11, Kaunas",
+  "address": "A.Juozapavičiaus pr. 11, Kaunas",
+  "lat": 54.865108,
+  "lon": 23.945435
+ },
+ {
+  "id": "88836",
+  "name": "Kauno RIMI Krėvės paštomatas",
+  "country": "LT",
+  "city": "V.Krėvės pr. 43A, Kaunas",
+  "address": "V.Krėvės pr. 43A, Kaunas",
+  "lat": 54.917362,
+  "lon": 23.966171
+ },
+ {
+  "id": "88874",
+  "name": "Kauno RIMI Raudondvario paštomatas",
+  "country": "LT",
+  "city": "Raudondvario pl. 94B, Kaunas",
+  "address": "Raudondvario pl. 94B, Kaunas",
+  "lat": 54.908863,
+  "lon": 23.865946
+ },
+ {
+  "id": "77706",
+  "name": "Kauno RIMI Romainių paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Romainių g. 67C, Kaunas",
+  "address": "Romainių g. 67C, Kaunas",
+  "lat": 54.942779,
+  "lon": 23.813154
+ },
+ {
+  "id": "88884",
+  "name": "Kauno RIMI Savanorių paštomatas",
+  "country": "LT",
+  "city": "Savanorių pr. 321, Kaunas",
+  "address": "Savanorių pr. 321, Kaunas",
+  "lat": 54.919866,
+  "lon": 23.95034
+ },
+ {
+  "id": "88828",
+  "name": "Kauno ŠILAS Baltų paštomatas",
+  "country": "LT",
+  "city": "Baltų pr. 18, Kaunas",
+  "address": "Baltų pr. 18, Kaunas",
+  "lat": 54.929909,
+  "lon": 23.884138
+ },
+ {
+  "id": "88831",
+  "name": "Kauno ŠILAS Baranausko paštomatas",
+  "country": "LT",
+  "city": "Baranausko g. 26, Kaunas",
+  "address": "Baranausko g. 26, Kaunas",
+  "lat": 54.909679,
+  "lon": 23.956289
+ },
+ {
+  "id": "88832",
+  "name": "Kauno ŠILAS Juozapavičiaus paštomatas",
+  "country": "LT",
+  "city": "Juozapavičiaus pr. 81A, Kaunas",
+  "address": "Juozapavičiaus pr. 81A, Kaunas",
+  "lat": 54.875175,
+  "lon": 23.935797
+ },
+ {
+  "id": "77708",
+  "name": "Kauno ŠILAS Vandžiogalos paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Vandžiogalos g. 22, Kaunas",
+  "address": "Vandžiogalos g. 22, Kaunas",
+  "lat": 54.945303,
+  "lon": 23.882493
+ },
+ {
+  "id": "77707",
+  "name": "Kauno ŠILAS Škirpos paštomatas (naujas!)",
+  "country": "LT",
+  "city": "K.Škirpos g. 17, Kaunas",
+  "address": "K.Škirpos g. 17, Kaunas",
+  "lat": 54.930214,
+  "lon": 23.943344
+ },
+ {
+  "id": "77739",
+  "name": "Kazlų Rūdos MAXIMA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "M.Valančiaus g. 7, Kazlų Rūda",
+  "address": "M.Valančiaus g. 7, Kazlų Rūda",
+  "lat": 54.751543,
+  "lon": 23.493343
+ },
+ {
+  "id": "96114",
+  "name": "Kehra pakiautomaat",
+  "country": "EE",
+  "city": "Kehra linn",
+  "address": "Kose maantee 9, Kehra linn",
+  "lat": 59.3337355591105,
+  "lon": 25.3331466839648
+ },
+ {
+  "id": "96221",
+  "name": "Kehtna A ja O pakiautomaat",
+  "country": "EE",
+  "city": "Kehtna alevik",
+  "address": "Lasteaia tänav 12, Kehtna alevik",
+  "lat": 58.9259385578384,
+  "lon": 24.8718377768296
+ },
+ {
+  "id": "96172",
+  "name": "Keila Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Keila linn",
+  "address": "Piiri tänav 7, Keila linn",
+  "lat": 59.3132544294015,
+  "lon": 24.4189859626869
+ },
+ {
+  "id": "96229",
+  "name": "Keila Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Keila linn",
+  "address": "Tallinna maantee 25, Keila linn",
+  "lat": 59.3106431718953,
+  "lon": 24.4325085381151
+ },
+ {
+  "id": "96049",
+  "name": "Keila Rõõmu kaubamaja pakiautomaat",
+  "country": "EE",
+  "city": "Keila linn",
+  "address": "Haapsalu maantee 57a, Keila linn",
+  "lat": 59.3073031029643,
+  "lon": 24.4013426359256
+ },
+ {
+  "id": "88805",
+  "name": "Kelmės MAXIMA Vytauto Didžiojo paštomatas",
+  "country": "LT",
+  "city": "Vytauto Didžiojo g. 49, Kelmė",
+  "address": "Vytauto Didžiojo g. 49, Kelmė",
+  "lat": 55.630016,
+  "lon": 22.930844
+ },
+ {
+  "id": "96155",
+  "name": "Kiili Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Kiili alev",
+  "address": "Nabala tee 4, Kiili alev",
+  "lat": 59.3076119181393,
+  "lon": 24.8373226724276
+ },
+ {
+  "id": "96159",
+  "name": "Kiisa A ja O pakiautomaat",
+  "country": "EE",
+  "city": "Kiisa alevik",
+  "address": "Kurtna tee 10, Kiisa alevik",
+  "lat": 59.2342188922293,
+  "lon": 24.6902042155271
+ },
+ {
+  "id": "96320",
+  "name": "Kilingi-Nõmme Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Kilingi-Nõmme linn",
+  "address": "Pärnu tänav 37, Kilingi-Nõmme linn",
+  "lat": 58.1479291324776,
+  "lon": 24.9492163320538
+ },
+ {
+  "id": "96176",
+  "name": "Kiviõli Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Kiviõli linn",
+  "address": "Keskpuiestee 33, Kiviõli linn",
+  "lat": 59.3565583040597,
+  "lon": 26.975034436425
+ },
+ {
+  "id": "96090",
+  "name": "Kiviõli Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Kiviõli linn",
+  "address": "Viru tänav 5, Kiviõli linn",
+  "lat": 59.3590139514529,
+  "lon": 26.9732832867752
+ },
+ {
+  "id": "77742",
+  "name": "Klaipėdos HERKAUS GALERIJA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "H.Manto g. 22, Klaipėda",
+  "address": "H.Manto g. 22, Klaipėda",
+  "lat": 55.715246,
+  "lon": 21.130175
+ },
+ {
+  "id": "88885",
+  "name": "Klaipėdos MAXIMA Šilutės pl. 68 paštomatas",
+  "country": "LT",
+  "city": "Šilutės pl. 68, Klaipėda",
+  "address": "Šilutės pl. 68, Klaipėda",
+  "lat": 55.676559,
+  "lon": 21.189166
+ },
+ {
+  "id": "88877",
+  "name": "Klaipėdos NORFA Tauralaukio paštomatas",
+  "country": "LT",
+  "city": "Tauralaukio g. 1, Klaipėda",
+  "address": "Tauralaukio g. 1, Klaipėda",
+  "lat": 55.753584,
+  "lon": 21.142858
+ },
+ {
+  "id": "88872",
+  "name": "Klaipėdos NORFA Vingio paštomatas",
+  "country": "LT",
+  "city": "Vingio g. 21A, Klaipėda",
+  "address": "Vingio g. 21A, Klaipėda",
+  "lat": 55.668081,
+  "lon": 21.195697
+ },
+ {
+  "id": "88837",
+  "name": "Klaipėdos PC ARENA paštomatas",
+  "country": "LT",
+  "city": "Taikos pr. 64, Klaipėda",
+  "address": "Taikos pr. 64, Klaipėda",
+  "lat": 55.687225,
+  "lon": 21.155785
+ },
+ {
+  "id": "88841",
+  "name": "Klaipėdos PC BIG1 paštomatas",
+  "country": "LT",
+  "city": "Taikos pr. 139, Klaipėda",
+  "address": "Taikos pr. 139, Klaipėda",
+  "lat": 55.664533,
+  "lon": 21.177448
+ },
+ {
+  "id": "88839",
+  "name": "Klaipėdos PC STUDLENDAS paštomatas",
+  "country": "LT",
+  "city": "H.Manto g. 90, Klaipėda",
+  "address": "H.Manto g. 90, Klaipėda",
+  "lat": 55.729055,
+  "lon": 21.12515
+ },
+ {
+  "id": "77710",
+  "name": "Klaipėdos RIMI Slengių paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Dangaus g. 34, Slengiai",
+  "address": "Dangaus g. 34, Slengiai",
+  "lat": 55.736771,
+  "lon": 21.191771
+ },
+ {
+  "id": "88873",
+  "name": "Klaipėdos TECHNORAMA paštomatas",
+  "country": "LT",
+  "city": "Taikos pr. 39, Klaipėda",
+  "address": "Taikos pr. 39, Klaipėda",
+  "lat": 55.698207,
+  "lon": 21.149172
+ },
+ {
+  "id": "88838",
+  "name": "Klaipėdos VIADA Priestočio paštomatas",
+  "country": "LT",
+  "city": "Priestočio g. 28, Klaipėda",
+  "address": "Priestočio g. 28, Klaipėda",
+  "lat": 55.719124,
+  "lon": 21.141022
+ },
+ {
+  "id": "96147",
+  "name": "Koeru Vallamaja pakiautomaat",
+  "country": "EE",
+  "city": "Koeru alevik",
+  "address": "Paide tee 5, Koeru alevik",
+  "lat": 58.9623148219623,
+  "lon": 26.0249030995778
+ },
+ {
+  "id": "96094",
+  "name": "Kohila Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Kohila alev",
+  "address": "Vabaduse tänav 7, Kohila alev",
+  "lat": 59.1671763707489,
+  "lon": 24.7507215655102
+ },
+ {
+  "id": "96123",
+  "name": "Kohtla-Järve Ahtme Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Ahtme linnaosa",
+  "address": "Puru tee 77, Ahtme linnaosa",
+  "lat": 59.3373116676166,
+  "lon": 27.4202761711376
+ },
+ {
+  "id": "96139",
+  "name": "Kohtla-Järve Keskallee Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Järve linnaosa",
+  "address": "Keskallee 12, Järve linnaosa",
+  "lat": 59.4024216284171,
+  "lon": 27.2846385196359
+ },
+ {
+  "id": "96307",
+  "name": "Kohtla-Järve Mõisa tee Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Järve linnaosa",
+  "address": "Mõisa tee 3, Järve linnaosa",
+  "lat": 59.4065353218694,
+  "lon": 27.2906428904125
+ },
+ {
+  "id": "96036",
+  "name": "Kohtla-Järve Rimi pakiautomaat",
+  "country": "EE",
+  "city": "Järve linnaosa",
+  "address": "Põhja allee 4, Järve linnaosa",
+  "lat": 59.4073858107306,
+  "lon": 27.2849807279528
+ },
+ {
+  "id": "96093",
+  "name": "Kohtla-Järve Vironia Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Järve linnaosa",
+  "address": "Järveküla tee 50, Järve linnaosa",
+  "lat": 59.3981273618602,
+  "lon": 27.2862404888359
+ },
+ {
+  "id": "9141",
+  "name": "Kokneses Maxima pakomāts",
+  "country": "LV",
+  "city": "1905. gada iela 8A, Koknese",
+  "address": "1905. gada iela 8A, Koknese",
+  "lat": 56.644378,
+  "lon": 25.434311
+ },
+ {
+  "id": "96096",
+  "name": "Kose Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Kose alevik",
+  "address": "Kodu tänav 2, Kose alevik",
+  "lat": 59.1840421205603,
+  "lon": 25.1645675129876
+ },
+ {
+  "id": "96160",
+  "name": "Kostivere Meie kaupluse pakiautomaat",
+  "country": "EE",
+  "city": "Kostivere alevik",
+  "address": "Jõe tänav 3, Kostivere alevik",
+  "lat": 59.4320052879334,
+  "lon": 25.0991782341781
+ },
+ {
+  "id": "88806",
+  "name": "Kretingos MAXIMA Rotušės paštomatas",
+  "country": "LT",
+  "city": "Rotušės a. 15, Kretinga",
+  "address": "Rotušės a. 15, Kretinga",
+  "lat": 55.889772,
+  "lon": 21.240982
+ },
+ {
+  "id": "88893",
+  "name": "Kretingos NORFA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Šventosios g. 25H, Kretinga",
+  "address": "Šventosios g. 25H, Kretinga",
+  "lat": 55.892317,
+  "lon": 21.232706
+ },
+ {
+  "id": "9984",
+  "name": "Krāslavas Maxima X pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 28, Krāslava",
+  "address": "Rīgas iela 28, Krāslava",
+  "lat": 55.897035,
+  "lon": 27.162051
+ },
+ {
+  "id": "9930",
+  "name": "Kuldīgas RIMI pakomāts",
+  "country": "LV",
+  "city": "Sūru iela 2, Kuldīga",
+  "address": "Sūru iela 2, Kuldīga",
+  "lat": 56.967018,
+  "lon": 21.958281
+ },
+ {
+  "id": "96122",
+  "name": "Kunda Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Kunda linn",
+  "address": "Kasemäe tänav 12, Kunda linn",
+  "lat": 59.5002890458522,
+  "lon": 26.5184129101532
+ },
+ {
+  "id": "77740",
+  "name": "Kupiškio NORFA Purėno paštomatas (naujas!)",
+  "country": "LT",
+  "city": "A.Purėno g. 1, Kupiškis",
+  "address": "A.Purėno g. 1, Kupiškis",
+  "lat": 55.836188,
+  "lon": 24.99376
+ },
+ {
+  "id": "96034",
+  "name": "Kuressaare Maxima XX pakiautomaat",
+  "country": "EE",
+  "city": "Kuressaare linn",
+  "address": "Tallinna tänav 64, Kuressaare linn",
+  "lat": 58.2605307792837,
+  "lon": 22.5050023012865
+ },
+ {
+  "id": "96065",
+  "name": "Kuressaare Smuuli pakiautomaat",
+  "country": "EE",
+  "city": "Kuressaare linn",
+  "address": "Juhan Smuuli tänav 1, Kuressaare linn",
+  "lat": 58.2621684483418,
+  "lon": 22.4849356811918
+ },
+ {
+  "id": "88886",
+  "name": "Kuršėnų MAXIMA Vilniaus g. paštomatas",
+  "country": "LT",
+  "city": "Vilniaus g. 43, Kuršėnai",
+  "address": "Vilniaus g. 43, Kuršėnai",
+  "lat": 56.000438,
+  "lon": 22.949599
+ },
+ {
+  "id": "96108",
+  "name": "Kuusalu pakiautomaat",
+  "country": "EE",
+  "city": "Kuusalu alevik",
+  "address": "Kuusalu tee 13, Kuusalu alevik",
+  "lat": 59.4454856651641,
+  "lon": 25.4414176133991
+ },
+ {
+  "id": "96156",
+  "name": "Käina Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Käina alevik",
+  "address": "Hiiu maantee 9, Käina alevik",
+  "lat": 58.8275132108399,
+  "lon": 22.7768037257058
+ },
+ {
+  "id": "96046",
+  "name": "Kärdla Hiiu Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Kärdla linn",
+  "address": "Keskväljak 1, Kärdla linn",
+  "lat": 58.998561982001,
+  "lon": 22.7469835163887
+ },
+ {
+  "id": "96210",
+  "name": "Kärdla Tormi Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Kärdla linn",
+  "address": "Heltermaa maantee 14a, Kärdla linn",
+  "lat": 58.9902403856265,
+  "lon": 22.7544696808089
+ },
+ {
+  "id": "96169",
+  "name": "Kõrveküla A ja O pakiautomaat",
+  "country": "EE",
+  "city": "Kõrveküla alevik",
+  "address": "Vasula tee 4, Kõrveküla alevik",
+  "lat": 58.4199242734155,
+  "lon": 26.7618288001799
+ },
+ {
+  "id": "9162",
+  "name": "Kārsavas TOP pakomāts",
+  "country": "LV",
+  "city": "Sporta iela 6, Kārsava",
+  "address": "Sporta iela 6, Kārsava",
+  "lat": 56.786295,
+  "lon": 27.675312
+ },
+ {
+  "id": "88861",
+  "name": "Kėdainių MAXIMA Basanavičiaus 93 paštomatas",
+  "country": "LT",
+  "city": "J.Basanavičiaus g. 93, Kėdainiai",
+  "address": "J.Basanavičiaus g. 93, Kėdainiai",
+  "lat": 55.277651,
+  "lon": 23.959059
+ },
+ {
+  "id": "77709",
+  "name": "Kėdainių MAXIMA Dariaus ir Girėno paštomatas (naujas!)",
+  "country": "LT",
+  "city": "S.Dariaus ir S.Girėno g. 50A, Kėdainiai",
+  "address": "S.Dariaus ir S.Girėno g. 50A, Kėdainiai",
+  "lat": 55.308916,
+  "lon": 23.979144
+ },
+ {
+  "id": "96200",
+  "name": "Laagri CoMarketi pakiautomaat",
+  "country": "EE",
+  "city": "Laagri alevik",
+  "address": "Veskitammi tänav 10, Laagri alevik",
+  "lat": 59.3511203044719,
+  "lon": 24.6121302336645
+ },
+ {
+  "id": "96067",
+  "name": "Laagri Maksimarketi pakiautomaat",
+  "country": "EE",
+  "city": "Laagri alevik",
+  "address": "Pärnu maantee 558a, Laagri alevik",
+  "lat": 59.3412076160099,
+  "lon": 24.6129411293563
+ },
+ {
+  "id": "96183",
+  "name": "Lagedi Keskusehoone pakiautomaat",
+  "country": "EE",
+  "city": "Lagedi alevik",
+  "address": "Kooli tänav 18b, Lagedi alevik",
+  "lat": 59.4021911495492,
+  "lon": 24.9416375659887
+ },
+ {
+  "id": "88807",
+  "name": "Lazdijų NORFA paštomatas",
+  "country": "LT",
+  "city": "Dzūkų g. 3, Lazdijai",
+  "address": "Dzūkų g. 3, Lazdijai",
+  "lat": 54.238926,
+  "lon": 23.511757
+ },
+ {
+  "id": "77731",
+  "name": "Lentvario IKI paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Geležinkelio g. 38, Lentvaris",
+  "address": "Geležinkelio g. 38, Lentvaris",
+  "lat": 54.644033,
+  "lon": 25.046481
+ },
+ {
+  "id": "9124",
+  "name": "Lielvārdes Maxima X pakomāts",
+  "country": "LV",
+  "city": "Lāčplēša iela 14, Lielvārde",
+  "address": "Lāčplēša iela 14, Lielvārde",
+  "lat": 56.718061,
+  "lon": 24.81462
+ },
+ {
+  "id": "9917",
+  "name": "Liepājas Baata pakomāts",
+  "country": "LV",
+  "city": "Klaipēdas iela 104c, Liepāja",
+  "address": "Klaipēdas iela 104c, Liepāja",
+  "lat": 56.486786,
+  "lon": 21.004957
+ },
+ {
+  "id": "9108",
+  "name": "Liepājas Ganību ielas Mego pakomāts",
+  "country": "LV",
+  "city": "Ganību iela 187, Liepāja",
+  "address": "Ganību iela 187, Liepāja",
+  "lat": 56.483964,
+  "lon": 21.016127
+ },
+ {
+  "id": "9938",
+  "name": "Liepājas RIMI Ziemeļu iela pakomāts",
+  "country": "LV",
+  "city": "Ziemeļu iela 13",
+  "address": "Ziemeļu iela 13",
+  "lat": 56.53495,
+  "lon": 21.012362
+ },
+ {
+  "id": "9926",
+  "name": "Liepājas Rožu laukums pakomāts",
+  "country": "LV",
+  "city": "Lielā iela 13, Liepāja",
+  "address": "Lielā iela 13, Liepāja",
+  "lat": 56.5076,
+  "lon": 21.011314
+ },
+ {
+  "id": "9966",
+  "name": "Liepājas T/C Rietumu centrs pakomāts",
+  "country": "LV",
+  "city": "Jaunā Ostmala 3/5, Liepāja",
+  "address": "Jaunā Ostmala 3/5, Liepāja",
+  "lat": 56.51501,
+  "lon": 21.018218
+ },
+ {
+  "id": "96119",
+  "name": "Lihula Konsum pakiautomaat",
+  "country": "EE",
+  "city": "Lihula linn",
+  "address": "Tallinna maantee 12, Lihula linn",
+  "lat": 58.6884678924831,
+  "lon": 23.8343467755855
+ },
+ {
+  "id": "9942",
+  "name": "Limbažu Maxima XX pakomāts",
+  "country": "LV",
+  "city": "Stacijas iela 8,Limbaži",
+  "address": "Stacijas iela 8,Limbaži",
+  "lat": 57.513751,
+  "lon": 24.722431
+ },
+ {
+  "id": "96134",
+  "name": "Loksa Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Loksa linn",
+  "address": "Rohuaia tänav 6, Loksa linn",
+  "lat": 59.5793492931992,
+  "lon": 25.7274445306949
+ },
+ {
+  "id": "96171",
+  "name": "Loo Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Loo alevik",
+  "address": "Saha tee 9, Loo alevik",
+  "lat": 59.4345718143719,
+  "lon": 24.9473776029184
+ },
+ {
+  "id": "9985",
+  "name": "Ludzas Maxima X pakomāts",
+  "country": "LV",
+  "city": "Latgales iela 61, Ludza",
+  "address": "Latgales iela 61, Ludza",
+  "lat": 56.543852,
+  "lon": 27.711395
+ },
+ {
+  "id": "9983",
+  "name": "Līvānu Rimi pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 89, Līvāni",
+  "address": "Rīgas iela 89, Līvāni",
+  "lat": 56.355216,
+  "lon": 26.174944
+ },
+ {
+  "id": "96300",
+  "name": "Maardu Maxima X pakiautomaat",
+  "country": "EE",
+  "city": "Maardu linn",
+  "address": "Keemikute tänav 37, Maardu linn",
+  "lat": 59.4827443170954,
+  "lon": 25.0171517845703
+ },
+ {
+  "id": "96081",
+  "name": "Maardu Maxima XX pakiautomaat",
+  "country": "EE",
+  "city": "Maardu linn",
+  "address": "Keemikute tänav 2, Maardu linn",
+  "lat": 59.4733483589969,
+  "lon": 25.0200979847296
+ },
+ {
+  "id": "96130",
+  "name": "Maardu Pärli Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Maardu linn",
+  "address": "Nurga tänav 3, Maardu linn",
+  "lat": 59.4871188745231,
+  "lon": 25.0185749505701
+ },
+ {
+  "id": "9944",
+  "name": "Madonas Maxima XX pakomāts",
+  "country": "LV",
+  "city": "Rūpniecības iela 49,Madona",
+  "address": "Rūpniecības iela 49,Madona",
+  "lat": 56.860005,
+  "lon": 26.2311
+ },
+ {
+  "id": "88899",
+  "name": "Marijampolės MAXIMA Bažnyčios paštomatas",
+  "country": "LT",
+  "city": "Bažnyčios g. 38, Marijampolė",
+  "address": "Bažnyčios g. 38, Marijampolė",
+  "lat": 54.556047,
+  "lon": 23.346449
+ },
+ {
+  "id": "88856",
+  "name": "Marijampolės PC ARENA paštomatas",
+  "country": "LT",
+  "city": "Dariaus ir Girėno g. 3A, Marijampolė",
+  "address": "Dariaus ir Girėno g. 3A, Marijampolė",
+  "lat": 54.560951,
+  "lon": 23.35453
+ },
+ {
+  "id": "77711",
+  "name": "Mažeikių IKI Ventos paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Ventos g. 10B, Mažeikiai",
+  "address": "Ventos g. 10B, Mažeikiai",
+  "lat": 56.30894,
+  "lon": 22.324078
+ },
+ {
+  "id": "88857",
+  "name": "Mažeikių PC EIFELIS paštomatas",
+  "country": "LT",
+  "city": "Žemaitijos g. 72, Mažeikiai",
+  "address": "Žemaitijos g. 72, Mažeikiai",
+  "lat": 56.29974,
+  "lon": 22.353653
+ },
+ {
+  "id": "77712",
+  "name": "Molėtų NORFA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Vilniaus g. 99, Molėtai",
+  "address": "Vilniaus g. 99, Molėtai",
+  "lat": 55.224777,
+  "lon": 25.405258
+ },
+ {
+  "id": "96161",
+  "name": "Muhu Liiva Alexela pakiautomaat",
+  "country": "EE",
+  "city": "Liiva küla",
+  "address": "Liiva küla",
+  "lat": 58.6052184126618,
+  "lon": 23.2360685932305
+ },
+ {
+  "id": "96163",
+  "name": "Mustvee Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Mustvee linn",
+  "address": "Tartu tänav 3, Mustvee linn",
+  "lat": 58.8479505308968,
+  "lon": 26.9448134802771
+ },
+ {
+  "id": "96228",
+  "name": "Muuga Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Maardu linn",
+  "address": "Altmetsa tee 1, Maardu linn",
+  "lat": 59.4740700938466,
+  "lon": 24.9164764854363
+ },
+ {
+  "id": "96051",
+  "name": "Märjamaa Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Märjamaa alev",
+  "address": "Kasti tee 1, Märjamaa alev",
+  "lat": 58.9097544994357,
+  "lon": 24.4333761468281
+ },
+ {
+  "id": "9145",
+  "name": "Mālpils Pirts ielas TOP pakomāts",
+  "country": "LV",
+  "city": "Pirts iela 5, Mālpils",
+  "address": "Pirts iela 5, Mālpils",
+  "lat": 57.011393,
+  "lon": 24.959374
+ },
+ {
+  "id": "9967",
+  "name": "Mārupes RIMI pakomāts",
+  "country": "LV",
+  "city": "Daugavas iela 29, Mārupe",
+  "address": "Daugavas iela 29, Mārupe",
+  "lat": 56.905462,
+  "lon": 24.055561
+ },
+ {
+  "id": "96028",
+  "name": "Narva Astri keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Narva linn",
+  "address": "Tallinna maantee 41, Narva linn",
+  "lat": 59.3805459151744,
+  "lon": 28.1764472117627
+ },
+ {
+  "id": "96072",
+  "name": "Narva Fama Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Narva linn",
+  "address": "Fama tänav 10, Narva linn",
+  "lat": 59.3797805213775,
+  "lon": 28.1872655845343
+ },
+ {
+  "id": "96218",
+  "name": "Narva Kerese keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Narva linn",
+  "address": "Paul Kerese tänav 3, Narva linn",
+  "lat": 59.375784086425,
+  "lon": 28.1921318249136
+ },
+ {
+  "id": "96091",
+  "name": "Narva Kreenholmi Maxima XX pakiautomaat",
+  "country": "EE",
+  "city": "Narva linn",
+  "address": "Kreenholmi tänav 52, Narva linn",
+  "lat": 59.3645564854927,
+  "lon": 28.1870151639671
+ },
+ {
+  "id": "96217",
+  "name": "Narva Megamarketi pakiautomaat",
+  "country": "EE",
+  "city": "Narva linn",
+  "address": "Rakvere tänav 71, Narva linn",
+  "lat": 59.3858027985535,
+  "lon": 28.184183719511
+ },
+ {
+  "id": "96125",
+  "name": "Narva Prisma pakiautomaat",
+  "country": "EE",
+  "city": "Narva linn",
+  "address": "Kangelaste prospekt 29, Narva linn",
+  "lat": 59.3866755342197,
+  "lon": 28.1790414410023
+ },
+ {
+  "id": "96182",
+  "name": "Narva Tiimani Maxima XX pakiautomaat",
+  "country": "EE",
+  "city": "Narva linn",
+  "address": "Albert-August Tiimanni tänav 20, Narva linn",
+  "lat": 59.3806861301703,
+  "lon": 28.1652328786916
+ },
+ {
+  "id": "96326",
+  "name": "Narva-Jõesuu raamatukogu pakiautomaat",
+  "country": "EE",
+  "city": "Narva-Jõesuu linn",
+  "address": "Kesk tänav 3, Narva-Jõesuu linn",
+  "lat": 59.4598122574548,
+  "lon": 28.0417622803306
+ },
+ {
+  "id": "88808",
+  "name": "Naujosios Akmenės NORFA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Respublikos g. 30, Naujoji Akmenė",
+  "address": "Respublikos g. 30, Naujoji Akmenė",
+  "lat": 56.319508,
+  "lon": 22.873342
+ },
+ {
+  "id": "96152",
+  "name": "Nõo vallamaja pakiautomaat",
+  "country": "EE",
+  "city": "Nõo alevik",
+  "address": "Voika tänav 23, Nõo alevik",
+  "lat": 58.2725620045604,
+  "lon": 26.5212015926516
+ },
+ {
+  "id": "9133",
+  "name": "Ogres Rīgas ielas RIMI pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 33, Ogre",
+  "address": "Rīgas iela 33, Ogre",
+  "lat": 56.817851,
+  "lon": 24.576377
+ },
+ {
+  "id": "9953",
+  "name": "Ogres T/C Dauga pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 23, Ogre",
+  "address": "Rīgas iela 23, Ogre",
+  "lat": 56.816508,
+  "lon": 24.585355
+ },
+ {
+  "id": "9925",
+  "name": "Ogres T/C Ogres prestižs pakomāts",
+  "country": "LV",
+  "city": "Mednieku iela 21/23, Ogre",
+  "address": "Mednieku iela 21/23, Ogre",
+  "lat": 56.82513,
+  "lon": 24.602722
+ },
+ {
+  "id": "9949",
+  "name": "Olaines Maxima pakomāts",
+  "country": "LV",
+  "city": "Veselības iela 1, Olaine",
+  "address": "Veselības iela 1, Olaine",
+  "lat": 56.78457,
+  "lon": 23.936511
+ },
+ {
+  "id": "96106",
+  "name": "Orissaare pakiautomaat",
+  "country": "EE",
+  "city": "Orissaare alevik",
+  "address": "Kuivastu maantee 28, Orissaare alevik",
+  "lat": 58.5587165698882,
+  "lon": 23.0823205303413
+ },
+ {
+  "id": "96137",
+  "name": "Otepää Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Otepää linn",
+  "address": "Valga maantee 1b, Otepää linn",
+  "lat": 58.0589595824775,
+  "lon": 26.4975323210704
+ },
+ {
+  "id": "9994",
+  "name": "Ozolnieku Elvi pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 42, Ozolnieki",
+  "address": "Rīgas iela 42, Ozolnieki",
+  "lat": 56.691705,
+  "lon": 23.792724
+ },
+ {
+  "id": "77713",
+  "name": "Pabradės NORFA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Molėtų g. 4A, Pabradė",
+  "address": "Molėtų g. 4A, Pabradė",
+  "lat": 54.97959,
+  "lon": 25.755895
+ },
+ {
+  "id": "96207",
+  "name": "Paide Hesburgeri pakiautomaat",
+  "country": "EE",
+  "city": "Paide linn",
+  "address": "Raudtee tänav 29, Paide linn",
+  "lat": 58.8866000903352,
+  "lon": 25.542020467369
+ },
+ {
+  "id": "96037",
+  "name": "Paide Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Paide linn",
+  "address": "Aiavilja tänav 4, Paide linn",
+  "lat": 58.8854970532658,
+  "lon": 25.5630401942979
+ },
+ {
+  "id": "96158",
+  "name": "Paikuse Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Paikuse alev",
+  "address": "Pärnade puiestee 1, Paikuse alev",
+  "lat": 58.3737580297132,
+  "lon": 24.617957299064
+ },
+ {
+  "id": "77714",
+  "name": "Pakruojo NORFA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Statybininkų g. 2A, Pakruojis",
+  "address": "Statybininkų g. 2A, Pakruojis",
+  "lat": 55.979951,
+  "lon": 23.856885
+ },
+ {
+  "id": "88870",
+  "name": "Palangos RIMI paštomatas",
+  "country": "LT",
+  "city": "Malūno g. 10, Palanga",
+  "address": "Malūno g. 10, Palanga",
+  "lat": 55.92102,
+  "lon": 21.075963
+ },
+ {
+  "id": "96203",
+  "name": "Paldiski Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Paldiski linn",
+  "address": "Rae tänav 38, Paldiski linn",
+  "lat": 59.3526698125298,
+  "lon": 24.0563629189008
+ },
+ {
+  "id": "96097",
+  "name": "Paldiski Maxima X pakiautomaat",
+  "country": "EE",
+  "city": "Paldiski linn",
+  "address": "Rae tänav 14, Paldiski linn",
+  "lat": 59.3479654566596,
+  "lon": 24.0616635137559
+ },
+ {
+  "id": "88849",
+  "name": "Panevėžio MAXIMA LĖVUO paštomatas",
+  "country": "LT",
+  "city": "Klaipėdos g. 103, Panevėžys",
+  "address": "Klaipėdos g. 103, Panevėžys",
+  "lat": 55.729027,
+  "lon": 24.324492
+ },
+ {
+  "id": "88847",
+  "name": "Panevėžio MAXIMA TURGAUS paštomatas",
+  "country": "LT",
+  "city": "Ukmergės g. 23, Panevėžys",
+  "address": "Ukmergės g. 23, Panevėžys",
+  "lat": 55.728699,
+  "lon": 24.370111
+ },
+ {
+  "id": "77715",
+  "name": "Panevėžio NORFA Beržų paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Beržų g. 27, Panevėžys",
+  "address": "Beržų g. 27, Panevėžys",
+  "lat": 55.718296,
+  "lon": 24.371654
+ },
+ {
+  "id": "77716",
+  "name": "Panevėžio NORFA Smėlynės paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Smėlynės g. 85, Panevėžys",
+  "address": "Smėlynės g. 85, Panevėžys",
+  "lat": 55.744796,
+  "lon": 24.369838
+ },
+ {
+  "id": "88846",
+  "name": "Panevėžio RIMI paštomatas",
+  "country": "LT",
+  "city": "Klaipėdos g. 82, Panevėžys",
+  "address": "Klaipėdos g. 82, Panevėžys",
+  "lat": 55.728561,
+  "lon": 24.342098
+ },
+ {
+  "id": "88809",
+  "name": "Pasvalio NORFA paštomatas",
+  "country": "LT",
+  "city": "Ežero g. 1, Pasvalys",
+  "address": "Ežero g. 1, Pasvalys",
+  "lat": 56.059471,
+  "lon": 24.410913
+ },
+ {
+  "id": "96082",
+  "name": "Peetri Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Peetri alevik",
+  "address": "Veesaare tee 2, Peetri alevik",
+  "lat": 59.4025630799279,
+  "lon": 24.8113547725379
+ },
+ {
+  "id": "9117",
+  "name": "Piņķu Elvi pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 8,Piņķi",
+  "address": "Rīgas iela 8,Piņķi",
+  "lat": 56.944192,
+  "lon": 23.908955
+ },
+ {
+  "id": "88894",
+  "name": "Plungės IKI Laisvės paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Laisvės g. 5, Plungė",
+  "address": "Laisvės g. 5, Plungė",
+  "lat": 55.908829,
+  "lon": 21.857685
+ },
+ {
+  "id": "88810",
+  "name": "Plungės NORFA Kalniškių paštomatas",
+  "country": "LT",
+  "city": "Kalniškių g. 18, Plungė",
+  "address": "Kalniškių g. 18, Plungė",
+  "lat": 55.904872,
+  "lon": 21.84495
+ },
+ {
+  "id": "9958",
+  "name": "Preiļu Maxima X pakomāts",
+  "country": "LV",
+  "city": "Rēzeknes iela 4, Preiļi",
+  "address": "Rēzeknes iela 4, Preiļi",
+  "lat": 56.294435,
+  "lon": 26.725437
+ },
+ {
+  "id": "9130",
+  "name": "Priekules TOP pakomāts",
+  "country": "LV",
+  "city": "Galvenā iela 1, Priekule",
+  "address": "Galvenā iela 1, Priekule",
+  "lat": 56.447324,
+  "lon": 21.584883
+ },
+ {
+  "id": "88812",
+  "name": "Prienų NORFA paštomatas",
+  "country": "LT",
+  "city": "Revuonos g. 66, Prienai",
+  "address": "Revuonos g. 66, Prienai",
+  "lat": 54.643128,
+  "lon": 23.94495
+ },
+ {
+  "id": "96150",
+  "name": "Puhja Coop kaupluse pakiautomaat",
+  "country": "EE",
+  "city": "Puhja alevik",
+  "address": "Nooruse tänav 2, Puhja alevik",
+  "lat": 58.3351629286317,
+  "lon": 26.3133503683523
+ },
+ {
+  "id": "96026",
+  "name": "Pärnu Jannseni Rimi pakiautomaat",
+  "country": "EE",
+  "city": "Pärnu linn",
+  "address": "Johann Voldemar Jannseni tänav 3, Pärnu linn",
+  "lat": 58.3918464050348,
+  "lon": 24.4938174024164
+ },
+ {
+  "id": "96040",
+  "name": "Pärnu Kaubamajaka pakiautomaat",
+  "country": "EE",
+  "city": "Pärnu linn",
+  "address": "Papiniidu tänav 8, Pärnu linn",
+  "lat": 58.3695745720346,
+  "lon": 24.5506328698495
+ },
+ {
+  "id": "96076",
+  "name": "Pärnu Maksimarketi pakiautomaat",
+  "country": "EE",
+  "city": "Papsaare küla",
+  "address": "Haapsalu maantee 43, Papsaare küla",
+  "lat": 58.3955886311056,
+  "lon": 24.4580710488761
+ },
+ {
+  "id": "96027",
+  "name": "Pärnu Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Pärnu linn",
+  "address": "Riia maantee 131, Pärnu linn",
+  "lat": 58.374482883017,
+  "lon": 24.5370252605955
+ },
+ {
+  "id": "96315",
+  "name": "Pärnu Oja Comarketi pakiautomaat",
+  "country": "EE",
+  "city": "Pärnu linn",
+  "address": "Liblika tänav 6, Pärnu linn",
+  "lat": 58.3904006514008,
+  "lon": 24.5308689819853
+ },
+ {
+  "id": "96062",
+  "name": "Pärnu Port Artur 2 pakiautomaat",
+  "country": "EE",
+  "city": "Pärnu linn",
+  "address": "Lai tänav 11, Pärnu linn",
+  "lat": 58.3875103805666,
+  "lon": 24.5043722397528
+ },
+ {
+  "id": "96197",
+  "name": "Pärnu Tiina Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Pärnu linn",
+  "address": "Riia maantee 74, Pärnu linn",
+  "lat": 58.3800129672894,
+  "lon": 24.52747981523
+ },
+ {
+  "id": "96198",
+  "name": "Pärnu Turu pakiautomaat",
+  "country": "EE",
+  "city": "Pärnu linn",
+  "address": "Suur-Sepa tänav 18, Pärnu linn",
+  "lat": 58.381742596634,
+  "lon": 24.5096867559024
+ },
+ {
+  "id": "96077",
+  "name": "Pärnu Ülejõe Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Pärnu linn",
+  "address": "Tallinna maantee 93a, Pärnu linn",
+  "lat": 58.4083913094212,
+  "lon": 24.4949004743264
+ },
+ {
+  "id": "96109",
+  "name": "Pärnu-Jaagupi pakiautomaat",
+  "country": "EE",
+  "city": "Pärnu-Jaagupi alev",
+  "address": "Pärnu maantee 8, Pärnu-Jaagupi alev",
+  "lat": 58.6056292579826,
+  "lon": 24.5006705415692
+ },
+ {
+  "id": "96048",
+  "name": "Põltsamaa Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Põltsamaa linn",
+  "address": "Jõgeva maantee 1a, Põltsamaa linn",
+  "lat": 58.6539936501513,
+  "lon": 25.9806678883672
+ },
+ {
+  "id": "96045",
+  "name": "Põlva Kaubamaja pakiautomaat",
+  "country": "EE",
+  "city": "Põlva linn",
+  "address": "Kesk tänav 10, Põlva linn",
+  "lat": 58.0544749336954,
+  "lon": 27.0551704607542
+ },
+ {
+  "id": "96201",
+  "name": "Põlva Meie kaupluse pakiautomaat",
+  "country": "EE",
+  "city": "Põlva linn",
+  "address": "Lao tänav 14, Põlva linn",
+  "lat": 58.0668349014091,
+  "lon": 27.0924845390036
+ },
+ {
+  "id": "96073",
+  "name": "Põlva Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Põlva linn",
+  "address": "Jaama tänav 12, Põlva linn",
+  "lat": 58.0636976990257,
+  "lon": 27.0711944934429
+ },
+ {
+  "id": "9990",
+  "name": "Pļaviņu TOP pakomāts",
+  "country": "LV",
+  "city": "Daugavas iela 85, Pļaviņas,",
+  "address": "Daugavas iela 85, Pļaviņas,",
+  "lat": 56.618052,
+  "lon": 25.734168
+ },
+ {
+  "id": "96105",
+  "name": "Raasiku pakiautomaat",
+  "country": "EE",
+  "city": "Raasiku alevik",
+  "address": "Tallinna maantee 19, Raasiku alevik",
+  "lat": 59.3696202719823,
+  "lon": 25.1824050200542
+ },
+ {
+  "id": "88817",
+  "name": "Radviliškio IKI paštomatas",
+  "country": "LT",
+  "city": "Gedimino g. 31B, Radviliškis",
+  "address": "Gedimino g. 31B, Radviliškis",
+  "lat": 55.813206,
+  "lon": 23.547457
+ },
+ {
+  "id": "9152",
+  "name": "Raganas pakomāts",
+  "country": "LV",
+  "city": "Mazā iela 4, Ragana",
+  "address": "Mazā iela 4, Ragana",
+  "lat": 57.180631,
+  "lon": 24.712506
+ },
+ {
+  "id": "96078",
+  "name": "Rakvere Põhjakeskuse pakiautomaat",
+  "country": "EE",
+  "city": "Tõrremäe küla",
+  "address": "Haljala tee 4, Tõrremäe küla",
+  "lat": 59.3646519199673,
+  "lon": 26.3387576084181
+ },
+ {
+  "id": "96031",
+  "name": "Rakvere Turutare pakiautomaat",
+  "country": "EE",
+  "city": "Rakvere linn",
+  "address": "Laada tänav 18, Rakvere linn",
+  "lat": 59.3469877228546,
+  "lon": 26.3641969333952
+ },
+ {
+  "id": "96167",
+  "name": "Rakvere Vaala Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Rakvere linn",
+  "address": "Lõõtspilli tänav 2, Rakvere linn",
+  "lat": 59.3544574400702,
+  "lon": 26.3836884908246
+ },
+ {
+  "id": "96043",
+  "name": "Rapla Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Rapla linn",
+  "address": "Tallinna maantee 50a, Rapla linn",
+  "lat": 58.9982513040899,
+  "lon": 24.7907580746136
+ },
+ {
+  "id": "96220",
+  "name": "Rapla Vestis Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Rapla linn",
+  "address": "Tallinna maantee 16, Rapla linn",
+  "lat": 59.0051827284755,
+  "lon": 24.7931984213756
+ },
+ {
+  "id": "88819",
+  "name": "Raseinių MAXIMA Maironio paštomatas",
+  "country": "LT",
+  "city": "Maironio g. 64, Raseiniai",
+  "address": "Maironio g. 64, Raseiniai",
+  "lat": 55.386357,
+  "lon": 23.126401
+ },
+ {
+  "id": "77717",
+  "name": "Rietavo MAXIMA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Plungės g. 2, Rietavas",
+  "address": "Plungės g. 2, Rietavas",
+  "lat": 55.724309,
+  "lon": 21.932529
+ },
+ {
+  "id": "96196",
+  "name": "Risti vallamaja pakiautomaat",
+  "country": "EE",
+  "city": "Risti alevik",
+  "address": "Tallinna maantee 4, Risti alevik",
+  "lat": 58.9983136665965,
+  "lon": 24.0586639409881
+ },
+ {
+  "id": "9136",
+  "name": "Rojas Maxima pakomāts",
+  "country": "LV",
+  "city": "Selgas iela 2, Roja",
+  "address": "Selgas iela 2, Roja",
+  "lat": 57.505699,
+  "lon": 22.801112
+ },
+ {
+  "id": "88821",
+  "name": "Rokiškio NORFA Panevėžio g. paštomatas",
+  "country": "LT",
+  "city": "Panevėžio g. 1D, Rokiškis",
+  "address": "Panevėžio g. 1D, Rokiškis",
+  "lat": 55.947342,
+  "lon": 25.589039
+ },
+ {
+  "id": "9138",
+  "name": "Ropažu Lats Pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 12, Ropaži",
+  "address": "Rīgas iela 12, Ropaži",
+  "lat": 56.971875,
+  "lon": 24.633702
+ },
+ {
+  "id": "96186",
+  "name": "Räpina Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Räpina linn",
+  "address": "Kooli tänav 14a, Räpina linn",
+  "lat": 58.0950837042343,
+  "lon": 27.4596212008701
+ },
+ {
+  "id": "96095",
+  "name": "Räpina Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Räpina linn",
+  "address": "Pargi tänav 1, Räpina linn",
+  "lat": 58.0974936142226,
+  "lon": 27.4636408576968
+ },
+ {
+  "id": "96151",
+  "name": "Rõngu Coop kaupluse pakiautomaat",
+  "country": "EE",
+  "city": "Rõngu alevik",
+  "address": "Tartu maantee 2, Rõngu alevik",
+  "lat": 58.1437154050635,
+  "lon": 26.2491253339085
+ },
+ {
+  "id": "9974",
+  "name": "Rēzekne RIMI Galdnieku iela pakomāts",
+  "country": "LV",
+  "city": "Galdnieku iela 8, Rēzekne",
+  "address": "Galdnieku iela 8, Rēzekne",
+  "lat": 56.502256,
+  "lon": 27.330051
+ },
+ {
+  "id": "9922",
+  "name": "Rēzeknes Maxima XX pakomāts",
+  "country": "LV",
+  "city": "Atbrīvošanas aleja 141, Rēzekne",
+  "address": "Atbrīvošanas aleja 141, Rēzekne",
+  "lat": 56.524147,
+  "lon": 27.339478
+ },
+ {
+  "id": "9169",
+  "name": "Rīgas A.Deglava 110 Rimi pakomāts",
+  "country": "LV",
+  "city": "Deglava iela 110, Rīga",
+  "address": "Deglava iela 110, Rīga",
+  "lat": 56.947506,
+  "lon": 24.193218
+ },
+ {
+  "id": "9902",
+  "name": "Rīgas Anniņmuižas RIMI pakomāts",
+  "country": "LV",
+  "city": "Anniņmuižas bulvāris 40a, Rīga",
+  "address": "Anniņmuižas bulvāris 40a, Rīga",
+  "lat": 56.960407,
+  "lon": 24.012615
+ },
+ {
+  "id": "9116",
+  "name": "Rīgas Autoostas pakomāts",
+  "country": "LV",
+  "city": "Prāgas iela 1, Rīga",
+  "address": "Prāgas iela 1, Rīga",
+  "lat": 56.944802,
+  "lon": 24.113777
+ },
+ {
+  "id": "9132",
+  "name": "Rīgas Bauskas ielas RIMI pakomāts",
+  "country": "LV",
+  "city": "Bauskas iela 120A, Rīga",
+  "address": "Bauskas iela 120A, Rīga",
+  "lat": 56.914545,
+  "lon": 24.120436
+ },
+ {
+  "id": "9933",
+  "name": "Rīgas Biķernieku RIMI pakomāts",
+  "country": "LV",
+  "city": "Biķernieku iela 160/6, Rīga",
+  "address": "Biķernieku iela 160/6, Rīga",
+  "lat": 56.956909,
+  "lon": 24.25337
+ },
+ {
+  "id": "9160",
+  "name": "Rīgas Biķernieku ielas 16A MEGO pakomāts",
+  "country": "LV",
+  "city": "Biķernieku iela 16A, Rīga",
+  "address": "Biķernieku iela 16A, Rīga",
+  "lat": 56.970468,
+  "lon": 24.180611
+ },
+ {
+  "id": "9960",
+  "name": "Rīgas Bolderājas Mego pakomāts",
+  "country": "LV",
+  "city": "Gobas iela 13, Rīga",
+  "address": "Gobas iela 13, Rīga",
+  "lat": 57.033239,
+  "lon": 24.048143
+ },
+ {
+  "id": "9975",
+  "name": "Rīgas Botāniskā dārza Maxima pakomāts",
+  "country": "LV",
+  "city": "Dzirciema iela 1, Rīga",
+  "address": "Dzirciema iela 1, Rīga",
+  "lat": 56.950637,
+  "lon": 24.053969
+ },
+ {
+  "id": "9111",
+  "name": "Rīgas Briāna ielas Rimi pakomāts",
+  "country": "LV",
+  "city": "K.Valdemāra 62, Rīga",
+  "address": "K.Valdemāra 62, Rīga",
+  "lat": 56.965448,
+  "lon": 24.130055
+ },
+ {
+  "id": "9946",
+  "name": "Rīgas Bērnu pasaule RIMI pakomāts",
+  "country": "LV",
+  "city": "Matīsa iela 25,Rīga",
+  "address": "Matīsa iela 25,Rīga",
+  "lat": 56.957136,
+  "lon": 24.134079
+ },
+ {
+  "id": "9904",
+  "name": "Rīgas Deglava ielas Maxima XXX pakomāts",
+  "country": "LV",
+  "city": "Deglava iela 67, Rīga",
+  "address": "Deglava iela 67, Rīga",
+  "lat": 56.950498,
+  "lon": 24.187498
+ },
+ {
+  "id": "9962",
+  "name": "Rīgas Dzelzavas ielas RIMI pakomāts",
+  "country": "LV",
+  "city": "Dzelzavas iela 86, Rīga",
+  "address": "Dzelzavas iela 86, Rīga",
+  "lat": 56.954162,
+  "lon": 24.204951
+ },
+ {
+  "id": "9115",
+  "name": "Rīgas Dzirnavu ielas pakomāts",
+  "country": "LV",
+  "city": "Dzirnavu iela 83, Rīga",
+  "address": "Dzirnavu iela 83, Rīga",
+  "lat": 56.952903,
+  "lon": 24.121952
+ },
+ {
+  "id": "9159",
+  "name": "Rīgas Elkor Plaza pakomāts",
+  "country": "LV",
+  "city": "Brīvības gatve 201, Rīga",
+  "address": "Brīvības gatve 201, Rīga",
+  "lat": 56.974645,
+  "lon": 24.162946
+ },
+ {
+  "id": "9909",
+  "name": "Rīgas G.Astras ielas VIADA pakomāts",
+  "country": "LV",
+  "city": "G. Astras iela 7, Rīga",
+  "address": "G. Astras iela 7, Rīga",
+  "lat": 56.956886,
+  "lon": 24.189278
+ },
+ {
+  "id": "9972",
+  "name": "Rīgas Grostonas iela Maxima pakomāts",
+  "country": "LV",
+  "city": "Grostonas iela 1, Rīga",
+  "address": "Grostonas iela 1, Rīga",
+  "lat": 56.964547,
+  "lon": 24.11906
+ },
+ {
+  "id": "9907",
+  "name": "Rīgas Iļģuciema RIMI pakomāts",
+  "country": "LV",
+  "city": "Dzirciema iela 42, Rīga",
+  "address": "Dzirciema iela 42, Rīga",
+  "lat": 56.959496,
+  "lon": 24.053192
+ },
+ {
+  "id": "9164",
+  "name": "Rīgas Juglas ielas 45 Maxima pakomāts",
+  "country": "LV",
+  "city": "Juglas iela 45, Rīga",
+  "address": "Juglas iela 45, Rīga",
+  "lat": 56.978484,
+  "lon": 24.253373
+ },
+ {
+  "id": "9161",
+  "name": "Rīgas Jūrmalas gatves RIMI pakomāts",
+  "country": "LV",
+  "city": "Anniņmuižas bulvāris 90,Rīga",
+  "address": "Anniņmuižas bulvāris 90,Rīga",
+  "lat": 56.954165,
+  "lon": 24.007918
+ },
+ {
+  "id": "9147",
+  "name": "Rīgas Kalnciema ielas RIMI pakomāts",
+  "country": "LV",
+  "city": "Kalnciema iela 47,Rīga",
+  "address": "Kalnciema iela 47,Rīga",
+  "lat": 56.941773,
+  "lon": 24.061413
+ },
+ {
+  "id": "9150",
+  "name": "Rīgas Kleistu ielas Mego pakomāts",
+  "country": "LV",
+  "city": "Kleistu iela 9, Rīga",
+  "address": "Kleistu iela 9, Rīga",
+  "lat": 56.962575,
+  "lon": 24.022067
+ },
+ {
+  "id": "9123",
+  "name": "Rīgas Kurzemes prospekta Mego pakomāts",
+  "country": "LV",
+  "city": "Kurzemes prospekts 132, Rīga",
+  "address": "Kurzemes prospekts 132, Rīga",
+  "lat": 56.962354,
+  "lon": 23.999991
+ },
+ {
+  "id": "9122",
+  "name": "Rīgas Lidoņu iela RIMI pakomāts",
+  "country": "LV",
+  "city": "Lidoņu iela 27, Rīga",
+  "address": "Lidoņu iela 27, Rīga",
+  "lat": 56.969486,
+  "lon": 24.059601
+ },
+ {
+  "id": "9971",
+  "name": "Rīgas Maxima X Ulbrokas iela pakomāts",
+  "country": "LV",
+  "city": "Ulbrokas iela 6, Rīga",
+  "address": "Ulbrokas iela 6, Rīga",
+  "lat": 56.940718,
+  "lon": 24.217193
+ },
+ {
+  "id": "9129",
+  "name": "Rīgas Mego Prūšu iela 2 pakomāts",
+  "country": "LV",
+  "city": "Prūšu iela 2, Rīga",
+  "address": "Prūšu iela 2, Rīga",
+  "lat": 56.914166,
+  "lon": 24.177284
+ },
+ {
+  "id": "9977",
+  "name": "Rīgas Mežciema RIMI pakomāts",
+  "country": "LV",
+  "city": "Sergeja Eizenšteina iela 29, Rīga",
+  "address": "Sergeja Eizenšteina iela 29, Rīga",
+  "lat": 56.969837,
+  "lon": 24.231214
+ },
+ {
+  "id": "9968",
+  "name": "Rīgas Neste Brīvības 253 pakomāts",
+  "country": "LV",
+  "city": "Brīvības gatve 253, Rīga",
+  "address": "Brīvības gatve 253, Rīga",
+  "lat": 56.978119,
+  "lon": 24.181891
+ },
+ {
+  "id": "9903",
+  "name": "Rīgas P.Brieža ielas RIMI pakomāts",
+  "country": "LV",
+  "city": "Pulkveža brieža iela 33, Rīga",
+  "address": "Pulkveža brieža iela 33, Rīga",
+  "lat": 56.964867,
+  "lon": 24.105871
+ },
+ {
+  "id": "9151",
+  "name": "Rīgas Parādes ielas Mego pakomāts",
+  "country": "LV",
+  "city": "Parādes iela 5B, Rīga",
+  "address": "Parādes iela 5B, Rīga",
+  "lat": 57.039927,
+  "lon": 24.028616
+ },
+ {
+  "id": "9908",
+  "name": "Rīgas RIMI Gramzdas pakomāts",
+  "country": "LV",
+  "city": "Imantas 15. līnija 7,Rīga",
+  "address": "Imantas 15. līnija 7,Rīga",
+  "lat": 56.944697,
+  "lon": 24.011301
+ },
+ {
+  "id": "9128",
+  "name": "Rīgas RIMI Tilta ielas pakomāts",
+  "country": "LV",
+  "city": "Tilta iela 32, Rīga",
+  "address": "Tilta iela 32, Rīga",
+  "lat": 56.995175,
+  "lon": 24.130504
+ },
+ {
+  "id": "9906",
+  "name": "Rīgas Saharova ielas Mego pakomāts",
+  "country": "LV",
+  "city": "Saharova iela 14, Rīga",
+  "address": "Saharova iela 14, Rīga",
+  "lat": 56.937157,
+  "lon": 24.204168
+ },
+ {
+  "id": "9965",
+  "name": "Rīgas Stacijas laukuma pakomāts",
+  "country": "LV",
+  "city": "Elizabetes iela 26, Rīga",
+  "address": "Elizabetes iela 26, Rīga",
+  "lat": 56.948343,
+  "lon": 24.122626
+ },
+ {
+  "id": "9937",
+  "name": "Rīgas T/C A7 pakomāts",
+  "country": "LV",
+  "city": "Ziepniekkalna iela 50, Rīga.",
+  "address": "Ziepniekkalna iela 50, Rīga.",
+  "lat": 56.895973,
+  "lon": 24.139194
+ },
+ {
+  "id": "9101",
+  "name": "Rīgas T/C Akropole pakomāts",
+  "country": "LV",
+  "city": "Maskavas iela 257, Rīga",
+  "address": "Maskavas iela 257, Rīga",
+  "lat": 56.925102,
+  "lon": 24.175132
+ },
+ {
+  "id": "9901",
+  "name": "Rīgas T/C Alfa pakomāts",
+  "country": "LV",
+  "city": "Brīvības iela 372, Rīga",
+  "address": "Brīvības iela 372, Rīga",
+  "lat": 56.98267,
+  "lon": 24.203503
+ },
+ {
+  "id": "9113",
+  "name": "Rīgas T/C DOMINA pakomāts",
+  "country": "LV",
+  "city": "Ieriķu iela 3, Rīga",
+  "address": "Ieriķu iela 3, Rīga",
+  "lat": 56.965629,
+  "lon": 24.162696
+ },
+ {
+  "id": "9935",
+  "name": "Rīgas T/C Damme pakomāts",
+  "country": "LV",
+  "city": "Kurzemes prospekts 1a, Rīga",
+  "address": "Kurzemes prospekts 1a, Rīga",
+  "lat": 56.953259,
+  "lon": 24.037701
+ },
+ {
+  "id": "9905",
+  "name": "Rīgas T/C Dole pakomāts",
+  "country": "LV",
+  "city": "Maskavas iela 357, Rīga",
+  "address": "Maskavas iela 357, Rīga",
+  "lat": 56.905651,
+  "lon": 24.19138
+ },
+ {
+  "id": "9915",
+  "name": "Rīgas T/C Juglas Centrs pakomāts",
+  "country": "LV",
+  "city": "Brīvības gatve 434b, Rīga",
+  "address": "Brīvības gatve 434b, Rīga",
+  "lat": 56.989292,
+  "lon": 24.244766
+ },
+ {
+  "id": "9954",
+  "name": "Rīgas T/C Minska pakomāts",
+  "country": "LV",
+  "city": "Nīcgales iela 2, Rīga",
+  "address": "Nīcgales iela 2, Rīga",
+  "lat": 56.959053,
+  "lon": 24.174548
+ },
+ {
+  "id": "9911",
+  "name": "Rīgas T/C Mols pakomāts",
+  "country": "LV",
+  "city": "Krasta iela 46, Rīga",
+  "address": "Krasta iela 46, Rīga",
+  "lat": 56.934696,
+  "lon": 24.142799
+ },
+ {
+  "id": "9934",
+  "name": "Rīgas T/C Olimpia pakomāts",
+  "country": "LV",
+  "city": "Āzenes iela 5, Rīga",
+  "address": "Āzenes iela 5, Rīga",
+  "lat": 56.949924,
+  "lon": 24.08128
+ },
+ {
+  "id": "9976",
+  "name": "Rīgas T/C RIMI Mīlgrāvis pakomāts",
+  "country": "LV",
+  "city": "Mīlgrāvja iela 6, Rīga",
+  "address": "Mīlgrāvja iela 6, Rīga",
+  "lat": 57.025436,
+  "lon": 24.139507
+ },
+ {
+  "id": "9112",
+  "name": "Rīgas T/C RIMI Nīcgale pakomāts",
+  "country": "LV",
+  "city": "Nīcgales iela 53, Rīga",
+  "address": "Nīcgales iela 53, Rīga",
+  "lat": 56.945271,
+  "lon": 24.172698
+ },
+ {
+  "id": "9114",
+  "name": "Rīgas T/C Riga Plaza pakomāts",
+  "country": "LV",
+  "city": "Mūkusalas iela 71, Rīga",
+  "address": "Mūkusalas iela 71, Rīga",
+  "lat": 56.926828,
+  "lon": 24.102272
+ },
+ {
+  "id": "9143",
+  "name": "Rīgas T/C Sky&More pakomāts",
+  "country": "LV",
+  "city": "Duntes iela 19A, Rīga",
+  "address": "Duntes iela 19A, Rīga",
+  "lat": 56.986211,
+  "lon": 24.132251
+ },
+ {
+  "id": "9914",
+  "name": "Rīgas T/C Spice pakomāts",
+  "country": "LV",
+  "city": "Lielirbes iela 29, Rīga",
+  "address": "Lielirbes iela 29, Rīga",
+  "lat": 56.929756,
+  "lon": 24.036562
+ },
+ {
+  "id": "9109",
+  "name": "Rīgas T/C Stirnu Rimi pakomāts",
+  "country": "LV",
+  "city": "Stirnu iela 26, Rīga",
+  "address": "Stirnu iela 26, Rīga",
+  "lat": 56.959086,
+  "lon": 24.18581
+ },
+ {
+  "id": "9939",
+  "name": "Rīgas T/C Valdemārs pakomāts",
+  "country": "LV",
+  "city": "Valdemāra iela 112",
+  "address": "Valdemāra iela 112",
+  "lat": 56.974503,
+  "lon": 24.135998
+ },
+ {
+  "id": "9995",
+  "name": "Rīgas T/C ZOOM pakomāts",
+  "country": "LV",
+  "city": "Maskavas iela 400, Rīga",
+  "address": "Maskavas iela 400, Rīga",
+  "lat": 56.89806,
+  "lon": 24.204222
+ },
+ {
+  "id": "9144",
+  "name": "Rīgas Valsts Ieņēmumu Dienesta pakomāts",
+  "country": "LV",
+  "city": "Talejas iela 1, Rīga",
+  "address": "Talejas iela 1, Rīga",
+  "lat": 56.990924,
+  "lon": 24.17011
+ },
+ {
+  "id": "9146",
+  "name": "Rīgas Vecmīlgrāvja Maxima pakomāts",
+  "country": "LV",
+  "city": "Augusta Dombrovska iela 74, Rīga",
+  "address": "Augusta Dombrovska iela 74, Rīga",
+  "lat": 57.036257,
+  "lon": 24.097532
+ },
+ {
+  "id": "9959",
+  "name": "Rīgas Vecmīlgrāvja RIMI pakomāts",
+  "country": "LV",
+  "city": "Augusta Dombrovska iela 23, Rīga",
+  "address": "Augusta Dombrovska iela 23, Rīga",
+  "lat": 57.031556,
+  "lon": 24.109413
+ },
+ {
+  "id": "9912",
+  "name": "Rīgas Vienības gatves Neste pakomāts",
+  "country": "LV",
+  "city": "Vienības gatve 144, Rīga",
+  "address": "Vienības gatve 144, Rīga",
+  "lat": 56.910175,
+  "lon": 24.087246
+ },
+ {
+  "id": "9961",
+  "name": "Rīgas Ziepniekkalna MEGO pakomāts",
+  "country": "LV",
+  "city": "Valdeķu iela 56, Rīga",
+  "address": "Valdeķu iela 56, Rīga",
+  "lat": 56.902807,
+  "lon": 24.094932
+ },
+ {
+  "id": "9964",
+  "name": "Rīgas Āgenskalna Maxima X pakomāts",
+  "country": "LV",
+  "city": "Pilsoņu iela 1k-1, Rīga",
+  "address": "Pilsoņu iela 1k-1, Rīga",
+  "lat": 56.936982,
+  "lon": 24.07074
+ },
+ {
+  "id": "9103",
+  "name": "Rīgas Āgenskalna RIMI pakomāts",
+  "country": "LV",
+  "city": "Mārupes iela 10A, Rīga",
+  "address": "Mārupes iela 10A, Rīga",
+  "lat": 56.931966,
+  "lon": 24.072938
+ },
+ {
+  "id": "9991",
+  "name": "Rūjienas TOP pakomāts",
+  "country": "LV",
+  "city": "Brīvības iela 8, Rūjiena",
+  "address": "Brīvības iela 8, Rūjiena",
+  "lat": 57.897417,
+  "lon": 25.324689
+ },
+ {
+  "id": "96199",
+  "name": "Saaremaa Kaubamaja pakiautomaat",
+  "country": "EE",
+  "city": "Kuressaare linn",
+  "address": "Raekoja tänav 1, Kuressaare linn",
+  "lat": 58.252173970383,
+  "lon": 22.4860777865094
+ },
+ {
+  "id": "96050",
+  "name": "Saku Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Saku alevik",
+  "address": "Pargi tänav 2, Saku alevik",
+  "lat": 59.2999444025748,
+  "lon": 24.6623073394449
+ },
+ {
+  "id": "96301",
+  "name": "Saku Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Saku alevik",
+  "address": "Üksnurme tee 2, Saku alevik",
+  "lat": 59.2934283755229,
+  "lon": 24.65615846711
+ },
+ {
+  "id": "9121",
+  "name": "Salacgrīvas Maxima X pakomāts",
+  "country": "LV",
+  "city": "Vidzemes iela 3a, Salacgrīva",
+  "address": "Vidzemes iela 3a, Salacgrīva",
+  "lat": 57.751951,
+  "lon": 24.358421
+ },
+ {
+  "id": "9947",
+  "name": "Salaspils RIMI pakomāts",
+  "country": "LV",
+  "city": "Skolas iela 4,Salaspils",
+  "address": "Skolas iela 4,Salaspils",
+  "lat": 56.856382,
+  "lon": 24.333762
+ },
+ {
+  "id": "9936",
+  "name": "Saldus Maxima XX pakomāts",
+  "country": "LV",
+  "city": "Brīvības iela 30, Saldus",
+  "address": "Brīvības iela 30, Saldus",
+  "lat": 56.668266,
+  "lon": 22.490301
+ },
+ {
+  "id": "96318",
+  "name": "Salme Rannapargi tee pakiautomaat",
+  "country": "EE",
+  "city": "Salme alevik",
+  "address": "Rannapargi tee 4, Salme alevik",
+  "lat": 58.164186686908,
+  "lon": 22.2537382000631
+ },
+ {
+  "id": "96184",
+  "name": "Saue Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Saue linn",
+  "address": "Pärnasalu põik 1b, Saue linn",
+  "lat": 59.3219004572565,
+  "lon": 24.5566199217583
+ },
+ {
+  "id": "96055",
+  "name": "Saue Kaubakeskuse pakiautomaat",
+  "country": "EE",
+  "city": "Saue linn",
+  "address": "Ridva tänav 15, Saue linn",
+  "lat": 59.3248760100036,
+  "lon": 24.5530596526185
+ },
+ {
+  "id": "96148",
+  "name": "Sauga Coop kaupluse pakiautomaat",
+  "country": "EE",
+  "city": "Sauga alevik",
+  "address": "Kuldnoka tänav 1, Sauga alevik",
+  "lat": 58.4289783481347,
+  "lon": 24.4976929652251
+ },
+ {
+  "id": "9149",
+  "name": "Saulkrastu TOP pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 51, Saulkrasti",
+  "address": "Rīgas iela 51, Saulkrasti",
+  "lat": 57.243198,
+  "lon": 24.401234
+ },
+ {
+  "id": "9986",
+  "name": "Siguldas ELVI Vidus iela pakomāts",
+  "country": "LV",
+  "city": "Vidus iela 1, Sigulda",
+  "address": "Vidus iela 1, Sigulda",
+  "lat": 57.153081,
+  "lon": 24.84786
+ },
+ {
+  "id": "9932",
+  "name": "Siguldas T/C Šokolāde pakomāts",
+  "country": "LV",
+  "city": "Strēlnieku iela 2, Sigulda",
+  "address": "Strēlnieku iela 2, Sigulda",
+  "lat": 57.143288,
+  "lon": 24.844282
+ },
+ {
+  "id": "96054",
+  "name": "Sillamäe Maksimarketi pakiautomaat",
+  "country": "EE",
+  "city": "Sillamäe linn",
+  "address": "Viru puiestee 5, Sillamäe linn",
+  "lat": 59.3923661659033,
+  "lon": 27.7775854042654
+ },
+ {
+  "id": "96222",
+  "name": "Sillamäe Viru pst Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Sillamäe linn",
+  "address": "Viru puiestee 35, Sillamäe linn",
+  "lat": 59.3911826912032,
+  "lon": 27.7907515980728
+ },
+ {
+  "id": "96316",
+  "name": "Sindi Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Sindi linn",
+  "address": "Pärnu maantee 57, Sindi linn",
+  "lat": 58.4080034779005,
+  "lon": 24.6595865009784
+ },
+ {
+  "id": "9992",
+  "name": "Skrundas ELVI pakomāts",
+  "country": "LV",
+  "city": "Ventas iela 13, Skrunda,",
+  "address": "Ventas iela 13, Skrunda,",
+  "lat": 56.673477,
+  "lon": 22.013661
+ },
+ {
+  "id": "77718",
+  "name": "Skuodo MAXIMA Mosėdžio paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Mosėdžio g. 2, Skuodas",
+  "address": "Mosėdžio g. 2, Skuodas",
+  "lat": 56.267776,
+  "lon": 21.531389
+ },
+ {
+  "id": "9955",
+  "name": "Smiltenes T/C Centrs pakomāts",
+  "country": "LV",
+  "city": "Baznīcas laukums 2, Smiltene",
+  "address": "Baznīcas laukums 2, Smiltene",
+  "lat": 57.42392,
+  "lon": 25.903996
+ },
+ {
+  "id": "9139",
+  "name": "Strenču TOP pakomāts",
+  "country": "LV",
+  "city": "Valkas iela 2, Strenči",
+  "address": "Valkas iela 2, Strenči",
+  "lat": 57.627043,
+  "lon": 25.688806
+ },
+ {
+  "id": "96231",
+  "name": "Suure-Jaani pakiautomaat",
+  "country": "EE",
+  "city": "Suure-Jaani linn",
+  "address": "Pärnu tänav 4, Suure-Jaani linn",
+  "lat": 58.5356498440819,
+  "lon": 25.4650859469442
+ },
+ {
+  "id": "96071",
+  "name": "Tabasalu Rimi pakiautomaat",
+  "country": "EE",
+  "city": "Tabasalu alevik",
+  "address": "Klooga maantee 10b, Tabasalu alevik",
+  "lat": 59.4299386899195,
+  "lon": 24.5431323508739
+ },
+ {
+  "id": "96212",
+  "name": "Tabivere Saadjärve A ja O pakiautomaat",
+  "country": "EE",
+  "city": "Tabivere alevik",
+  "address": "Kalda tänav 1, Tabivere alevik",
+  "lat": 58.5520828170789,
+  "lon": 26.6000495725714
+ },
+ {
+  "id": "96003",
+  "name": "Tallinna Akadeemia Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Mustamäe linnaosa",
+  "address": "Akadeemia tee 35, Mustamäe linnaosa",
+  "lat": 59.4033380721351,
+  "lon": 24.6553538479279
+ },
+ {
+  "id": "96133",
+  "name": "Tallinna Arsenali keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Põhja-Tallinna linnaosa",
+  "address": "Erika tänav 14, Põhja-Tallinna linnaosa",
+  "lat": 59.4513443444947,
+  "lon": 24.7162896823135
+ },
+ {
+  "id": "96001",
+  "name": "Tallinna Balti Jaama pakiautomaat",
+  "country": "EE",
+  "city": "Põhja-Tallinna linnaosa",
+  "address": "Toompuiestee 37, Põhja-Tallinna linnaosa",
+  "lat": 59.4398320721568,
+  "lon": 24.7365689308204
+ },
+ {
+  "id": "96219",
+  "name": "Tallinna Coca-Cola Plaza pakiautomaat",
+  "country": "EE",
+  "city": "Kesklinna linnaosa",
+  "address": "Hobujaama tänav 5, Kesklinna linnaosa",
+  "lat": 59.4382776734792,
+  "lon": 24.7563933983709
+ },
+ {
+  "id": "96216",
+  "name": "Tallinna Ehitajate tee Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Mustamäe linnaosa",
+  "address": "Ehitajate tee 41, Mustamäe linnaosa",
+  "lat": 59.4017679482992,
+  "lon": 24.6685833055983
+ },
+ {
+  "id": "96303",
+  "name": "Tallinna Ehitajate tee Maxima XXX pakiautomaat",
+  "country": "EE",
+  "city": "Haabersti linnaosa",
+  "address": "Ehitajate tee 148, Haabersti linnaosa",
+  "lat": 59.4218197854296,
+  "lon": 24.6516211793843
+ },
+ {
+  "id": "96111",
+  "name": "Tallinna Haabersti RIMI pakiautomaat",
+  "country": "EE",
+  "city": "Haabersti linnaosa",
+  "address": "Haabersti tänav 1, Haabersti linnaosa",
+  "lat": 59.4249638061715,
+  "lon": 24.6439380070648
+ },
+ {
+  "id": "96202",
+  "name": "Tallinna Idakeskuse pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Punane tänav 16, Lasnamäe linnaosa",
+  "lat": 59.4323032919233,
+  "lon": 24.8240637230533
+ },
+ {
+  "id": "96195",
+  "name": "Tallinna Juhkentali Rimi pakiautomaat",
+  "country": "EE",
+  "city": "Kesklinna linnaosa",
+  "address": "Juhkentali tänav 35, Kesklinna linnaosa",
+  "lat": 59.427553758055,
+  "lon": 24.7700379839443
+ },
+ {
+  "id": "96016",
+  "name": "Tallinna Järve Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Nõmme linnaosa",
+  "address": "Pärnu maantee 238, Nõmme linnaosa",
+  "lat": 59.3927909086697,
+  "lon": 24.7212358137283
+ },
+ {
+  "id": "96138",
+  "name": "Tallinna Järveotsa Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Haabersti linnaosa",
+  "address": "Järveotsa tee 35b, Haabersti linnaosa",
+  "lat": 59.4073699996164,
+  "lon": 24.6406383921117
+ },
+ {
+  "id": "96018",
+  "name": "Tallinna Kadaka Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Mustamäe linnaosa",
+  "address": "Kadaka tee 56a, Mustamäe linnaosa",
+  "lat": 59.4124699443037,
+  "lon": 24.6667342703843
+ },
+ {
+  "id": "96015",
+  "name": "Tallinna Kakumäe Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Haabersti linnaosa",
+  "address": "Rannamõisa tee 6, Haabersti linnaosa",
+  "lat": 59.4282090062248,
+  "lon": 24.6269510170115
+ },
+ {
+  "id": "96190",
+  "name": "Tallinna Kivila Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Kivila tänav 26, Lasnamäe linnaosa",
+  "lat": 59.4437081061581,
+  "lon": 24.8726459911093
+ },
+ {
+  "id": "96069",
+  "name": "Tallinna Kolde Rimi pakiautomaat",
+  "country": "EE",
+  "city": "Põhja-Tallinna linnaosa",
+  "address": "Sõle tänav 27, Põhja-Tallinna linnaosa",
+  "lat": 59.4387603943073,
+  "lon": 24.7074320477308
+ },
+ {
+  "id": "96226",
+  "name": "Tallinna Kollase keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Haabersti linnaosa",
+  "address": "Õismäe tee 107, Haabersti linnaosa",
+  "lat": 59.4114020928912,
+  "lon": 24.6370868496343
+ },
+ {
+  "id": "96007",
+  "name": "Tallinna Kristiine Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Kristiine linnaosa",
+  "address": "Endla tänav 45, Kristiine linnaosa",
+  "lat": 59.4268784518549,
+  "lon": 24.7250735729694
+ },
+ {
+  "id": "96162",
+  "name": "Tallinna Kärberi Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Kristjan Kärberi tänav 20a, Lasnamäe linnaosa",
+  "lat": 59.4455996313911,
+  "lon": 24.8820680761566
+ },
+ {
+  "id": "96135",
+  "name": "Tallinna Lasnamäe Centrumi A pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Mustakivi tee 13, Lasnamäe linnaosa",
+  "lat": 59.4403754720511,
+  "lon": 24.864181390105
+ },
+ {
+  "id": "96041",
+  "name": "Tallinna Lasnamäe Centrumi B pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Mustakivi tee 13, Lasnamäe linnaosa",
+  "lat": 59.4396910596829,
+  "lon": 24.8632733586862
+ },
+ {
+  "id": "96066",
+  "name": "Tallinna Lasnamäe Prisma pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Mustakivi tee 17, Lasnamäe linnaosa",
+  "lat": 59.4432940763388,
+  "lon": 24.8627007113328
+ },
+ {
+  "id": "96180",
+  "name": "Tallinna Lastekodu Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Kesklinna linnaosa",
+  "address": "Lastekodu tänav 14, Kesklinna linnaosa",
+  "lat": 59.430264163196,
+  "lon": 24.7679903132424
+ },
+ {
+  "id": "96080",
+  "name": "Tallinna Lauluväljaku Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Juhan Smuuli tee 9, Lasnamäe linnaosa",
+  "lat": 59.4437955944286,
+  "lon": 24.8229061300234
+ },
+ {
+  "id": "96116",
+  "name": "Tallinna Linnamäe Maxima XXX pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Linnamäe tee 57, Lasnamäe linnaosa",
+  "lat": 59.4498847151661,
+  "lon": 24.8813688105373
+ },
+ {
+  "id": "96194",
+  "name": "Tallinna Läänemere Rimi pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Läänemere tee 2c, Lasnamäe linnaosa",
+  "lat": 59.4508849421571,
+  "lon": 24.861733239269
+ },
+ {
+  "id": "96173",
+  "name": "Tallinna Läänemere Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Läänemere tee 28, Lasnamäe linnaosa",
+  "lat": 59.4530059142075,
+  "lon": 24.875310095042
+ },
+ {
+  "id": "96086",
+  "name": "Tallinna Magdaleena pakiautomaat",
+  "country": "EE",
+  "city": "Kesklinna linnaosa",
+  "address": "Pärnu maantee 106, Kesklinna linnaosa",
+  "lat": 59.4155906201974,
+  "lon": 24.7392941950706
+ },
+ {
+  "id": "96056",
+  "name": "Tallinna Magistrali Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Mustamäe linnaosa",
+  "address": "Sõpruse puiestee 201, Mustamäe linnaosa",
+  "lat": 59.4019288281152,
+  "lon": 24.6977766387338
+ },
+ {
+  "id": "96098",
+  "name": "Tallinna Marienthali Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Kristiine linnaosa",
+  "address": "Mustamäe tee 16, Kristiine linnaosa",
+  "lat": 59.4228445593028,
+  "lon": 24.6962209399681
+ },
+ {
+  "id": "96129",
+  "name": "Tallinna Merimetsa Selveri pakiautomaa",
+  "country": "EE",
+  "city": "Põhja-Tallinna linnaosa",
+  "address": "Paldiski maantee 56, Põhja-Tallinna linnaosa",
+  "lat": 59.430187324667,
+  "lon": 24.6977609323746
+ },
+ {
+  "id": "96010",
+  "name": "Tallinna Mustakivi Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Mahtra tänav 1, Lasnamäe linnaosa",
+  "lat": 59.4420783062288,
+  "lon": 24.8741799718436
+ },
+ {
+  "id": "96141",
+  "name": "Tallinna Mustamäe Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Mustamäe linnaosa",
+  "address": "A. H. Tammsaare tee 104a, Mustamäe linnaosa",
+  "lat": 59.4085783062425,
+  "lon": 24.6887664924997
+ },
+ {
+  "id": "96115",
+  "name": "Tallinna Mustika Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Mustamäe linnaosa",
+  "address": "Karjavälja tänav 4, Mustamäe linnaosa",
+  "lat": 59.4102238825836,
+  "lon": 24.6823768123771
+ },
+ {
+  "id": "96174",
+  "name": "Tallinna Nautica Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Kesklinna linnaosa",
+  "address": "Ahtri tänav 9, Kesklinna linnaosa",
+  "lat": 59.4405702559923,
+  "lon": 24.7620618259376
+ },
+ {
+  "id": "96004",
+  "name": "Tallinna Nurmenuku pakiautomaat",
+  "country": "EE",
+  "city": "Haabersti linnaosa",
+  "address": "Õismäe tee 1b, Haabersti linnaosa",
+  "lat": 59.4136812998237,
+  "lon": 24.6546876300526
+ },
+ {
+  "id": "96327",
+  "name": "Tallinna Nõmme tee 23 Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Kristiine linnaosa",
+  "address": "Nõmme tee 23, Kristiine linnaosa",
+  "lat": 59.4182692326242,
+  "lon": 24.722171134827
+ },
+ {
+  "id": "96101",
+  "name": "Tallinna Nõmme turu pakiautomaat",
+  "country": "EE",
+  "city": "Nõmme linnaosa",
+  "address": "Turu plats 8, Nõmme linnaosa",
+  "lat": 59.3886830955898,
+  "lon": 24.6844523202871
+ },
+ {
+  "id": "96193",
+  "name": "Tallinna Paasiku Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Paasiku tänav 2a, Lasnamäe linnaosa",
+  "lat": 59.4483992817934,
+  "lon": 24.8451120190899
+ },
+ {
+  "id": "96131",
+  "name": "Tallinna Paepargi Maxima XX pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Paepargi tänav 57, Lasnamäe linnaosa",
+  "lat": 59.4350797960603,
+  "lon": 24.8111051877683
+ },
+ {
+  "id": "96146",
+  "name": "Tallinna Pallasti pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Pallasti tänav 28, Lasnamäe linnaosa",
+  "lat": 59.4301911659442,
+  "lon": 24.7924159716737
+ },
+ {
+  "id": "96017",
+  "name": "Tallinna Pelgulinna Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Põhja-Tallinna linnaosa",
+  "address": "Sõle tänav 51, Põhja-Tallinna linnaosa",
+  "lat": 59.444863946561,
+  "lon": 24.7008512556423
+ },
+ {
+  "id": "96317",
+  "name": "Tallinna Peterburi tee 34/4 pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Peterburi tee 34, Lasnamäe linnaosa",
+  "lat": 59.4257216908768,
+  "lon": 24.8067267393788
+ },
+ {
+  "id": "96205",
+  "name": "Tallinna Pirita Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Pirita linnaosa",
+  "address": "Merivälja tee 24, Pirita linnaosa",
+  "lat": 59.4686370700438,
+  "lon": 24.8354311567182
+ },
+ {
+  "id": "96012",
+  "name": "Tallinna Pirita Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Pirita linnaosa",
+  "address": "Rummu tee 4, Pirita linnaosa",
+  "lat": 59.4625850532476,
+  "lon": 24.8277992113114
+ },
+ {
+  "id": "96083",
+  "name": "Tallinna Punase Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Punane tänav 46, Lasnamäe linnaosa",
+  "lat": 59.4352157582021,
+  "lon": 24.8412982288966
+ },
+ {
+  "id": "96304",
+  "name": "Tallinna Pärnu mnt 390b Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Nõmme linnaosa",
+  "address": "Pärnu maantee 390, Nõmme linnaosa",
+  "lat": 59.3808187800135,
+  "lon": 24.6603596100526
+ },
+ {
+  "id": "96008",
+  "name": "Tallinna Pääsküla RIMI pakiautomaat",
+  "country": "EE",
+  "city": "Nõmme linnaosa",
+  "address": "Pärnu maantee 453e, Nõmme linnaosa",
+  "lat": 59.3600693275023,
+  "lon": 24.6311304147451
+ },
+ {
+  "id": "96181",
+  "name": "Tallinna Põhja Neste pakiautomaat",
+  "country": "EE",
+  "city": "Põhja-Tallinna linnaosa",
+  "address": "Soo tänav 1, Põhja-Tallinna linnaosa",
+  "lat": 59.4444916353556,
+  "lon": 24.7433462398138
+ },
+ {
+  "id": "96084",
+  "name": "Tallinna Raudalu Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Nõmme linnaosa",
+  "address": "Viljandi maantee 41a, Nõmme linnaosa",
+  "lat": 59.3663529373775,
+  "lon": 24.7599474974999
+ },
+ {
+  "id": "96005",
+  "name": "Tallinna Rocca al Mare pakiautomaat",
+  "country": "EE",
+  "city": "Haabersti linnaosa",
+  "address": "Paldiski maantee 102, Haabersti linnaosa",
+  "lat": 59.4258153749897,
+  "lon": 24.6503924843672
+ },
+ {
+  "id": "96009",
+  "name": "Tallinna Sikupilli pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Tartu maantee 87, Lasnamäe linnaosa",
+  "lat": 59.425999607918,
+  "lon": 24.7851897032742
+ },
+ {
+  "id": "96140",
+  "name": "Tallinna Solaris Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Kesklinna linnaosa",
+  "address": "Estonia puiestee 9, Kesklinna linnaosa",
+  "lat": 59.4336267018821,
+  "lon": 24.7517240673566
+ },
+ {
+  "id": "96057",
+  "name": "Tallinna Stockmanni pakiautomaat",
+  "country": "EE",
+  "city": "Kesklinna linnaosa",
+  "address": "Liivalaia tänav 53, Kesklinna linnaosa",
+  "lat": 59.4323049520834,
+  "lon": 24.7614695712152
+ },
+ {
+  "id": "96154",
+  "name": "Tallinna Stroomi Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Põhja-Tallinna linnaosa",
+  "address": "Tuulemaa tänav 20, Põhja-Tallinna linnaosa",
+  "lat": 59.4473493372825,
+  "lon": 24.692614974256
+ },
+ {
+  "id": "96166",
+  "name": "Tallinna Sõle Rimi (Paavli 10) pakiautomaat",
+  "country": "EE",
+  "city": "Põhja-Tallinna linnaosa",
+  "address": "Paavli tänav 10, Põhja-Tallinna linnaosa",
+  "lat": 59.4469291621109,
+  "lon": 24.7023245632887
+ },
+ {
+  "id": "96014",
+  "name": "Tallinna Sõpruse Rimi pakiautomaat",
+  "country": "EE",
+  "city": "Kristiine linnaosa",
+  "address": "Sõpruse puiestee 174, Kristiine linnaosa",
+  "lat": 59.4145602451992,
+  "lon": 24.7069173833919
+ },
+ {
+  "id": "96306",
+  "name": "Tallinna Sõpruse pst 171 Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Mustamäe linnaosa",
+  "address": "Sõpruse puiestee 171, Mustamäe linnaosa",
+  "lat": 59.4073096546824,
+  "lon": 24.7045922201181
+ },
+ {
+  "id": "96175",
+  "name": "Tallinna Sütiste Maxima X pakiautomaat",
+  "country": "EE",
+  "city": "Mustamäe linnaosa",
+  "address": "Juhan Sütiste tee 28, Mustamäe linnaosa",
+  "lat": 59.3976320572442,
+  "lon": 24.6905793834652
+ },
+ {
+  "id": "96323",
+  "name": "Tallinna T1 Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Peterburi tee 2, Lasnamäe linnaosa",
+  "lat": 59.4243026761068,
+  "lon": 24.7939460122541
+ },
+ {
+  "id": "96305",
+  "name": "Tallinna Tammsaare Maxima XX pakiautomaat",
+  "country": "EE",
+  "city": "Mustamäe linnaosa",
+  "address": "A. H. Tammsaare tee 133, Mustamäe linnaosa",
+  "lat": 59.4087561002662,
+  "lon": 24.6755280965194
+ },
+ {
+  "id": "96214",
+  "name": "Tallinna Tammsaare Ärikeskuse pakiautomaat",
+  "country": "EE",
+  "city": "Kristiine linnaosa",
+  "address": "A. H. Tammsaare tee 47, Kristiine linnaosa",
+  "lat": 59.4013324600467,
+  "lon": 24.7174486524835
+ },
+ {
+  "id": "96058",
+  "name": "Tallinna Telliskivi Rimi pakiautomaat",
+  "country": "EE",
+  "city": "Põhja-Tallinna linnaosa",
+  "address": "Telliskivi tänav 61, Põhja-Tallinna linnaosa",
+  "lat": 59.4415036856209,
+  "lon": 24.7299272582405
+ },
+ {
+  "id": "96006",
+  "name": "Tallinna Tondi Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Kristiine linnaosa",
+  "address": "A. H. Tammsaare tee 62, Kristiine linnaosa",
+  "lat": 59.4030529139033,
+  "lon": 24.7145929958764
+ },
+ {
+  "id": "96153",
+  "name": "Tallinna Tondi Ärikeskuse pakiautomaat",
+  "country": "EE",
+  "city": "Kesklinna linnaosa",
+  "address": "Pärnu maantee 142, Kesklinna linnaosa",
+  "lat": 59.4112672719397,
+  "lon": 24.7367332039386
+ },
+ {
+  "id": "96038",
+  "name": "Tallinna Torupilli Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Kesklinna linnaosa",
+  "address": "Vesivärava tänav 37, Kesklinna linnaosa",
+  "lat": 59.4321547697089,
+  "lon": 24.780206178215
+ },
+ {
+  "id": "96302",
+  "name": "Tallinna Tähesaju Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Tähesaju tee 1, Lasnamäe linnaosa",
+  "lat": 59.4416767713225,
+  "lon": 24.8492644327144
+ },
+ {
+  "id": "96185",
+  "name": "Tallinna Tööstuse Rimi pakiautomaat",
+  "country": "EE",
+  "city": "Põhja-Tallinna linnaosa",
+  "address": "Tööstuse tänav 101, Põhja-Tallinna linnaosa",
+  "lat": 59.4536439046185,
+  "lon": 24.7056169808896
+ },
+ {
+  "id": "96132",
+  "name": "Tallinna Valdeku CoMarketi pakiautomaat",
+  "country": "EE",
+  "city": "Nõmme linnaosa",
+  "address": "Vabaduse puiestee 54b, Nõmme linnaosa",
+  "lat": 59.3813760873888,
+  "lon": 24.7006750315172
+ },
+ {
+  "id": "96145",
+  "name": "Tallinna Valdeku Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Nõmme linnaosa",
+  "address": "Valdeku tänav 114, Nõmme linnaosa",
+  "lat": 59.3761593003459,
+  "lon": 24.7120388220387
+ },
+ {
+  "id": "96215",
+  "name": "Tallinna Vikerlase Rimi pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Vikerlase tänav 19, Lasnamäe linnaosa",
+  "lat": 59.4395567973147,
+  "lon": 24.8440248965349
+ },
+ {
+  "id": "96143",
+  "name": "Tallinna Vilde tee Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Mustamäe linnaosa",
+  "address": "Eduard Vilde tee 75, Mustamäe linnaosa",
+  "lat": 59.402623222597,
+  "lon": 24.6865414859939
+ },
+ {
+  "id": "96002",
+  "name": "Tallinna Viru Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Kesklinna linnaosa",
+  "address": "Viru väljak 4, Kesklinna linnaosa",
+  "lat": 59.4363139119906,
+  "lon": 24.7569528477068
+ },
+ {
+  "id": "96104",
+  "name": "Tallinna Viru bussiterminali pakiautomaat",
+  "country": "EE",
+  "city": "Kesklinna linnaosa",
+  "address": "Viru väljak 4, Kesklinna linnaosa",
+  "lat": 59.4362182881765,
+  "lon": 24.7552856744533
+ },
+ {
+  "id": "96103",
+  "name": "Tallinna Õismäe Maxima XX pakiautomaat",
+  "country": "EE",
+  "city": "Haabersti linnaosa",
+  "address": "Õismäe tee 46, Haabersti linnaosa",
+  "lat": 59.4115368011605,
+  "lon": 24.6472833624935
+ },
+ {
+  "id": "96208",
+  "name": "Tallinna Ülemiste City Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Sepapaja tänav 2, Lasnamäe linnaosa",
+  "lat": 59.4218022070891,
+  "lon": 24.8024048988489
+ },
+ {
+  "id": "96113",
+  "name": "Tallinna Ülemiste Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Suur-Sõjamäe tänav 4, Lasnamäe linnaosa",
+  "lat": 59.4227586708058,
+  "lon": 24.7948303525135
+ },
+ {
+  "id": "96059",
+  "name": "Tallinna Ümera Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Lasnamäe linnaosa",
+  "address": "Laagna tee 80, Lasnamäe linnaosa",
+  "lat": 59.4439176696025,
+  "lon": 24.8896006775899
+ },
+ {
+  "id": "9135",
+  "name": "Talsu Maxima XX pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 8, Talsi, Talsi",
+  "address": "Rīgas iela 8, Talsi, Talsi",
+  "lat": 57.238631,
+  "lon": 22.585088
+ },
+ {
+  "id": "9931",
+  "name": "Talsu RIMI pakomāts",
+  "country": "LV",
+  "city": "Dundagas iela 18, Talsi",
+  "address": "Dundagas iela 18, Talsi",
+  "lat": 57.248009,
+  "lon": 22.578781
+ },
+ {
+  "id": "96120",
+  "name": "Tamsalu Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Tamsalu linn",
+  "address": "Tehnika tänav 24, Tamsalu linn",
+  "lat": 59.1622309249183,
+  "lon": 26.1123038345117
+ },
+ {
+  "id": "96092",
+  "name": "Tapa Grossi pakiautomaat",
+  "country": "EE",
+  "city": "Tapa linn",
+  "address": "Jaama tänav 1, Tapa linn",
+  "lat": 59.2645395299216,
+  "lon": 25.9631730889508
+ },
+ {
+  "id": "96308",
+  "name": "Tapa Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Tapa linn",
+  "address": "Pikk tänav 33, Tapa linn",
+  "lat": 59.2590249612323,
+  "lon": 25.9676547342914
+ },
+ {
+  "id": "96310",
+  "name": "Tartu Aardla Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Võru tänav 75b, Tartu linn",
+  "lat": 58.3577331645593,
+  "lon": 26.7217334200513
+ },
+ {
+  "id": "96319",
+  "name": "Tartu Anne 40 Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Anne tänav 40, Tartu linn",
+  "lat": 58.3786928807254,
+  "lon": 26.7502072109855
+ },
+ {
+  "id": "96126",
+  "name": "Tartu Anne Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Kalda tee 43, Tartu linn",
+  "lat": 58.3684219846373,
+  "lon": 26.7666386005124
+ },
+ {
+  "id": "96020",
+  "name": "Tartu Eedeni pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Kalda tee 1c, Tartu linn",
+  "lat": 58.3735033783683,
+  "lon": 26.751085398762
+ },
+ {
+  "id": "96213",
+  "name": "Tartu Jaamamõisa Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Jaama tänav 74, Tartu linn",
+  "lat": 58.381750580907,
+  "lon": 26.7511808548197
+ },
+ {
+  "id": "96187",
+  "name": "Tartu Karete Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Jalaka tänav 34, Tartu linn",
+  "lat": 58.3499402130124,
+  "lon": 26.7239088613201
+ },
+ {
+  "id": "96061",
+  "name": "Tartu Kesklinna Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Küüni tänav 7, Tartu linn",
+  "lat": 58.3781650626122,
+  "lon": 26.7247810127899
+ },
+ {
+  "id": "96068",
+  "name": "Tartu Kivilinna pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Jaama tänav 173, Tartu linn",
+  "lat": 58.3795100187495,
+  "lon": 26.7643225919985
+ },
+ {
+  "id": "96165",
+  "name": "Tartu Kvartali Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Riia tänav 2, Tartu linn",
+  "lat": 58.3769905789451,
+  "lon": 26.7288999596472
+ },
+ {
+  "id": "96074",
+  "name": "Tartu Lembitu Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Lembitu tänav 2, Tartu linn",
+  "lat": 58.3699522644092,
+  "lon": 26.7098532059806
+ },
+ {
+  "id": "96019",
+  "name": "Tartu Lõunakeskuse pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Ringtee tänav 75, Tartu linn",
+  "lat": 58.3586638757092,
+  "lon": 26.6771723036588
+ },
+ {
+  "id": "96127",
+  "name": "Tartu Raadi Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Narva maantee 112, Tartu linn",
+  "lat": 58.3918356082812,
+  "lon": 26.7298729772523
+ },
+ {
+  "id": "96087",
+  "name": "Tartu Rebase Rimi pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Rebase tänav 10, Tartu linn",
+  "lat": 58.3683448757833,
+  "lon": 26.7391262027857
+ },
+ {
+  "id": "96088",
+  "name": "Tartu Ringtee Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Aardla tänav 114, Tartu linn",
+  "lat": 58.3530775071168,
+  "lon": 26.6864134432779
+ },
+ {
+  "id": "96136",
+  "name": "Tartu Saare Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Anne tänav 57, Tartu linn",
+  "lat": 58.3750327238905,
+  "lon": 26.7564749997037
+ },
+ {
+  "id": "96311",
+  "name": "Tartu Sõbra Prisma pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Sõbra tänav 56, Tartu linn",
+  "lat": 58.3650266624938,
+  "lon": 26.7426179909653
+ },
+ {
+  "id": "96021",
+  "name": "Tartu Sõbrakeskuse pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Võru tänav 55f, Tartu linn",
+  "lat": 58.3652563159501,
+  "lon": 26.7194265784739
+ },
+ {
+  "id": "96039",
+  "name": "Tartu Tasku Keskuse pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Turu tänav 2, Tartu linn",
+  "lat": 58.3780203330757,
+  "lon": 26.7309637889273
+ },
+ {
+  "id": "96321",
+  "name": "Tartu Tuglase Rimi pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Friedebert Tuglase tänav 19, Tartu linn",
+  "lat": 58.385073327656,
+  "lon": 26.6919214535899
+ },
+ {
+  "id": "96022",
+  "name": "Tartu Ujula Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Ujula tänav 2, Tartu linn",
+  "lat": 58.3868033867218,
+  "lon": 26.7238346460186
+ },
+ {
+  "id": "96309",
+  "name": "Tartu Vahi Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Vahi tänav 62, Tartu linn",
+  "lat": 58.4017256512173,
+  "lon": 26.7207671100268
+ },
+ {
+  "id": "96060",
+  "name": "Tartu Veeriku Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Vitamiini tänav 1, Tartu linn",
+  "lat": 58.376337962246,
+  "lon": 26.6968101191678
+ },
+ {
+  "id": "96225",
+  "name": "Tartu Zeppelini pakiautomaat",
+  "country": "EE",
+  "city": "Tartu linn",
+  "address": "Turu tänav 14, Tartu linn",
+  "lat": 58.374718397541,
+  "lon": 26.7358423539678
+ },
+ {
+  "id": "88851",
+  "name": "Tauragės NORFA Gedimino paštomatas",
+  "country": "LT",
+  "city": "Gedimino g. 28, Tauragė",
+  "address": "Gedimino g. 28, Tauragė",
+  "lat": 55.25136,
+  "lon": 22.298812
+ },
+ {
+  "id": "88868",
+  "name": "Telšių NORFA Gedimino paštomatas",
+  "country": "LT",
+  "city": "Gedimino g. 8, Telšiai",
+  "address": "Gedimino g. 8, Telšiai",
+  "lat": 55.981785,
+  "lon": 22.238605
+ },
+ {
+  "id": "88891",
+  "name": "Telšių PC TULPĖ paštomatas  (naujas!)",
+  "country": "LT",
+  "city": "Kęstučio g. 4, Telšiai",
+  "address": "Kęstučio g. 4, Telšiai",
+  "lat": 55.983917,
+  "lon": 22.249697
+ },
+ {
+  "id": "96121",
+  "name": "Torma A ja O pakiautomaat",
+  "country": "EE",
+  "city": "Torma alevik",
+  "address": "Kesk tänav 1a, Torma alevik",
+  "lat": 58.8190824540725,
+  "lon": 26.7396215263052
+ },
+ {
+  "id": "77724",
+  "name": "Trakų NORFA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Vilniaus g. 15C, Trakai",
+  "address": "Vilniaus g. 15C, Trakai",
+  "lat": 54.627344,
+  "lon": 24.945533
+ },
+ {
+  "id": "9120",
+  "name": "Tukuma Maxima XX pakomāts",
+  "country": "LV",
+  "city": "Kurzemes iela 36, Tukums",
+  "address": "Kurzemes iela 36, Tukums",
+  "lat": 56.971738,
+  "lon": 23.153615
+ },
+ {
+  "id": "9927",
+  "name": "Tukuma Pasta RIMI pakomāts",
+  "country": "LV",
+  "city": "Pasta iela 14, Tukums",
+  "address": "Pasta iela 14, Tukums",
+  "lat": 56.967484,
+  "lon": 23.158829
+ },
+ {
+  "id": "96223",
+  "name": "Turba kaupluse pakiautomaat",
+  "country": "EE",
+  "city": "Turba alevik",
+  "address": "Tehase tänav 1, Turba alevik",
+  "lat": 59.0801015031077,
+  "lon": 24.236700210751
+ },
+ {
+  "id": "96053",
+  "name": "Tõrva Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Tõrva linn",
+  "address": "Tamme tänav 2, Tõrva linn",
+  "lat": 57.9977661248928,
+  "lon": 25.9326394762048
+ },
+ {
+  "id": "96178",
+  "name": "Tõrvandi Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Tõrvandi alevik",
+  "address": "Müürsepa tänav 1, Tõrvandi alevik",
+  "lat": 58.3231409350035,
+  "lon": 26.7104518049072
+ },
+ {
+  "id": "96052",
+  "name": "Türi Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Türi linn",
+  "address": "Viljandi tänav 10, Türi linn",
+  "lat": 58.8060325803827,
+  "lon": 25.4276802368704
+ },
+ {
+  "id": "88892",
+  "name": "Ukmergės IKI Vilniaus g. paštomatas",
+  "country": "LT",
+  "city": "Vilniaus g. 62, Ukmergė",
+  "address": "Vilniaus g. 62, Ukmergė",
+  "lat": 55.244184,
+  "lon": 24.7732
+ },
+ {
+  "id": "88869",
+  "name": "Ukmergės MAXIMA Žiedo paštomatas",
+  "country": "LT",
+  "city": "Žiedo g. 1, Ukmergė",
+  "address": "Žiedo g. 1, Ukmergė",
+  "lat": 55.242752,
+  "lon": 24.743786
+ },
+ {
+  "id": "9110",
+  "name": "Ulbrokas TOP pakomāts",
+  "country": "LV",
+  "city": "Peldu iela 2, Ulbroka",
+  "address": "Peldu iela 2, Ulbroka",
+  "lat": 56.939616,
+  "lon": 24.291621
+ },
+ {
+  "id": "88860",
+  "name": "Utenos RIMI-SENUKAI paštomatas",
+  "country": "LT",
+  "city": "J.Basanavičiaus g. 52, Utena",
+  "address": "J.Basanavičiaus g. 52, Utena",
+  "lat": 55.498111,
+  "lon": 25.596356
+ },
+ {
+  "id": "9134",
+  "name": "Valdlauču TOP pakomāts",
+  "country": "LV",
+  "city": "Atpūtas iela 5, Valdlauči",
+  "address": "Atpūtas iela 5, Valdlauči",
+  "lat": 56.904139,
+  "lon": 24.147541
+ },
+ {
+  "id": "96042",
+  "name": "Valga Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Valga linn",
+  "address": "Jaama puiestee 2b, Valga linn",
+  "lat": 57.7741688270291,
+  "lon": 26.0444167966367
+ },
+ {
+  "id": "96227",
+  "name": "Valga Siili Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Valga linn",
+  "address": "Alfred Neulandi tänav 2, Valga linn",
+  "lat": 57.7788983339818,
+  "lon": 26.0369767593409
+ },
+ {
+  "id": "9956",
+  "name": "Valkas T/C Walk pakomāts",
+  "country": "LV",
+  "city": "Ausekļa iela 54, Valka",
+  "address": "Ausekļa iela 54, Valka",
+  "lat": 57.785275,
+  "lon": 26.014727
+ },
+ {
+  "id": "9119",
+  "name": "Valmieras Maxima X Nākotnes iela pakomāts",
+  "country": "LV",
+  "city": "Nākotnes iela 2a,Valmiera",
+  "address": "Nākotnes iela 2a,Valmiera",
+  "lat": 57.530061,
+  "lon": 25.427524
+ },
+ {
+  "id": "9166",
+  "name": "Valmieras Rubenes ielas RIMI pakomāts",
+  "country": "LV",
+  "city": "Rubenes iela 51, Valmiera",
+  "address": "Rubenes iela 51, Valmiera",
+  "lat": 57.54706,
+  "lon": 25.419463
+ },
+ {
+  "id": "9928",
+  "name": "Valmieras T/C Valleta pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 4, Valmiera",
+  "address": "Rīgas iela 4, Valmiera",
+  "lat": 57.538544,
+  "lon": 25.423716
+ },
+ {
+  "id": "9148",
+  "name": "Vangažu Aibes pakomāts",
+  "country": "LV",
+  "city": "Gaujas iela 19a, Vangaži",
+  "address": "Gaujas iela 19a, Vangaži",
+  "lat": 57.091574,
+  "lon": 24.522279
+ },
+ {
+  "id": "88834",
+  "name": "Varėnos IKI paštomatas",
+  "country": "LT",
+  "city": "Sporto g. 1, Varėna",
+  "address": "Sporto g. 1, Varėna",
+  "lat": 54.215309,
+  "lon": 24.563934
+ },
+ {
+  "id": "96322",
+  "name": "Vastse-Kuuste A ja O pakiautomaat",
+  "country": "EE",
+  "city": "Vastse-Kuuste alevik",
+  "address": "Kesktänav 16, Vastse-Kuuste alevik",
+  "lat": 58.1663759452997,
+  "lon": 26.9324841655719
+ },
+ {
+  "id": "9993",
+  "name": "Vecpiebalgas TOP pakomāts",
+  "country": "LV",
+  "city": "Alauksta iela 2, Vecpiebalga",
+  "address": "Alauksta iela 2, Vecpiebalga",
+  "lat": 57.060241,
+  "lon": 25.817247
+ },
+ {
+  "id": "9154",
+  "name": "Vecumnieku Lats pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 24B, Vecumnieki",
+  "address": "Rīgas iela 24B, Vecumnieki",
+  "lat": 56.606522,
+  "lon": 24.520519
+ },
+ {
+  "id": "9923",
+  "name": "Ventspils Mego pakomāts",
+  "country": "LV",
+  "city": "Ganību iela 22/24, Ventspils",
+  "address": "Ganību iela 22/24, Ventspils",
+  "lat": 57.389889,
+  "lon": 21.562643
+ },
+ {
+  "id": "9102",
+  "name": "Ventspils RIMI Poruka pakomāts",
+  "country": "LV",
+  "city": "J. Poruka iela 5, Ventspils",
+  "address": "J. Poruka iela 5, Ventspils",
+  "lat": 57.386794,
+  "lon": 21.549223
+ },
+ {
+  "id": "9957",
+  "name": "Ventspils RIMI Tārgales pakomāts",
+  "country": "LV",
+  "city": "Tārgales iela 62, Ventspils",
+  "address": "Tārgales iela 62, Ventspils",
+  "lat": 57.400019,
+  "lon": 21.602782
+ },
+ {
+  "id": "9963",
+  "name": "Ventspils T/C Tobago pakomāts",
+  "country": "LV",
+  "city": "Lielais prospekts 3/5, Ventspils",
+  "address": "Lielais prospekts 3/5, Ventspils",
+  "lat": 57.387718,
+  "lon": 21.580208
+ },
+ {
+  "id": "9167",
+  "name": "Viesītes TOP pakomāts",
+  "country": "LV",
+  "city": "Reiņa iela 23, Viesīte",
+  "address": "Reiņa iela 23, Viesīte",
+  "lat": 56.345912,
+  "lon": 25.556417
+ },
+ {
+  "id": "96013",
+  "name": "Viimsi Kaubanduskeskuse pakiautomaat",
+  "country": "EE",
+  "city": "Haabneeme alevik",
+  "address": "Randvere tee 6, Haabneeme alevik",
+  "lat": 59.5061975331193,
+  "lon": 24.8304681932558
+ },
+ {
+  "id": "96124",
+  "name": "Viimsi Pärnamäe Rimi pakiautomaat",
+  "country": "EE",
+  "city": "Laiaküla",
+  "address": "Lilleoru tee 4, Laiaküla",
+  "lat": 59.4619908697231,
+  "lon": 24.9055945307888
+ },
+ {
+  "id": "96209",
+  "name": "Viimsi Rimi pakiautomaat",
+  "country": "EE",
+  "city": "Haabneeme alevik",
+  "address": "Randvere tee 9, Haabneeme alevik",
+  "lat": 59.505620220428,
+  "lon": 24.8283143063705
+ },
+ {
+  "id": "96032",
+  "name": "Viljandi Bussijaama pakiautomaat",
+  "country": "EE",
+  "city": "Viljandi linn",
+  "address": "Ilmarise tänav 1, Viljandi linn",
+  "lat": 58.3692020676962,
+  "lon": 25.5987885746484
+ },
+ {
+  "id": "96070",
+  "name": "Viljandi Maksimarketi pakiautomaat",
+  "country": "EE",
+  "city": "Viljandi linn",
+  "address": "Lääne tänav 2, Viljandi linn",
+  "lat": 58.3708667597454,
+  "lon": 25.5834364191153
+ },
+ {
+  "id": "96063",
+  "name": "Viljandi Männimäe Selveri pakiautomaat",
+  "country": "EE",
+  "city": "Viljandi linn",
+  "address": "Riia maantee 35, Viljandi linn",
+  "lat": 58.3532675276784,
+  "lon": 25.5841250418165
+ },
+ {
+  "id": "96313",
+  "name": "Viljandi Tallinna 60 Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Viljandi linn",
+  "address": "Tallinna tänav 60, Viljandi linn",
+  "lat": 58.3766851030461,
+  "lon": 25.5984873878054
+ },
+ {
+  "id": "96312",
+  "name": "Viljandi Vaksali Maxima X pakiautomaat",
+  "country": "EE",
+  "city": "Viljandi linn",
+  "address": "Vaksali tänav 11b, Viljandi linn",
+  "lat": 58.361888798781,
+  "lon": 25.5825964115853
+ },
+ {
+  "id": "88835",
+  "name": "Vilkaviškio NORFA Nepriklausomybės paštomatas",
+  "country": "LT",
+  "city": "Nepriklausomybės g. 61, Vilkaviškis",
+  "address": "Nepriklausomybės g. 61, Vilkaviškis",
+  "lat": 54.658606,
+  "lon": 23.030233
+ },
+ {
+  "id": "88871",
+  "name": "Vilniaus CUP paštomatas",
+  "country": "LT",
+  "city": "Upės g. 9,  Vilnius",
+  "address": "Upės g. 9,  Vilnius",
+  "lat": 54.694023,
+  "lon": 25.276537
+ },
+ {
+  "id": "77744",
+  "name": "Vilniaus IKI Bajorų paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Bajorų kel. 4, Vilnius",
+  "address": "Bajorų kel. 4, Vilnius",
+  "lat": 54.754746,
+  "lon": 25.261674
+ },
+ {
+  "id": "77725",
+  "name": "Vilniaus IKI Buivydiškių g. paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Buivydiškių g. 17, Vilnius",
+  "address": "Buivydiškių g. 17, Vilnius",
+  "lat": 54.713529,
+  "lon": 25.238532
+ },
+ {
+  "id": "88850",
+  "name": "Vilniaus IKI Didlaukio paštomatas",
+  "country": "LT",
+  "city": "Didlaukio g. 80A, Vilnius",
+  "address": "Didlaukio g. 80A, Vilnius",
+  "lat": 54.728806,
+  "lon": 25.269791
+ },
+ {
+  "id": "88862",
+  "name": "Vilniaus IKI Jeruzalės paštomatas",
+  "country": "LT",
+  "city": "Jeruzalės g. 17, Vilnius",
+  "address": "Jeruzalės g. 17, Vilnius",
+  "lat": 54.743055,
+  "lon": 25.278166
+ },
+ {
+  "id": "77748",
+  "name": "Vilniaus IKI Saulėtekio paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Saulėtekio al. 43, Vilnius",
+  "address": "Saulėtekio al. 43, Vilnius",
+  "lat": 54.725016,
+  "lon": 25.342257
+ },
+ {
+  "id": "77727",
+  "name": "Vilniaus IKI Stanevičiaus paštomatas (naujas!)",
+  "country": "LT",
+  "city": "S.Stanevičiaus g. 23, Vilnius",
+  "address": "S.Stanevičiaus g. 23, Vilnius",
+  "lat": 54.723732,
+  "lon": 25.255186
+ },
+ {
+  "id": "88852",
+  "name": "Vilniaus IKI Šeškinės paštomatas",
+  "country": "LT",
+  "city": "Šeškinės g. 32, Vilnius",
+  "address": "Šeškinės g. 32, Vilnius",
+  "lat": 54.715581,
+  "lon": 25.245704
+ },
+ {
+  "id": "77728",
+  "name": "Vilniaus MAXIMA Antakalnio paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Antakalnio g. 75A, Vilnius",
+  "address": "Antakalnio g. 75A, Vilnius",
+  "lat": 54.71531,
+  "lon": 25.31652
+ },
+ {
+  "id": "77729",
+  "name": "Vilniaus MAXIMA Architektų paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Architektų g. 152, Vilnius",
+  "address": "Architektų g. 152, Vilnius",
+  "lat": 54.68302,
+  "lon": 25.213188
+ },
+ {
+  "id": "88888",
+  "name": "Vilniaus MAXIMA Grigiškių paštomatas",
+  "country": "LT",
+  "city": "Kovo 11-osios g. 38B, Grigiškės",
+  "address": "Kovo 11-osios g. 38B, Grigiškės",
+  "lat": 54.670192,
+  "lon": 25.098794
+ },
+ {
+  "id": "88887",
+  "name": "Vilniaus MAXIMA Grybo paštomatas",
+  "country": "LT",
+  "city": "V. Grybo g. 21, Vilnius",
+  "address": "V. Grybo g. 21, Vilnius",
+  "lat": 54.703717,
+  "lon": 25.315933
+ },
+ {
+  "id": "77730",
+  "name": "Vilniaus MAXIMA Kęstučio paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Kęstučio g. 37, Vilnius",
+  "address": "Kęstučio g. 37, Vilnius",
+  "lat": 54.693457,
+  "lon": 25.25106
+ },
+ {
+  "id": "77732",
+  "name": "Vilniaus MAXIMA Naugarduko paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Naugarduko g. 84, Vilnius",
+  "address": "Naugarduko g. 84, Vilnius",
+  "lat": 54.669109,
+  "lon": 25.258908
+ },
+ {
+  "id": "77733",
+  "name": "Vilniaus MAXIMA Pilaitės paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Pilaitės pr. 31, Vilnius",
+  "address": "Pilaitės pr. 31, Vilnius",
+  "lat": 54.709891,
+  "lon": 25.188744
+ },
+ {
+  "id": "88822",
+  "name": "Vilniaus MAXIMA Sausio 13-os paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Sausio 13-sios g. 2, Vilnius",
+  "address": "Sausio 13-sios g. 2, Vilnius",
+  "lat": 54.692867,
+  "lon": 25.221685
+ },
+ {
+  "id": "77726",
+  "name": "Vilniaus MAXIMA Savanorių 31 paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Savanorių pr. 31, Vilnius",
+  "address": "Savanorių pr. 31, Vilnius",
+  "lat": 54.673977,
+  "lon": 25.247888
+ },
+ {
+  "id": "77747",
+  "name": "Vilniaus MAXIMA Taikos 162A paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Taikos g. 162A, Vilnius",
+  "address": "Taikos g. 162A, Vilnius",
+  "lat": 54.712398,
+  "lon": 25.215338
+ },
+ {
+  "id": "88813",
+  "name": "Vilniaus MAXIMA Tuskulėnų paštomatas",
+  "country": "LT",
+  "city": "Tuskulėnų g. 66, Vilnius",
+  "address": "Tuskulėnų g. 66, Vilnius",
+  "lat": 54.702362,
+  "lon": 25.288749
+ },
+ {
+  "id": "88820",
+  "name": "Vilniaus MAXIMA Viršuliškių paštomatas",
+  "country": "LT",
+  "city": "Viršuliškių g. 30, Vilnius",
+  "address": "Viršuliškių g. 30, Vilnius",
+  "lat": 54.709389,
+  "lon": 25.222248
+ },
+ {
+  "id": "88889",
+  "name": "Vilniaus MAXIMA Šaltkalvių paštomatas",
+  "country": "LT",
+  "city": "Šaltkalvių g. 2, Vilnius",
+  "address": "Šaltkalvių g. 2, Vilnius",
+  "lat": 54.661525,
+  "lon": 25.272317
+ },
+ {
+  "id": "88848",
+  "name": "Vilniaus NORFA Genių paštomatas",
+  "country": "LT",
+  "city": "Genių g. 10A, Vilnius",
+  "address": "Genių g. 10A, Vilnius",
+  "lat": 54.688179,
+  "lon": 25.421732
+ },
+ {
+  "id": "88878",
+  "name": "Vilniaus NORFA Minsko paštomatas",
+  "country": "LT",
+  "city": "Minsko pl. 3, Vilnius",
+  "address": "Minsko pl. 3, Vilnius",
+  "lat": 54.652141,
+  "lon": 25.305245
+ },
+ {
+  "id": "88890",
+  "name": "Vilniaus NORFA Molėtų pl. paštomatas",
+  "country": "LT",
+  "city": "Molėtų pl. 47, Vilnius",
+  "address": "Molėtų pl. 47, Vilnius",
+  "lat": 54.772007,
+  "lon": 25.272299
+ },
+ {
+  "id": "77734",
+  "name": "Vilniaus NORFA Rygos paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Rygos g. 49, Vilnius",
+  "address": "Rygos g. 49, Vilnius",
+  "lat": 54.719011,
+  "lon": 25.212367
+ },
+ {
+  "id": "88879",
+  "name": "Vilniaus NORFA Žvalgų paštomatas",
+  "country": "LT",
+  "city": "Kalvarijų g. 151, Vilnius",
+  "address": "Kalvarijų g. 151, Vilnius",
+  "lat": 54.72153,
+  "lon": 25.28783
+ },
+ {
+  "id": "88811",
+  "name": "Vilniaus PC DOMUS PRO paštomatas",
+  "country": "LT",
+  "city": "Ukmergės g.  308, Vilnius",
+  "address": "Ukmergės g.  308, Vilnius",
+  "lat": 54.740274,
+  "lon": 25.225183
+ },
+ {
+  "id": "88814",
+  "name": "Vilniaus PC MANDARINAS paštomatas",
+  "country": "LT",
+  "city": "Ateities g. 91, Vilnius",
+  "address": "Ateities g. 91, Vilnius",
+  "lat": 54.731491,
+  "lon": 25.246227
+ },
+ {
+  "id": "88858",
+  "name": "Vilniaus RIMI Architektų paštomatas",
+  "country": "LT",
+  "city": "Architektų g. 19, Vilnius",
+  "address": "Architektų g. 19, Vilnius",
+  "lat": 54.673672,
+  "lon": 25.213588
+ },
+ {
+  "id": "77735",
+  "name": "Vilniaus RIMI Fabijoniškių paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Ukmergės g. 233, Vilnius",
+  "address": "Ukmergės g. 233, Vilnius",
+  "lat": 54.720785,
+  "lon": 25.244945
+ },
+ {
+  "id": "77736",
+  "name": "Vilniaus RIMI Kareivių paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Kareivių g. 11A, Vilnius",
+  "address": "Kareivių g. 11A, Vilnius",
+  "lat": 54.717897,
+  "lon": 25.300539
+ },
+ {
+  "id": "77737",
+  "name": "Vilniaus RIMI Medeinos paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Medeinos g. 8, Vilnius",
+  "address": "Medeinos g. 8, Vilnius",
+  "lat": 54.729596,
+  "lon": 25.227436
+ },
+ {
+  "id": "88859",
+  "name": "Vilniaus RIMI Rygos paštomatas",
+  "country": "LT",
+  "city": "Rygos g. 8, Vilnius",
+  "address": "Rygos g. 8, Vilnius",
+  "lat": 54.715958,
+  "lon": 25.224777
+ },
+ {
+  "id": "88815",
+  "name": "Vilniaus RIMI Savanorių paštomatas",
+  "country": "LT",
+  "city": "Kedrų g. 4, Vilnius",
+  "address": "Kedrų g. 4, Vilnius",
+  "lat": 54.67564,
+  "lon": 25.257998
+ },
+ {
+  "id": "88823",
+  "name": "Vilniaus RIMI Vydūno paštomatas",
+  "country": "LT",
+  "city": "Vydūno g. 4, Vilnius",
+  "address": "Vydūno g. 4, Vilnius",
+  "lat": 54.707191,
+  "lon": 25.188892
+ },
+ {
+  "id": "77738",
+  "name": "Vilniaus RIMI Zarasų g. paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Zarasų g. 5A, Vilnius",
+  "address": "Zarasų g. 5A, Vilnius",
+  "lat": 54.680886,
+  "lon": 25.3116
+ },
+ {
+  "id": "88816",
+  "name": "Vilniaus RIMI Žirmūnų paštomatas",
+  "country": "LT",
+  "city": "Žirmūnų g. 64, Vilnius",
+  "address": "Žirmūnų g. 64, Vilnius",
+  "lat": 54.712017,
+  "lon": 25.300741
+ },
+ {
+  "id": "77750",
+  "name": "Vilniaus VC 2000 paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Jogailos g. 4, Vilnius",
+  "address": "Jogailos g. 4, Vilnius",
+  "lat": 54.686375,
+  "lon": 25.278924
+ },
+ {
+  "id": "77743",
+  "name": "Vilniaus VC ŽALGIRIO 135 paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Žalgirio g. 135, Vilnius",
+  "address": "Žalgirio g. 135, Vilnius",
+  "lat": 54.704816,
+  "lon": 25.272422
+ },
+ {
+  "id": "88818",
+  "name": "Vilniaus VIADA Saltoniškių paštomatas",
+  "country": "LT",
+  "city": "Saltoniškių g. 12, Vilnius",
+  "address": "Saltoniškių g. 12, Vilnius",
+  "lat": 54.699135,
+  "lon": 25.260015
+ },
+ {
+  "id": "88826",
+  "name": "Vilniaus VIADA Saulėtekio paštomatas",
+  "country": "LT",
+  "city": "Nemenčinės pl. 5, Vilnius",
+  "address": "Nemenčinės pl. 5, Vilnius",
+  "lat": 54.726292,
+  "lon": 25.326769
+ },
+ {
+  "id": "96149",
+  "name": "Vinni Spordikompleksi pakiautomaat",
+  "country": "EE",
+  "city": "Vinni alevik",
+  "address": "Sõpruse tänav 16, Vinni alevik",
+  "lat": 59.2899982493966,
+  "lon": 26.4258409740226
+ },
+ {
+  "id": "88840",
+  "name": "Visagino VIADA paštomatas",
+  "country": "LT",
+  "city": "Statybininkų g. 1, Visaginas",
+  "address": "Statybininkų g. 1, Visaginas",
+  "lat": 55.594598,
+  "lon": 26.438796
+ },
+ {
+  "id": "9157",
+  "name": "Viļakas Balvu ielas pakomāts",
+  "country": "LV",
+  "city": "Balvu iela 5, Viļaka",
+  "address": "Balvu iela 5, Viļaka",
+  "lat": 57.1842623,
+  "lon": 27.6711949
+ },
+ {
+  "id": "9118",
+  "name": "Viļānu pakomāts",
+  "country": "LV",
+  "city": "Brīvības iela 13, Viļāni",
+  "address": "Brīvības iela 13, Viļāni",
+  "lat": 56.548038,
+  "lon": 26.923911
+ },
+ {
+  "id": "96107",
+  "name": "Väike-Maarja pakiautomaat",
+  "country": "EE",
+  "city": "Väike-Maarja alevik",
+  "address": "Pikk tänav 9, Väike-Maarja alevik",
+  "lat": 59.1300453085029,
+  "lon": 26.2520658348261
+ },
+ {
+  "id": "96168",
+  "name": "Vändra Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Vändra alev",
+  "address": "Pärnu-Paide maantee 21, Vändra alev",
+  "lat": 58.6540779301288,
+  "lon": 25.0383171609171
+ },
+ {
+  "id": "96325",
+  "name": "Vääna-Jõesuu kauplus Maksis pakiautomaat",
+  "country": "EE",
+  "city": "Vääna-Jõesuu küla",
+  "address": "Vääna-Jõesuu küla",
+  "lat": 59.4332919425502,
+  "lon": 24.3672062740598
+ },
+ {
+  "id": "96035",
+  "name": "Võru Maksimarketi pakiautomaat",
+  "country": "EE",
+  "city": "Võru linn",
+  "address": "Jüri tänav 83, Võru linn",
+  "lat": 57.8355640501927,
+  "lon": 27.0102570998835
+ },
+ {
+  "id": "96064",
+  "name": "Võru Maxima pakiautomaat",
+  "country": "EE",
+  "city": "Võru linn",
+  "address": "Kooli tänav 2, Võru linn",
+  "lat": 57.8478531601773,
+  "lon": 27.0048320676167
+ },
+ {
+  "id": "96314",
+  "name": "Võru kesklinna Circle K pakiautomaat",
+  "country": "EE",
+  "city": "Võru linn",
+  "address": "Jüri tänav 45, Võru linn",
+  "lat": 57.8421721913242,
+  "lon": 27.0069497769213
+ },
+ {
+  "id": "88845",
+  "name": "Zarasų IKI Vytauto paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Vytauto g. 54, Zarasai",
+  "address": "Vytauto g. 54, Zarasai",
+  "lat": 55.736384,
+  "lon": 26.264755
+ },
+ {
+  "id": "9168",
+  "name": "Zilupes TOP pakomāts",
+  "country": "LV",
+  "city": "Brīvības iela 34, Zilupe",
+  "address": "Brīvības iela 34, Zilupe",
+  "lat": 56.3885788,
+  "lon": 28.121329
+ },
+ {
+  "id": "96177",
+  "name": "Ülenurme Konsumi pakiautomaat",
+  "country": "EE",
+  "city": "Ülenurme alevik",
+  "address": "Võru maantee 2, Ülenurme alevik",
+  "lat": 58.3151690852515,
+  "lon": 26.7219419839185
+ },
+ {
+  "id": "9952",
+  "name": "Ādažu Mini RIMI pakomāts",
+  "country": "LV",
+  "city": "Gaujas iela 6, Ādaži",
+  "address": "Gaujas iela 6, Ādaži",
+  "lat": 57.076475,
+  "lon": 24.322602
+ },
+ {
+  "id": "9105",
+  "name": "Ādažu T/C Apelsīns pakomāts",
+  "country": "LV",
+  "city": "Rīgas gatve 5, Ādaži",
+  "address": "Rīgas gatve 5, Ādaži",
+  "lat": 57.071214,
+  "lon": 24.320093
+ },
+ {
+  "id": "9153",
+  "name": "Ērgļu Zaļās ielas TOP pakomāts",
+  "country": "LV",
+  "city": "Zaļā iela 1, Ērgļi",
+  "address": "Zaļā iela 1, Ērgļi",
+  "lat": 56.898292,
+  "lon": 25.644409
+ },
+ {
+  "id": "9165",
+  "name": "Ķeguma ELVI pakomāts",
+  "country": "LV",
+  "city": "Ķeguma prospekts 5C,Ķegums",
+  "address": "Ķeguma prospekts 5C,Ķegums",
+  "lat": 56.74375,
+  "lon": 24.718085
+ },
+ {
+  "id": "9978",
+  "name": "Ķekavas TC Liiba pakomāts",
+  "country": "LV",
+  "city": "Rīgas iela 22, Ķekava",
+  "address": "Rīgas iela 22, Ķekava",
+  "lat": 56.832535,
+  "lon": 24.232458
+ },
+ {
+  "id": "88833",
+  "name": "ŠILUTĖS PREKYBA Lietuvininkų 37 paštomatas",
+  "country": "LT",
+  "city": "Lietuvininkų g. 37, Šilutė",
+  "address": "Lietuvininkų g. 37, Šilutė",
+  "lat": 55.343229,
+  "lon": 21.471249
+ },
+ {
+  "id": "88824",
+  "name": "Šakių NORFA Šaulių paštomatas",
+  "country": "LT",
+  "city": "Šaulių g. 49, Šakiai",
+  "address": "Šaulių g. 49, Šakiai",
+  "lat": 54.960627,
+  "lon": 23.031055
+ },
+ {
+  "id": "77719",
+  "name": "Šalčininkų NORFA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Vilniaus g. 2B, Šalčininkai",
+  "address": "Vilniaus g. 2B, Šalčininkai",
+  "lat": 54.317769,
+  "lon": 25.383816
+ },
+ {
+  "id": "77720",
+  "name": "Šeduvos NORFA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Panevėžio g. 33, Šeduva",
+  "address": "Panevėžio g. 33, Šeduva",
+  "lat": 55.756241,
+  "lon": 23.762468
+ },
+ {
+  "id": "88844",
+  "name": "Šiaulių MOKI-VEŽI paštomatas",
+  "country": "LT",
+  "city": "Pramonės g. 7, Šiauliai",
+  "address": "Pramonės g. 7, Šiauliai",
+  "lat": 55.917301,
+  "lon": 23.301418
+ },
+ {
+  "id": "77721",
+  "name": "Šiaulių NORFA Tilžės 13A paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Tilžės g. 13A, Šiauliai",
+  "address": "Tilžės g. 13A, Šiauliai",
+  "lat": 55.911563,
+  "lon": 23.26838
+ },
+ {
+  "id": "88880",
+  "name": "Šiaulių NORFA Valančiaus paštomatas",
+  "country": "LT",
+  "city": "M.Valančiaus g. 18, Šiauliai",
+  "address": "M.Valančiaus g. 18, Šiauliai",
+  "lat": 55.938897,
+  "lon": 23.305095
+ },
+ {
+  "id": "88842",
+  "name": "Šiaulių PC ARENA paštomatas",
+  "country": "LT",
+  "city": "Gegužių g. 30, Šiauliai",
+  "address": "Gegužių g. 30, Šiauliai",
+  "lat": 55.906536,
+  "lon": 23.258636
+ },
+ {
+  "id": "77741",
+  "name": "Šiaulių PC SAULĖS MIESTAS paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Tilžės g. 109, Šiauliai",
+  "address": "Tilžės g. 109, Šiauliai",
+  "lat": 55.927737,
+  "lon": 23.307049
+ },
+ {
+  "id": "88843",
+  "name": "Šiaulių VIADA Tilžės paštomatas",
+  "country": "LT",
+  "city": "Tilžės g. 274, Šiauliai",
+  "address": "Tilžės g. 274, Šiauliai",
+  "lat": 55.944092,
+  "lon": 23.331217
+ },
+ {
+  "id": "88825",
+  "name": "Šilalės NORFA paštomatas",
+  "country": "LT",
+  "city": "Tauragės g. 1, Šilalė",
+  "address": "Tauragės g. 1, Šilalė",
+  "lat": 55.490946,
+  "lon": 22.188493
+ },
+ {
+  "id": "77746",
+  "name": "Šilutės MAXIMA Miško paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Miško g. 7, Šilutė",
+  "address": "Miško g. 7, Šilutė",
+  "lat": 55.3508,
+  "lon": 21.479337
+ },
+ {
+  "id": "77722",
+  "name": "Širvintų MAXIMA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "I.Šeiniaus g. 19, Širvintos",
+  "address": "I.Šeiniaus g. 19, Širvintos",
+  "lat": 55.038093,
+  "lon": 24.955586
+ },
+ {
+  "id": "77723",
+  "name": "Švenčionių MAXIMA paštomatas (naujas!)",
+  "country": "LT",
+  "city": "Vilniaus g. 37, Švenčionys",
+  "address": "Vilniaus g. 37, Švenčionys",
+  "lat": 55.12997,
+  "lon": 26.150541
+ }
+]
