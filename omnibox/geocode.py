@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .data import COUNTRIES, load_city_index, load_postal
+from .data import COUNTRIES, fold_place, load_city_index, load_postal
 from .fetch_data import normalize_postal
 
 
@@ -31,23 +31,30 @@ def geocode(country: str, postal_code: str | None = None, city: str | None = Non
         raise ValueError(f"unsupported country {country!r}; expected one of {COUNTRIES}")
 
     code = normalize_postal(postal_code or "")
+
+    # 1. Exact postal code — most precise and reliable.
     if code:
         table = load_postal(country)
         if code in table:
             lat, lon = table[code]
             return GeoResult(lat, lon, "postal", code)
-        # closest numeric postal code as a tolerant fallback
-        nearest = _nearest_postal(table, code)
-        if nearest is not None:
-            lat, lon = table[nearest]
-            return GeoResult(lat, lon, "postal_nearest", nearest)
 
+    # 2. City / place name — reliable when the postal code is missing or invalid.
+    #    Preferred over a numeric-nearest postal guess, which can land on the
+    #    wrong side of the country (postal numbering is not strictly geographic).
     if city:
         idx = load_city_index(country)
-        key = city.strip().lower()
+        key = fold_place(city)
         if key in idx:
             lat, lon = idx[key]
             return GeoResult(lat, lon, "city", city.strip())
+
+    # 3. Last resort: closest numeric postal code (tolerates minor typos only).
+    if code:
+        nearest = _nearest_postal(load_postal(country), code)
+        if nearest is not None:
+            lat, lon = load_postal(country)[nearest]
+            return GeoResult(lat, lon, "postal_nearest", nearest)
 
     return None
 

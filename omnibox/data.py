@@ -4,7 +4,21 @@ from __future__ import annotations
 import csv
 import json
 import os
+import unicodedata
 from functools import lru_cache
+
+
+def fold_place(name: str) -> str:
+    """Normalize a place name for matching: lowercase, strip diacritics/spaces.
+
+    'Liepāja' -> 'liepaja', 'Šiauliai' -> 'siauliai'. Lets a customer's input
+    match GeoNames place names regardless of accents.
+    """
+    if not name:
+        return ""
+    decomposed = unicodedata.normalize("NFKD", name)
+    ascii_only = "".join(c for c in decomposed if not unicodedata.combining(c))
+    return " ".join(ascii_only.strip().lower().split())
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.normpath(os.path.join(HERE, "..", "data"))
@@ -46,7 +60,7 @@ def load_city_index(country: str) -> dict[str, tuple[float, float]]:
     acc: dict[str, list[tuple[float, float]]] = {}
     with open(path, encoding="utf-8") as fh:
         for row in csv.DictReader(fh):
-            place = (row["place"] or "").strip().lower()
+            place = fold_place(row["place"] or "")
             if place:
                 acc.setdefault(place, []).append((float(row["lat"]), float(row["lon"])))
     out: dict[str, tuple[float, float]] = {}
