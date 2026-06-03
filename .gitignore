@@ -1,6 +1,10 @@
 # Large raw build inputs (re-downloaded by `python -m omnibox.fetch_data`)
 data/_raw_*
 
+# Runtime geocode cache (paid-API results), and secrets
+data/geocode_cache.json
+.env
+
 __pycache__/
 *.pyc
 .venv/

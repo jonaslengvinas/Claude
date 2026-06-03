@@ -50,6 +50,7 @@ def find_nearest(
     country: str,
     postal_code: str | None = None,
     city: str | None = None,
+    street: str | None = None,
     *,
     limit: int = 4,
     cross_border: bool = False,
@@ -58,7 +59,7 @@ def find_nearest(
 
     Returns ``None`` if the address could not be geocoded at all.
     """
-    geo = geocode(country, postal_code=postal_code, city=city)
+    geo = geocode(country, postal_code=postal_code, city=city, street=street)
     if geo is None:
         return None
 

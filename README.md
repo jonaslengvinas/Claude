@@ -57,6 +57,20 @@ LT  postal=08217  city=Vilnius
        1.32 km  Vilniaus VIADA Saltoniškių paštomatas [Saltoniškių g. 12, Vilnius]
 ```
 
+## Optional: exact street-level geocoding (paid API)
+
+Postal-code geocoding is free and accurate enough for picking a locker. If you want
+house-level precision, set a paid geocoder — it's then tried first, with the free
+method as fallback, and results are cached so each address is charged at most once.
+At ~500 orders/month this costs cents (Google ~$5/1000 ≈ $2.50/mo; Mapbox/HERE free
+tiers cover it).
+
+```bash
+export GEOCODER_PROVIDER=google   # google | here | mapbox
+export GEOCODER_API_KEY=...        # your key
+```
+No key set → the app silently uses the free postal-code geocoder.
+
 ## JSON API
 
 `app.py` exposes the exact shape a Shopify order webhook would call:

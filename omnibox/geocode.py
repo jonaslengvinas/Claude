@@ -15,20 +15,31 @@ from dataclasses import dataclass
 
 from .data import COUNTRIES, fold_place, load_city_index, load_postal
 from .fetch_data import normalize_postal
+from .geocoder_api import geocode_via_api
 
 
 @dataclass
 class GeoResult:
     lat: float
     lon: float
-    method: str  # how we resolved it: postal | postal_nearest | city
+    method: str  # how we resolved it: api | postal | postal_prefix | city
     matched: str  # what we actually matched on
 
 
-def geocode(country: str, postal_code: str | None = None, city: str | None = None) -> GeoResult | None:
+def geocode(
+    country: str,
+    postal_code: str | None = None,
+    city: str | None = None,
+    street: str | None = None,
+) -> GeoResult | None:
     country = (country or "").strip().upper()
     if country not in COUNTRIES:
         raise ValueError(f"unsupported country {country!r}; expected one of {COUNTRIES}")
+
+    # 0. Exact street-level via paid API — only if a key is configured (cached).
+    api = geocode_via_api(country, street=street, postal=postal_code, city=city)
+    if api is not None:
+        return GeoResult(api[0], api[1], "api", street or postal_code or city or "")
 
     code = normalize_postal(postal_code or "")
 

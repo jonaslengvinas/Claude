@@ -114,7 +114,13 @@ def pick_and_build(order: Order, customer_code: str, *, notify_channel: str | No
     Raises ValueError if the address can't be geocoded (caller should flag the order
     for manual handling instead of shipping it somewhere wrong).
     """
-    res = find_nearest(order.country, postal_code=order.postal_code, city=order.city, limit=1)
+    res = find_nearest(
+        order.country,
+        postal_code=order.postal_code,
+        city=order.city,
+        street=order.street,
+        limit=1,
+    )
     if res is None or not res.matches:
         raise ValueError(f"could not geocode order {order.partner_shipment_id}")
     locker = res.matches[0].locker
