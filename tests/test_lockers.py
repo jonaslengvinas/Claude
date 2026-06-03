@@ -18,13 +18,22 @@ def test_geocode_postal_lt():
     g = geocode("LT", postal_code="08217")
     assert g is not None
     assert 54.0 < g.lat < 55.5  # Vilnius region
-    assert g.method in ("postal", "postal_nearest")
+    assert g.method in ("postal", "postal_prefix")
 
 
 def test_geocode_with_country_prefix():
     g = geocode("LV", postal_code="LV-1050")
     assert g is not None
-    assert g.method in ("postal", "postal_nearest")
+    assert g.method in ("postal", "postal_prefix")
+
+
+def test_postal_prefix_fallback_stays_in_district():
+    # 04140 is absent from the free dataset; prefix '041' should keep us in SW
+    # Vilnius (Lazdynai area), NOT the generic city centre.
+    g = geocode("LT", postal_code="04140", city="Vilnius")
+    assert g is not None
+    assert g.method == "postal_prefix"
+    assert g.lat < 54.69  # south-west of the city centre
 
 
 def test_nearest_returns_same_country_only():

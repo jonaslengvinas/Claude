@@ -39,9 +39,16 @@ def geocode(country: str, postal_code: str | None = None, city: str | None = Non
             lat, lon = table[code]
             return GeoResult(lat, lon, "postal", code)
 
-    # 2. City / place name — reliable when the postal code is missing or invalid.
-    #    Preferred over a numeric-nearest postal guess, which can land on the
-    #    wrong side of the country (postal numbering is not strictly geographic).
+    # 2. Postal-code prefix — same district. Postal numbering IS hierarchical, so
+    #    codes sharing the longest prefix sit in the same area. This beats a whole-
+    #    city centroid when the exact code is missing from our (incomplete) data.
+    if code:
+        prefixed = _prefix_match(load_postal(country), code)
+        if prefixed is not None:
+            lat, lon, prefix = prefixed
+            return GeoResult(lat, lon, "postal_prefix", prefix)
+
+    # 3. City / place name — reliable fallback when we have no usable postal code.
     if city:
         idx = load_city_index(country)
         key = fold_place(city)
@@ -49,31 +56,20 @@ def geocode(country: str, postal_code: str | None = None, city: str | None = Non
             lat, lon = idx[key]
             return GeoResult(lat, lon, "city", city.strip())
 
-    # 3. Last resort: closest numeric postal code (tolerates minor typos only).
-    if code:
-        nearest = _nearest_postal(load_postal(country), code)
-        if nearest is not None:
-            lat, lon = load_postal(country)[nearest]
-            return GeoResult(lat, lon, "postal_nearest", nearest)
-
     return None
 
 
-def _nearest_postal(table: dict[str, tuple[float, float]], code: str) -> str | None:
-    """Closest postal code by numeric distance (same length, prefix-aware)."""
-    try:
-        target = int(code)
-    except ValueError:
-        return None
-    best = None
-    best_d = None
-    for k in table:
-        if len(k) != len(code):
-            continue
-        try:
-            d = abs(int(k) - target)
-        except ValueError:
-            continue
-        if best_d is None or d < best_d:
-            best, best_d = k, d
-    return best
+def _prefix_match(table: dict[str, tuple[float, float]], code: str) -> tuple[float, float, str] | None:
+    """Average the coordinates of all postal codes sharing the longest prefix.
+
+    Tries prefixes from one shorter than the full code down to 3 digits, returning
+    the most specific (longest) prefix that has any matches.
+    """
+    for plen in range(len(code) - 1, 2, -1):
+        prefix = code[:plen]
+        pts = [v for k, v in table.items() if len(k) == len(code) and k.startswith(prefix)]
+        if pts:
+            lat = sum(p[0] for p in pts) / len(pts)
+            lon = sum(p[1] for p in pts) / len(pts)
+            return lat, lon, prefix
+    return None
