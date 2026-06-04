@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <style>
+    :root { --bg:#0f1320; --card:#1a2032; --line:#2a3350; --txt:#e7ebf5; --muted:#9aa6c4;
+            --green:#37d399; --red:#ff6b6b; --amber:#ffcf5c; --accent:#5b8cff; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--txt); }
+    header { padding:18px 22px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+    header h1 { font-size:18px; margin:0; }
+    .badge { font-size:12px; padding:4px 10px; border-radius:20px; font-weight:600; }
+    .badge.test { background:rgba(255,207,92,.15); color:var(--amber); }
+    .badge.live { background:rgba(55,211,153,.15); color:var(--green); }
+    nav { display:flex; gap:6px; padding:14px 22px 0; flex-wrap:wrap; }
+    nav button { background:none; border:none; color:var(--muted); padding:10px 16px; cursor:pointer; border-radius:8px 8px 0 0; font-size:14px; }
+    nav button.active { background:var(--card); color:var(--txt); font-weight:600; }
+    main { padding:22px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; margin-bottom:16px; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th, td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--line); }
+    th { color:var(--muted); font-weight:600; position:sticky; top:0; background:var(--card); }
+    .pill { font-size:11px; padding:3px 8px; border-radius:12px; white-space:nowrap; }
+    .pill.ok { background:rgba(55,211,153,.15); color:var(--green); }
+    .pill.err { background:rgba(255,107,107,.15); color:var(--red); }
+    .pill.test { background:rgba(255,207,92,.15); color:var(--amber); }
+    button.act { background:var(--accent); color:#fff; border:none; padding:8px 14px; border-radius:8px; cursor:pointer; font-size:13px; }
+    button.act.ghost { background:transparent; border:1px solid var(--line); color:var(--txt); }
+    button.act.warn { background:transparent; border:1px solid var(--amber); color:var(--amber); }
+    input, select { width:100%; background:var(--bg); border:1px solid var(--line); color:var(--txt); padding:9px 11px; border-radius:8px; font-size:13px; }
+    label.fld { display:block; margin-bottom:14px; }
+    label.fld span { display:block; color:var(--muted); font-size:12px; margin-bottom:5px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:0 18px; }
+    h3 { margin:4px 0 14px; font-size:14px; color:var(--accent); }
+    .step { display:flex; gap:10px; padding:8px 0; border-bottom:1px solid var(--line); align-items:flex-start; }
+    .step .ico { font-size:16px; }
+    .step .d { color:var(--muted); font-size:12px; }
+    .muted { color:var(--muted); font-size:13px; }
+    .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .spin { color:var(--muted); }
+    .hidden { display:none; }
+    .toast { position:fixed; bottom:20px; right:20px; background:var(--card); border:1px solid var(--line); padding:12px 18px; border-radius:10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📦 Omnibox — Omniva pultas</h1>
+    <span id="modeBadge" class="badge test">…</span>
+    <span id="readyInfo" class="muted"></span>
+  </header>
+
+  <nav>
+    <button data-tab="orders" class="active">Užsakymai</button>
+    <button data-tab="returns">Grąžinimai</button>
+    <button data-tab="check">Patikrinimas</button>
+    <button data-tab="settings">Nustatymai</button>
+  </nav>
+
+  <main>
+    <!-- UŽSAKYMAI -->
+    <section id="tab-orders">
+      <div class="card">
+        <div class="row" style="justify-content:space-between">
+          <div class="muted" id="ordersCount">Kraunama…</div>
+          <button class="act ghost" onclick="loadData()">↻ Atnaujinti</button>
+        </div>
+      </div>
+      <div class="card" style="overflow:auto; max-height:65vh">
+        <table id="ordersTbl"><thead><tr>
+          <th>Laikas</th><th>Užsakymas</th><th>Klientas</th><th>Pastomatas</th>
+          <th>km</th><th>Tracking</th><th>Būsena</th><th></th>
+        </tr></thead><tbody></tbody></table>
+      </div>
+    </section>
+
+    <!-- GRĄŽINIMAI -->
+    <section id="tab-returns" class="hidden">
+      <div class="card muted">Užsakymai siunčiami su <b>returnAllowed</b> — klientas gali grąžinti su Omniva grąžinimo kodu. Čia pažymėk grąžintus.</div>
+      <div class="card" style="overflow:auto; max-height:65vh">
+        <table id="returnsTbl"><thead><tr>
+          <th>Užsakymas</th><th>Klientas</th><th>Tracking</th><th>Grąžinta</th><th></th>
+        </tr></thead><tbody></tbody></table>
+      </div>
+    </section>
+
+    <!-- PATIKRINIMAS -->
+    <section id="tab-check" class="hidden">
+      <div class="card">
+        <div class="row" style="justify-content:space-between">
+          <div><b>Sistemos patikra</b><div class="muted">Patikrina visą grandinę: lentelė → pastomatai → adresas → Shopify → Omniva (TEST).</div></div>
+          <button class="act" onclick="runCheck()">▶ Patikrinti</button>
+        </div>
+      </div>
+      <div class="card" id="checkResults"><div class="muted">Paspausk „Patikrinti".</div></div>
+    </section>
+
+    <!-- NUSTATYMAI -->
+    <section id="tab-settings" class="hidden">
+      <div class="card">
+        <div class="row" style="justify-content:space-between">
+          <div><b>Nustatymai</b><div class="muted">Slapti raktai nerodomi. Palikus tuščią — nekeičiama.</div></div>
+          <div class="row">
+            <button class="act ghost" onclick="genToken()">🔑 Naujas webhook token</button>
+            <button class="act" onclick="saveAll()">💾 Išsaugoti</button>
+          </div>
+        </div>
+        <div id="tokenBox"></div>
+      </div>
+      <div class="card"><div id="settingsForm" class="muted">Kraunama…</div></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+
+<script>
+  var SETTINGS = [];
+  function toast(msg) { var t=document.getElementById('toast'); t.textContent=msg; t.classList.remove('hidden'); setTimeout(function(){t.classList.add('hidden')},2500); }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];}); }
+
+  // Tabs
+  document.querySelectorAll('nav button').forEach(function(b){
+    b.onclick = function(){
+      document.querySelectorAll('nav button').forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');
+      ['orders','returns','check','settings'].forEach(function(t){
+        document.getElementById('tab-'+t).classList.toggle('hidden', t!==b.dataset.tab);
+      });
+      if (b.dataset.tab==='settings') loadSettings();
+    };
+  });
+
+  function statusPill(s){
+    s = String(s||'');
+    if (/klaida/i.test(s)) return '<span class="pill err">'+esc(s)+'</span>';
+    if (/test/i.test(s)) return '<span class="pill test">'+esc(s)+'</span>';
+    if (/įvykdyta|grąžinta/i.test(s)) return '<span class="pill ok">'+esc(s)+'</span>';
+    return '<span class="pill">'+esc(s)+'</span>';
+  }
+
+  function loadData(){
+    document.getElementById('ordersCount').textContent='Kraunama…';
+    google.script.run.withSuccessHandler(function(d){
+      // header
+      var mb=document.getElementById('modeBadge');
+      mb.textContent=d.mode; mb.className='badge '+(d.live?'live':'test');
+      document.getElementById('readyInfo').textContent=
+        'Shopify: '+(d.shopifyReady?'✅':'⚠️')+'   Omniva: '+(d.omnivaReady?'✅':'⚠️');
+      renderOrders(d.orders);
+      renderReturns(d.orders);
+    }).uiGetData();
+  }
+
+  function renderOrders(rows){
+    document.getElementById('ordersCount').textContent=rows.length+' užsakymų';
+    var tb=document.querySelector('#ordersTbl tbody'); tb.innerHTML='';
+    rows.forEach(function(o){
+      var tr=document.createElement('tr');
+      tr.innerHTML='<td>'+esc(o['Laikas'])+'</td><td>'+esc(o['Užsakymas'])+'</td><td>'+esc(o['Klientas'])+'</td>'
+        +'<td>'+esc(o['Pastomatas'])+'</td><td>'+esc(o['km'])+'</td><td>'+esc(o['Tracking'])+'</td>'
+        +'<td>'+statusPill(o['Būsena'])+'</td><td></td>';
+      tb.appendChild(tr);
+    });
+  }
+
+  function renderReturns(rows){
+    var tb=document.querySelector('#returnsTbl tbody'); tb.innerHTML='';
+    rows.forEach(function(o){
+      var tr=document.createElement('tr');
+      var ret=o['Grąžinta'];
+      tr.innerHTML='<td>'+esc(o['Užsakymas'])+'</td><td>'+esc(o['Klientas'])+'</td><td>'+esc(o['Tracking'])+'</td>'
+        +'<td>'+(ret?esc(ret):'—')+'</td><td>'
+        +(ret?'':'<button class="act warn" onclick="markRet(\''+esc(o['Užsakymas'])+'\')">Pažymėti grąžintą</button>')+'</td>';
+      tb.appendChild(tr);
+    });
+  }
+
+  function markRet(name){
+    google.script.run.withSuccessHandler(function(orders){ renderReturns(orders); renderOrders(orders); toast('Pažymėta grąžinta'); }).uiMarkReturned(name);
+  }
+
+  function runCheck(){
+    var box=document.getElementById('checkResults');
+    box.innerHTML='<div class="spin">Tikrinama… (Omniva TEST siunta gali užtrukti kelias sekundes)</div>';
+    google.script.run.withSuccessHandler(function(r){
+      var html='<h3>Režimas: '+esc(r.mode)+'</h3>';
+      r.steps.forEach(function(s){
+        var ico = s.ok?'✅':(s.warn?'⚠️':'❌');
+        html+='<div class="step"><div class="ico">'+ico+'</div><div><div>'+esc(s.name)+'</div><div class="d">'+esc(s.detail)+'</div></div></div>';
+      });
+      box.innerHTML=html;
+    }).withFailureHandler(function(e){ box.innerHTML='<div class="pill err">'+esc(e.message)+'</div>'; }).runHealthCheck();
+  }
+
+  function loadSettings(){
+    google.script.run.withSuccessHandler(function(s){
+      SETTINGS=s;
+      var groups={};
+      s.forEach(function(f){ (groups[f.group]=groups[f.group]||[]).push(f); });
+      var html='';
+      Object.keys(groups).forEach(function(g){
+        html+='<h3>'+esc(g)+'</h3><div class="grid">';
+        groups[g].forEach(function(f){
+          var ph = f.secret ? (f.isSet?'(įvesta — palik tuščią jei nekeiti)':'(neįvesta)') : '';
+          html+='<label class="fld"><span>'+esc(f.label)+'</span>'
+            +'<input id="set_'+f.key+'" placeholder="'+esc(ph)+'" value="'+(f.secret?'':esc(f.value))+'"></label>';
+        });
+        html+='</div>';
+      });
+      document.getElementById('settingsForm').innerHTML=html;
+    }).getSettingsForUi();
+  }
+
+  function saveAll(){
+    var obj={};
+    SETTINGS.forEach(function(f){
+      var v=document.getElementById('set_'+f.key).value;
+      if (f.secret && v==='') return;      // tuščio slapto nekeičiam
+      obj[f.key]=v;
+    });
+    google.script.run.withSuccessHandler(function(){ toast('Išsaugota ✅'); loadData(); }).saveSettings(obj);
+  }
+
+  function genToken(){
+    google.script.run.withSuccessHandler(function(tok){
+      document.getElementById('tokenBox').innerHTML=
+        '<div class="card" style="margin-top:14px"><div class="muted">Naujas webhook URL (įklijuok į Shopify webhook adresą):</div>'
+        +'<code style="word-break:break-all">&lt;TAVO-WEB-APP-URL&gt;?token='+esc(tok)+'</code></div>';
+      toast('Token sugeneruotas — nepamiršk perdeploy\'inti');
+    }).generateWebhookToken();
+  }
+
+  loadData();
+</script>
+</body>
+</html>

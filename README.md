@@ -1,10 +1,36 @@
-# Omnibox — nearest Omniva parcel machine finder
+# Omnibox — automatic Omniva shipping for Shopify (LT / LV / EE)
 
-Suggest the **closest Omniva parcel machine (paštomatas / pakomāts / pakiautomaat)**
-for a customer in **Lithuania, Latvia or Estonia**, based on the address they enter
-at Shopify checkout. The goal: the customer never has to pick a locker manually, so
-checkout stays frictionless and converts better — you assign / ship to the nearest
-locker afterwards.
+Pick the **closest Omniva parcel machine (paštomatas / pakomāts / pakiautomaat)** for
+each order, create the Omniva shipment, write the tracking code back to Shopify, and
+let your invoice app (Print Order Pro) email the customer — all automatically, with no
+manual locker step at checkout.
+
+## 🚀 Production app (v1) — Google Apps Script
+
+The deployable product lives in **[`apps_script/`](apps_script/)** and runs free on
+Google Apps Script + Google Sheets. Full chain on `orders/paid`:
+
+```
+order paid → nearest locker → create Omniva shipment (tracking)
+          → write tracking + locker into the Shopify order (fulfilled)
+          → Print Order Pro emails the customer (invoice + tracking)
+```
+
+It includes a web **dashboard** (orders, returns, settings, one-click health check),
+a **TEST/LIVE** switch, and a secret-token webhook. Setup:
+**[`apps_script/DIEGIMAS.md`](apps_script/DIEGIMAS.md)** (in Lithuanian).
+
+The Python code below is the **local prototype / dataset tooling** behind the same
+locker-finding logic (handy for testing and rebuilding the locker dataset).
+
+---
+
+## Nearest parcel machine finder (Python prototype)
+
+Suggest the **closest Omniva parcel machine** for a customer in **Lithuania, Latvia or
+Estonia**, based on the address they enter at Shopify checkout. The goal: the customer
+never has to pick a locker manually, so checkout stays frictionless and converts
+better — you assign / ship to the nearest locker afterwards.
 
 ## How it works
 

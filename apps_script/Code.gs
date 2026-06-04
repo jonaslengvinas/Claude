@@ -1,170 +1,157 @@
 /**
- * Omnibox – artimiausio Omniva pastomato parinkimas (LT / LV / EE).
- * Google Apps Script versija: deploy'inama kaip Web App, pasiekiama internetu.
+ * Code.gs — pagrindinis įėjimo taškas.
  *
- * Ką daro:
- *   - doGet  : testavimui naršyklėje (?country=LT&postal=08217&city=Vilnius)
- *   - doPost : priima Shopify "Order creation" webhook'ą, parenka pastomatą,
- *              įrašo į Google lentelę. (Omniva lipduką prijungsim vėliau.)
+ *   doGet  : be parametrų  -> rodo dashboard'ą (HTML)
+ *            su ?country=  -> greitas pastomato testas (JSON)
+ *   doPost : Shopify "Order payment" (orders/paid) webhook'as ->
+ *            parenka pastomatą, sukuria Omniva siuntą, įrašo tracking į Shopify
+ *            (kad Print Order Pro išsiųstų laišką), užregistruoja į lentelę.
  *
- * Geokodavimas – nemokamas Nominatim (OpenStreetMap). Iki ~1000 orderių/mėn pakanka.
+ * Srautas pasirinktas: TRIGERIS = po apmokėjimo; LAIŠKAS = per Print Order Pro.
  */
 
-// Omniva pastomatų sąrašas (veikia be raktų). Gamyboje galima keisti į gyvą
-// "https://www.omniva.lt/locations.json".
-var LOCKERS_URL =
-  'https://raw.githubusercontent.com/mijora/omniva-prestahop-1.7/master/locations.json';
-var COUNTRIES = ['LT', 'LV', 'EE'];
-
-/** Testavimas naršyklėje: <WebAppURL>?country=LT&postal=08217&city=Vilnius */
+/** GET: dashboard arba greitas testas. */
 function doGet(e) {
   var p = (e && e.parameter) || {};
-  if (!p.country) {
-    return _json({
-      usage: 'Pridėk ?country=LT&postal=08217&city=Vilnius (arba &street=...)',
-    });
+  if (p.country) {
+    var query = [p.street, p.postal, p.city].filter(Boolean).join(', ');
+    return _json(findNearest(p.country, query, Number(p.limit || 3)));
   }
-  var query = [p.street, p.postal, p.city].filter(Boolean).join(', ');
-  return _json(findNearest(p.country, query, Number(p.limit || 3)));
+  return HtmlService.createTemplateFromFile('Dashboard')
+    .evaluate()
+    .setTitle('Omnibox — Omniva pultas')
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1');
 }
 
-/** Shopify "Order creation" webhook'as ateina čia. */
+/** Įgalina include() HTML šablone (jei prireiktų dalių). */
+function include(name) {
+  return HtmlService.createHtmlOutputFromFile(name).getContent();
+}
+
+/** POST: Shopify webhook'as. */
 function doPost(e) {
-  var order = JSON.parse(e.postData.contents);
-  var a = order.shipping_address || {};
-  var country = (a.country_code || '').toUpperCase();
-  var query = [a.address1, a.zip, a.city, country].filter(Boolean).join(', ');
-
-  var res = findNearest(country, query, 3);
-  logToSheet(order, res);
-
-  // VĖLIAU (kai turėsi Omniva raktus): užregistruoti siuntą su res.lockers[0].id
-  // ir išsiųsti klientui tracking numerį.
-
-  return _json({ ok: true, locker: (res.lockers && res.lockers[0]) || null });
-}
-
-/** Pagrindinė logika: adresas -> koordinatės -> artimiausi pastomatai. */
-function findNearest(country, query, limit) {
-  country = (country || '').toUpperCase();
-  if (COUNTRIES.indexOf(country) < 0) return { error: 'unsupported country ' + country };
-
-  var coords = geocode(query, country);
-  if (!coords) return { error: 'could not geocode', query: query };
-
-  var lockers = getLockers(country);
-  lockers.forEach(function (l) {
-    l.distance_km = round2(haversine(coords.lat, coords.lon, l.lat, l.lon));
-  });
-  lockers.sort(function (x, y) {
-    return x.distance_km - y.distance_km;
-  });
-  return { geocode: coords, lockers: lockers.slice(0, limit || 3) };
-}
-
-/** Adresas -> {lat, lon} per Nominatim (nemokamai). */
-function geocode(query, country) {
-  var url =
-    'https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=' +
-    country.toLowerCase() +
-    '&q=' +
-    encodeURIComponent(query);
-  var resp = UrlFetchApp.fetch(url, {
-    headers: { 'User-Agent': 'omnibox-locker-finder/1.0 (Omniva app)' },
-    muteHttpExceptions: true,
-  });
-  if (resp.getResponseCode() !== 200) return null;
-  var data = JSON.parse(resp.getContentText());
-  if (!data || !data.length) return null;
-  return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
-}
-
-/** Pastomatai vienai šaliai (parsiunčiama ir laikoma talpykloje 6 val.). */
-function getLockers(country) {
-  var cache = CacheService.getScriptCache();
-  var key = 'lockers_' + country;
-  var cached = cache.get(key);
-  if (cached) return JSON.parse(cached);
-
-  var raw = JSON.parse(UrlFetchApp.fetch(LOCKERS_URL).getContentText());
-  var out = [];
-  raw.forEach(function (r) {
-    if (r.A0_NAME !== country) return;
-    if (String(r.TYPE) !== '0') return; // 0 = pastomatas, 1 = paštas
-    var lon = parseFloat(r.X_COORDINATE),
-      lat = parseFloat(r.Y_COORDINATE);
-    if (isNaN(lat) || isNaN(lon)) return;
-    var street = [r.A5_NAME, r.A7_NAME]
-      .filter(function (x) {
-        return x && x !== 'NULL';
-      })
-      .join(' ');
-    var city = r.A3_NAME && r.A3_NAME !== 'NULL' ? r.A3_NAME : r.A2_NAME || '';
-    out.push({
-      id: r.ZIP, // == Omniva offloadPostcode (reikės lipdukui)
-      name: r.NAME,
-      country: r.A0_NAME,
-      city: city,
-      address: [street, city].filter(Boolean).join(', '),
-      lat: lat,
-      lon: lon,
-    });
-  });
-  cache.put(key, JSON.stringify(out), 21600); // 6 val.
-  return out;
-}
-
-/** Atstumas tarp dviejų taškų (km). */
-function haversine(lat1, lon1, lat2, lon2) {
-  var R = 6371.0088;
-  var toRad = function (d) {
-    return (d * Math.PI) / 180;
-  };
-  var dLat = toRad(lat2 - lat1),
-    dLon = toRad(lon2 - lon1);
-  var a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  return 2 * R * Math.asin(Math.sqrt(a));
-}
-
-/** Įrašo užsakymą + priskirtą pastomatą į "Orders" lentelę (jei script susietas su Sheet). */
-function logToSheet(order, res) {
-  try {
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    if (!ss) return;
-    var s = ss.getSheetByName('Orders') || ss.insertSheet('Orders');
-    if (s.getLastRow() === 0) {
-      s.appendRow(['Laikas', 'Užsakymas', 'Klientas', 'Adresas', 'Pastomatas', 'Pastomato ID', 'km']);
-    }
-    var a = order.shipping_address || {};
-    var l = (res.lockers && res.lockers[0]) || {};
-    s.appendRow([
-      new Date(),
-      order.name || order.id || '',
-      a.name || '',
-      [a.address1, a.zip, a.city].filter(Boolean).join(', '),
-      l.name || '',
-      l.id || '',
-      l.distance_km || '',
-    ]);
-  } catch (err) {
-    // jei script nesusietas su lentele – tiesiog praleidžiam
+  // 1. Apsauga — slaptas token URL'e (?token=...), nes Apps Script nemato antraščių.
+  var token = (e && e.parameter && e.parameter.token) || '';
+  if (!cfg('WEBHOOK_TOKEN') || token !== cfg('WEBHOOK_TOKEN')) {
+    return _json({ ok: false, error: 'neteisingas arba trūkstamas token' });
   }
+
+  var order;
+  try {
+    order = JSON.parse(e.postData.contents);
+  } catch (err) {
+    return _json({ ok: false, error: 'blogas JSON' });
+  }
+
+  var result = processOrder(order);
+  return _json(result);
+}
+
+/**
+ * Visa grandinė vienam užsakymui. Naudojama ir webhook'o, ir rankinio
+ * "perdaryti" mygtuko dashboard'e.
+ */
+function processOrder(order) {
+  var a = order.shipping_address || {};
+  var country = (a.country_code || cfg('SENDER_COUNTRY') || '').toUpperCase();
+  var address = [a.address1, a.zip, a.city].filter(Boolean).join(', ');
+  var orderName = order.name || String(order.id || '');
+
+  // Bazinis įrašas į lentelę (kad matytųsi net jei toliau įvyks klaida).
+  var rec = {
+    order: orderName,
+    customer: a.name || (order.customer && (order.customer.first_name + ' ' + order.customer.last_name)) || '',
+    email: order.email || (order.customer && order.customer.email) || '',
+    phone: a.phone || order.phone || '',
+    country: country,
+    address: address,
+    status: 'Apdorojama',
+  };
+
+  try {
+    // 2. Parenkam pastomatą: jei klientas pasirinko checkout'e — gerbiam jį;
+    //    kitaip — artimiausias pagal adresą.
+    var locker = resolveLocker(order, country, address);
+    if (!locker) {
+      rec.status = 'KLAIDA: nerastas pastomatas';
+      rec.notes = 'Nepavyko nustatyti adreso koordinačių. Apdoroti rankiniu būdu.';
+      upsertOrder(rec);
+      return { ok: false, error: rec.notes, order: orderName };
+    }
+    rec.locker = locker.name;
+    rec.lockerId = locker.id;
+    rec.km = locker.distance_km || '';
+
+    // 3. Sukuriam Omniva siuntą (jei LIVE ir yra raktai). TEST režime — imituojam.
+    var barcode, simulated = false;
+    if (isLive() && omnivaReady()) {
+      var ship = registerShipment(toOmnivaOrder(order, rec, country), locker);
+      barcode = ship.barcode;
+    } else {
+      simulated = true;
+      barcode = 'TEST' + (order.id || Date.now());
+    }
+    rec.tracking = barcode;
+
+    // 4. Įrašom pastomatą + tracking į Shopify, pažymim fulfilled
+    //    -> Print Order Pro išsiunčia laišką su sąskaita + tracking.
+    var shopifyMsg = '';
+    if (shopifyReady() && order.id) {
+      try {
+        addLockerToOrder(order.id, locker.name + ' (' + locker.address + ')');
+        if (!simulated || String(cfg('MODE')).toUpperCase() === 'LIVE') {
+          fulfillOrderWithTracking(order.id, barcode, trackingUrl(barcode));
+        }
+      } catch (sErr) {
+        shopifyMsg = ' | Shopify: ' + sErr.message;
+      }
+    } else {
+      shopifyMsg = ' | Shopify praleista (nėra raktų arba order.id)';
+    }
+
+    rec.status = simulated ? 'TEST (imituota)' : 'Įvykdyta';
+    rec.notes = (simulated ? 'TEST režimas — reali siunta nesukurta.' : 'Siunta sukurta, tracking įrašytas.') + shopifyMsg;
+    upsertOrder(rec);
+
+    return { ok: true, order: orderName, locker: locker, tracking: barcode, simulated: simulated };
+  } catch (err) {
+    rec.status = 'KLAIDA';
+    rec.notes = String(err.message || err);
+    upsertOrder(rec);
+    return { ok: false, error: rec.notes, order: orderName };
+  }
+}
+
+/** Pastomato parinkimas: kliento pasirinkimas > artimiausias pagal adresą. */
+function resolveLocker(order, country, address) {
+  var chosen = lockerFromOrder(order);
+  if (chosen && chosen.raw) {
+    // bandom rasti pagal ID skaičių tekste, kitaip naudojam tekstą kaip vardą
+    var m = String(chosen.raw).match(/\b(\d{4,6})\b/);
+    if (m) {
+      var byId = lockerById(country, m[1]);
+      if (byId) return byId;
+    }
+    // jei tik pavadinimas — vis tiek imam artimiausią, bet pažymim pasirinkimą
+  }
+  var res = findNearest(country, address, 1);
+  if (res.error || !res.lockers || !res.lockers.length) return null;
+  return res.lockers[0];
+}
+
+/** Paruošia Omniva.gs reikalingą order objektą. */
+function toOmnivaOrder(order, rec, country) {
+  return {
+    partner_shipment_id: rec.order,
+    name: rec.customer,
+    email: rec.email,
+    phone: rec.phone,
+    country: country,
+  };
 }
 
 function _json(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj, null, 2)).setMimeType(
     ContentService.MimeType.JSON
   );
-}
-
-function round2(n) {
-  return Math.round(n * 100) / 100;
-}
-
-/** Paleisk ŠITĄ rankiniu būdu redaktoriuje (mygtukas Run), kad pasitestuotum. */
-function test() {
-  Logger.log(JSON.stringify(findNearest('LT', 'Gedimino pr. 9, 01103, Vilnius', 3), null, 2));
-  Logger.log(JSON.stringify(findNearest('LV', 'Ganību iela 69, Liepāja', 3), null, 2));
 }

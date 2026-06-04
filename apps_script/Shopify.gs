@@ -1,0 +1,116 @@
+/**
+ * Shopify.gs — Shopify Admin API.
+ *
+ * Pagrindinis tikslas (pagal pasirinktą srautą): įrašyti Omniva tracking kodą +
+ * pastomatą į užsakymą ir pažymėti "fulfilled". Tada Print Order Pro automatiškai
+ * išsiunčia klientui laišką su sąskaita + tracking. Atskiro laiško nesiunčiam.
+ *
+ * Veiksmai:
+ *   addLockerToOrder(orderId, lockerName)  -> įrašo pastomatą į note_attributes
+ *   fulfillOrderWithTracking(...)          -> sukuria fulfillment su tracking
+ */
+
+var SHOPIFY_API_VERSION = '2024-10';
+
+function shopifyBase() {
+  return 'https://' + cfg('SHOPIFY_SHOP') + '/admin/api/' + SHOPIFY_API_VERSION;
+}
+
+/** Bendras kvietimas į Shopify Admin API. */
+function shopifyFetch(method, path, body) {
+  if (!shopifyReady()) throw new Error('Trūksta Shopify raktų (SHOPIFY_SHOP / ADMIN_TOKEN).');
+  var opts = {
+    method: method,
+    contentType: 'application/json',
+    headers: { 'X-Shopify-Access-Token': cfg('SHOPIFY_ADMIN_TOKEN') },
+    muteHttpExceptions: true,
+  };
+  if (body) opts.payload = JSON.stringify(body);
+  var resp = UrlFetchApp.fetch(shopifyBase() + path, opts);
+  var code = resp.getResponseCode();
+  var text = resp.getContentText();
+  if (code < 200 || code >= 300) {
+    throw new Error('Shopify API klaida (' + code + '): ' + text);
+  }
+  return text ? JSON.parse(text) : {};
+}
+
+/** Įrašo pastomato pavadinimą į užsakymo note_attributes (Print Order Pro gali rodyti). */
+function addLockerToOrder(orderId, lockerName) {
+  var field = cfg('LOCKER_NOTE_FIELD') || 'Paštomatas';
+  // Pasiimam esamus note_attributes, kad neperrašytume kitų.
+  var existing = shopifyFetch('get', '/orders/' + orderId + '.json?fields=note_attributes').order || {};
+  var attrs = existing.note_attributes || [];
+  var found = false;
+  attrs.forEach(function (a) {
+    if (a.name === field) {
+      a.value = lockerName;
+      found = true;
+    }
+  });
+  if (!found) attrs.push({ name: field, value: lockerName });
+
+  return shopifyFetch('put', '/orders/' + orderId + '.json', {
+    order: { id: orderId, note_attributes: attrs },
+  });
+}
+
+/** Užsakymo fulfillment orders (jų reikia, kad galėtume kurti fulfillment). */
+function getFulfillmentOrders(orderId) {
+  var res = shopifyFetch('get', '/orders/' + orderId + '/fulfillment_orders.json');
+  return res.fulfillment_orders || [];
+}
+
+/**
+ * Sukuria fulfillment su Omniva tracking. notify_customer pagal nustatymą
+ * (numatyta false — laišką siunčia Print Order Pro, ne Shopify).
+ */
+function fulfillOrderWithTracking(orderId, barcode, trackUrl) {
+  var fos = getFulfillmentOrders(orderId);
+  var open = fos.filter(function (f) {
+    return f.status === 'open' || f.status === 'in_progress';
+  });
+  if (!open.length) throw new Error('Užsakymas neturi atvirų fulfillment orders (gal jau įvykdytas?).');
+
+  var notify = String(cfg('NOTIFY_CUSTOMER')).toLowerCase() === 'true';
+  var body = {
+    fulfillment: {
+      notify_customer: notify,
+      tracking_info: { number: barcode, company: 'Omniva', url: trackUrl },
+      line_items_by_fulfillment_order: open.map(function (f) {
+        return { fulfillment_order_id: f.id };
+      }),
+    },
+  };
+  return shopifyFetch('post', '/fulfillments.json', body);
+}
+
+/**
+ * Ištraukia kliento pasirinktą pastomatą iš užsakymo, jei toks yra
+ * (note_attributes arba line item properties). Grąžina {id, name} arba null.
+ */
+function lockerFromOrder(order) {
+  var field = (cfg('LOCKER_NOTE_FIELD') || 'Paštomatas').toLowerCase();
+  var candidates = [];
+
+  (order.note_attributes || []).forEach(function (a) {
+    candidates.push({ name: (a.name || '').toLowerCase(), value: a.value });
+  });
+  (order.line_items || []).forEach(function (li) {
+    (li.properties || []).forEach(function (p) {
+      candidates.push({ name: (p.name || '').toLowerCase(), value: p.value });
+    });
+  });
+
+  for (var i = 0; i < candidates.length; i++) {
+    var c = candidates[i];
+    if (!c.value) continue;
+    // ieškom lauko, kuriame minimas pastomatas / locker / omniva
+    if (c.name.indexOf(field) >= 0 || c.name.indexOf('locker') >= 0 ||
+        c.name.indexOf('omniva') >= 0 || c.name.indexOf('pastomat') >= 0 ||
+        c.name.indexOf('paštomat') >= 0) {
+      return { raw: c.value };
+    }
+  }
+  return null;
+}
