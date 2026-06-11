@@ -10,6 +10,7 @@ var HEADERS = [
   'Laikas', 'Užsakymas', 'Klientas', 'El. paštas', 'Telefonas',
   'Šalis', 'Adresas', 'Pastomatas', 'Pastomato ID', 'km',
   'Tracking', 'Būsena', 'Grąžinta', 'Pastabos',
+  'Lipdukas', 'Alt pastomatai', 'OrderID',
 ];
 
 function _sheet() {
@@ -55,6 +56,9 @@ function upsertOrder(rec) {
     rec.status || '',
     rec.returned || '',
     rec.notes || '',
+    rec.label || '',
+    rec.alt || '',
+    rec.orderId || '',
   ];
   var existing = _findRow(s, rec.order);
   if (existing) {
@@ -73,6 +77,35 @@ function updateOrderStatus(orderName, status, notes) {
   if (status != null) s.getRange(row, 12).setValue(status); // Būsena
   if (notes != null) s.getRange(row, 14).setValue(notes); // Pastabos
   return true;
+}
+
+/** Įrašo lipduko Drive nuorodą (stulpelis "Lipdukas" = 15). */
+function setLabelUrl(orderName, url) {
+  var s = _sheet();
+  var row = _findRow(s, orderName);
+  if (!row) return false;
+  s.getRange(row, 15).setValue(url);
+  return true;
+}
+
+/** Įrašo naują tracking (stulpelis 11) ir būseną — naudojama perdarant. */
+function setTracking(orderName, barcode) {
+  var s = _sheet();
+  var row = _findRow(s, orderName);
+  if (!row) return false;
+  s.getRange(row, 11).setValue(barcode);
+  return true;
+}
+
+/** Grąžina vieno užsakymo eilutę kaip objektą (ui veiksmams). */
+function getOrder(orderName) {
+  var s = _sheet();
+  var row = _findRow(s, orderName);
+  if (!row) return null;
+  var vals = s.getRange(row, 1, 1, HEADERS.length).getValues()[0];
+  var o = {};
+  HEADERS.forEach(function (h, i) { o[h] = vals[i]; });
+  return o;
 }
 
 /** Pažymi užsakymą kaip grąžintą (grąžinimų skiltis). */

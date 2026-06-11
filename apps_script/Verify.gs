@@ -96,6 +96,98 @@ function uiReprocessOrder(orderId) {
   return processOrder(order);
 }
 
+// ---------------------------------------------------------------------------
+// Rankiniai veiksmai dashboard'e (lipdukas, pastomato keitimas, tel. keitimas)
+// ---------------------------------------------------------------------------
+
+/** Pagal lentelės eilutę paruošia Omniva order objektą. */
+function rowToOmnivaOrder(o, phoneOverride) {
+  return {
+    partner_shipment_id: o['Užsakymas'],
+    name: o['Klientas'],
+    email: o['El. paštas'],
+    phone: phoneOverride || o['Telefonas'],
+    country: o['Šalis'],
+  };
+}
+
+/** Sugeneruoja (arba persiunčia) lipduką ir įrašo Drive nuorodą. */
+function uiGenerateLabel(orderName) {
+  var o = getOrder(orderName);
+  if (!o) throw new Error('Užsakymas nerastas: ' + orderName);
+  var barcode = o['Tracking'];
+  if (!barcode || String(barcode).indexOf('TEST') === 0) {
+    throw new Error('Nėra realaus tracking — pirma sukurk siuntą (LIVE arba su Omniva raktais).');
+  }
+  var url = generateAndStoreLabel(barcode, cfg('LABEL_TO_EMAIL') || null);
+  if (url) setLabelUrl(orderName, url);
+  return { ok: true, label: url, orders: listOrders(200) };
+}
+
+/** Grąžina 3 artimiausius pastomatus perparinkimui. */
+function uiGetNearest(orderName) {
+  var o = getOrder(orderName);
+  if (!o) throw new Error('Užsakymas nerastas');
+  var near = findNearest(o['Šalis'], o['Adresas'], 3);
+  return (near.lockers || []).map(function (l) {
+    return { id: l.id, name: l.name, address: l.address, km: l.distance_km };
+  });
+}
+
+/** Perparenka pastomatą jau sukurtai siuntai (changeLocker) ir pergeneruoja lipduką. */
+function uiReassignLocker(orderName, lockerId) {
+  var o = getOrder(orderName);
+  if (!o) throw new Error('Užsakymas nerastas');
+  var locker = lockerById(o['Šalis'], lockerId);
+  if (!locker) throw new Error('Pastomatas nerastas: ' + lockerId);
+
+  var barcode = o['Tracking'];
+  var note = '';
+  if (omnivaReady() && barcode && String(barcode).indexOf('TEST') !== 0) {
+    changeLocker(barcode, rowToOmnivaOrder(o), locker); // tas pats barcode, naujas pastomatas
+    try { var url = generateAndStoreLabel(barcode, cfg('LABEL_TO_EMAIL') || null); if (url) setLabelUrl(orderName, url); }
+    catch (e) { note = ' (lipduko pergeneruoti nepavyko: ' + e.message + ')'; }
+  } else {
+    note = ' (TEST — Omniva siunta nekeista)';
+  }
+  if (isLive() && shopifyReady() && o['OrderID']) {
+    try { addLockerToOrder(o['OrderID'], locker.name + ' (' + locker.address + ')'); } catch (e) {}
+  }
+  upsertOrder(Object.assign(rowToRec(o), { locker: locker.name, lockerId: locker.id, km: locker.distance_km,
+    notes: 'Pastomatas pakeistas į ' + locker.name + note }));
+  return { ok: true, orders: listOrders(200) };
+}
+
+/** Keičia kliento telefoną ir perdaro siuntą/lipduką su nauju numeriu. */
+function uiUpdatePhone(orderName, newPhone) {
+  var o = getOrder(orderName);
+  if (!o) throw new Error('Užsakymas nerastas');
+  var phone = normalizePhone(newPhone, o['Šalis']);
+  if (!phone) throw new Error('Tuščias telefonas');
+
+  var barcode = o['Tracking'];
+  var locker = lockerById(o['Šalis'], o['Pastomato ID']);
+  if (omnivaReady() && barcode && String(barcode).indexOf('TEST') !== 0 && locker) {
+    changeLocker(barcode, rowToOmnivaOrder(o, phone), locker); // pakeičia receiver (telefoną), tas pats barcode
+    try { var url = generateAndStoreLabel(barcode, cfg('LABEL_TO_EMAIL') || null); if (url) setLabelUrl(orderName, url); } catch (e) {}
+  }
+  if (isLive() && shopifyReady() && o['OrderID']) {
+    try { shopifyFetch('put', '/orders/' + o['OrderID'] + '.json', { order: { id: o['OrderID'], phone: phone } }); } catch (e) {}
+  }
+  upsertOrder(Object.assign(rowToRec(o), { phone: phone, notes: 'Telefonas pakeistas, lipdukas pergeneruotas. Tracking nepakito: ' + barcode }));
+  return { ok: true, phone: phone, orders: listOrders(200) };
+}
+
+/** Lentelės eilutę paverčia rec objektu (upsert atnaujinimui). */
+function rowToRec(o) {
+  return {
+    order: o['Užsakymas'], orderId: o['OrderID'], customer: o['Klientas'], email: o['El. paštas'],
+    phone: o['Telefonas'], country: o['Šalis'], address: o['Adresas'], locker: o['Pastomatas'],
+    lockerId: o['Pastomato ID'], km: o['km'], tracking: o['Tracking'], status: o['Būsena'],
+    returned: o['Grąžinta'], label: o['Lipdukas'], alt: o['Alt pastomatai'], time: o['Laikas'],
+  };
+}
+
 /** Dashboard'o duomenys vienu kvietimu. */
 function uiGetData() {
   return {

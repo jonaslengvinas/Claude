@@ -29,6 +29,11 @@ var SETTINGS_KEYS = [
   { key: 'OMNIVA_AGENT_ID', label: 'Omniva X-Integration-Agent-Id (jei turi)', secret: false, group: 'Omniva' },
   { key: 'TRACKING_URL_TEMPLATE', label: 'Tracking nuorodos šablonas ({barcode})', secret: false, group: 'Omniva' },
 
+  // Lipdukai / Drive
+  { key: 'DRIVE_FOLDER', label: 'Google Drive aplankas lipdukams', secret: false, group: 'Lipdukai' },
+  { key: 'LABEL_TO_EMAIL', label: 'Lipduką siųsti el. paštu (palik tuščią = saugot į Drive)', secret: false, group: 'Lipdukai' },
+  { key: 'RETURN_DAYS', label: 'Grąžinimo terminas dienomis (pvz. 14)', secret: false, group: 'Lipdukai' },
+
   // Siuntėjo (tavo) adresas — Omniva to reikalauja siuntai
   { key: 'SENDER_NAME', label: 'Siuntėjo vardas / įmonė', secret: false, group: 'Siuntėjas' },
   { key: 'SENDER_PHONE', label: 'Siuntėjo telefonas (su šalies prefiksu, pvz. +37060000000)', secret: false, group: 'Siuntėjas' },
@@ -46,6 +51,8 @@ var DEFAULTS = {
   LOCKER_NOTE_FIELD: 'Paštomatas',
   TRACKING_URL_TEMPLATE: 'https://www.omniva.lt/private/track_and_trace?barcode={barcode}',
   SENDER_COUNTRY: 'LT',
+  DRIVE_FOLDER: 'Omniva lipdukai',
+  RETURN_DAYS: '14',
 };
 
 function _props() {

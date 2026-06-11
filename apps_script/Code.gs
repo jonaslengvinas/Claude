@@ -50,70 +50,90 @@ function doPost(e) {
 /**
  * Visa grandinė vienam užsakymui. Naudojama ir webhook'o, ir rankinio
  * "perdaryti" mygtuko dashboard'e.
+ *
+ * SVARBU dėl lygiagretaus darbo su Parcely:
+ *   - LIVE režime rašom į Shopify (fulfillment + tracking) ir kuriam realią siuntą.
+ *   - TEST režime veikiam kaip ŠEŠĖLIS: parenkam pastomatą, kuriam TEST siuntą,
+ *     įrašom į lentelę/Drive, bet REALAUS užsakymo NELIEČIAM (kad nesidubliuotų
+ *     su Parcely). Į Shopify rašom tik LIVE.
  */
 function processOrder(order) {
   var a = order.shipping_address || {};
   var country = (a.country_code || cfg('SENDER_COUNTRY') || '').toUpperCase();
   var address = [a.address1, a.zip, a.city].filter(Boolean).join(', ');
   var orderName = order.name || String(order.id || '');
+  var phone = normalizePhone(a.phone || order.phone || '', country);
 
-  // Bazinis įrašas į lentelę (kad matytųsi net jei toliau įvyks klaida).
   var rec = {
     order: orderName,
+    orderId: order.id || '',
     customer: a.name || (order.customer && (order.customer.first_name + ' ' + order.customer.last_name)) || '',
     email: order.email || (order.customer && order.customer.email) || '',
-    phone: a.phone || order.phone || '',
+    phone: phone,
     country: country,
     address: address,
     status: 'Apdorojama',
   };
 
   try {
-    // 2. Parenkam pastomatą: jei klientas pasirinko checkout'e — gerbiam jį;
-    //    kitaip — artimiausias pagal adresą.
-    var locker = resolveLocker(order, country, address);
-    if (!locker) {
+    // 2. Vienu geokodavimu gaunam 3 artimiausius pastomatus.
+    var near = findNearest(country, address, 3);
+    if (near.error || !near.lockers || !near.lockers.length) {
       rec.status = 'KLAIDA: nerastas pastomatas';
-      rec.notes = 'Nepavyko nustatyti adreso koordinačių. Apdoroti rankiniu būdu.';
+      rec.notes = near.error || 'Nepavyko nustatyti adreso koordinačių. Apdoroti rankiniu būdu.';
       upsertOrder(rec);
       return { ok: false, error: rec.notes, order: orderName };
     }
+    var locker = pickLocker(order, country, near.lockers);
     rec.locker = locker.name;
     rec.lockerId = locker.id;
     rec.km = locker.distance_km || '';
+    rec.alt = near.lockers.map(function (l) { return l.name + ' (' + l.distance_km + ' km)'; }).join('  |  ');
 
-    // 3. Sukuriam Omniva siuntą (jei LIVE ir yra raktai). TEST režime — imituojam.
+    // 3. Siunta: LIVE -> reali Omniva siunta; kitu atveju TEST/imitacija.
     var barcode, simulated = false;
     if (isLive() && omnivaReady()) {
-      var ship = registerShipment(toOmnivaOrder(order, rec, country), locker);
+      var ship = registerShipment(toOmnivaOrder(rec, country, phone), locker);
       barcode = ship.barcode;
+    } else if (omnivaReady()) {
+      // TEST aplinkoje sukuriam realų TEST barcode (patikrinam, kad veikia)
+      var t = registerShipment(toOmnivaOrder(rec, country, phone), locker);
+      barcode = t.barcode;
+      simulated = true;
     } else {
       simulated = true;
       barcode = 'TEST' + (order.id || Date.now());
     }
     rec.tracking = barcode;
 
-    // 4. Įrašom pastomatą + tracking į Shopify, pažymim fulfilled
-    //    -> Print Order Pro išsiunčia laišką su sąskaita + tracking.
+    // 4. Lipdukas -> Google Drive (arba el. paštu, jei nustatyta).
+    if (omnivaReady() && barcode && String(barcode).indexOf('TEST') !== 0) {
+      try {
+        rec.label = generateAndStoreLabel(barcode, cfg('LABEL_TO_EMAIL') || null);
+      } catch (lErr) {
+        rec.notes = 'Lipdukas: ' + lErr.message;
+      }
+    }
+
+    // 5. Į Shopify rašom TIK LIVE (kad nesidubliuotų su Parcely).
     var shopifyMsg = '';
-    if (shopifyReady() && order.id) {
+    if (isLive() && shopifyReady() && order.id) {
       try {
         addLockerToOrder(order.id, locker.name + ' (' + locker.address + ')');
-        if (!simulated || String(cfg('MODE')).toUpperCase() === 'LIVE') {
-          fulfillOrderWithTracking(order.id, barcode, trackingUrl(barcode));
-        }
+        fulfillOrderWithTracking(order.id, barcode, trackingUrl(barcode));
       } catch (sErr) {
         shopifyMsg = ' | Shopify: ' + sErr.message;
       }
-    } else {
-      shopifyMsg = ' | Shopify praleista (nėra raktų arba order.id)';
+    } else if (!isLive()) {
+      shopifyMsg = ' | TEST šešėlis: Shopify neliestas (Parcely tvarko realų užsakymą)';
     }
 
-    rec.status = simulated ? 'TEST (imituota)' : 'Įvykdyta';
-    rec.notes = (simulated ? 'TEST režimas — reali siunta nesukurta.' : 'Siunta sukurta, tracking įrašytas.') + shopifyMsg;
+    rec.status = simulated ? 'TEST' : 'Įvykdyta';
+    rec.notes = (rec.notes ? rec.notes + ' | ' : '') +
+      (simulated ? 'TEST režimas.' : 'Siunta + lipdukas sukurti.') + shopifyMsg;
     upsertOrder(rec);
 
-    return { ok: true, order: orderName, locker: locker, tracking: barcode, simulated: simulated };
+    return { ok: true, order: orderName, locker: locker, tracking: barcode, label: rec.label || '', simulated: simulated };
   } catch (err) {
     rec.status = 'KLAIDA';
     rec.notes = String(err.message || err);
@@ -122,32 +142,48 @@ function processOrder(order) {
   }
 }
 
-/** Pastomato parinkimas: kliento pasirinkimas > artimiausias pagal adresą. */
-function resolveLocker(order, country, address) {
+/** Pastomato parinkimas: kliento pasirinkimas (jei yra) > artimiausias. */
+function pickLocker(order, country, nearLockers) {
   var chosen = lockerFromOrder(order);
   if (chosen && chosen.raw) {
-    // bandom rasti pagal ID skaičių tekste, kitaip naudojam tekstą kaip vardą
     var m = String(chosen.raw).match(/\b(\d{4,6})\b/);
     if (m) {
       var byId = lockerById(country, m[1]);
       if (byId) return byId;
     }
-    // jei tik pavadinimas — vis tiek imam artimiausią, bet pažymim pasirinkimą
   }
-  var res = findNearest(country, address, 1);
-  if (res.error || !res.lockers || !res.lockers.length) return null;
-  return res.lockers[0];
+  return nearLockers[0];
 }
 
 /** Paruošia Omniva.gs reikalingą order objektą. */
-function toOmnivaOrder(order, rec, country) {
+function toOmnivaOrder(rec, country, phone) {
   return {
     partner_shipment_id: rec.order,
     name: rec.customer,
     email: rec.email,
-    phone: rec.phone,
+    phone: phone || rec.phone,
     country: country,
   };
+}
+
+/**
+ * Telefono normalizacija Omniva validacijai (reikia šalies prefikso; Baltijos
+ * šalims neleidžiami fiksuoto ryšio numeriai). Best-effort.
+ */
+function normalizePhone(raw, country) {
+  if (!raw) return '';
+  var p = String(raw).replace(/[^\d+]/g, '');
+  if (p.indexOf('+') === 0) return p;
+  var cc = { LT: '370', LV: '371', EE: '372' }[country] || '';
+  if (p.indexOf('00') === 0) return '+' + p.slice(2);
+  if (cc && p.indexOf(cc) === 0) return '+' + p;
+  // LT vietinis formatas: 86xxxxxxx arba 6xxxxxxx
+  if (country === 'LT') {
+    if (p.indexOf('8') === 0) p = p.slice(1);
+    return '+370' + p;
+  }
+  if (cc) return '+' + cc + p.replace(/^0/, '');
+  return p;
 }
 
 function _json(obj) {

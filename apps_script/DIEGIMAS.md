@@ -38,8 +38,14 @@ Užpildyk laukus ir spausk **💾 Išsaugoti**:
 - `SENDER_NAME`, `SENDER_PHONE`, `SENDER_EMAIL`, `SENDER_STREET`, `SENDER_CITY`,
   `SENDER_POSTCODE`, `SENDER_COUNTRY`
 
+**Lipdukai / Drive**
+- `DRIVE_FOLDER` — Google Drive aplankas lipdukams (numatyta „Omniva lipdukai")
+- `LABEL_TO_EMAIL` — palik tuščią, kad lipdukas būtų saugomas į Drive (rekomenduojama);
+  jei įrašysi el. paštą — Omniva nusiųs lipduką ten
+- `RETURN_DAYS` — grąžinimo terminas dienomis (pvz. `14`)
+
 **Bendra**
-- `MODE` — `TEST` testavimui, `LIVE` realiems siuntimams
+- `MODE` — `TEST` testavimui (šešėlis), `LIVE` realiems siuntimams
 
 ### Kaip gauti Shopify Admin API token
 Shopify admin → **Settings → Apps and sales channels → Develop apps → Create an app**
@@ -75,6 +81,39 @@ Kai patikra žalia ir turi Omniva raktus: nustatymuose `MODE = LIVE` → Išsaug
 - **Patikrinimas** — bet kada patikrink sistemą.
 - **Nustatymai** — keisk raktus / režimą.
 - **Eksportas** — pati Google lentelė: **File → Download → CSV / Excel**.
+
+## Perėjimas nuo Parcely (lygiagretus, be rizikos)
+
+Parcely šiuo metu tvarko siuntas. Pereinam saugiai, neišjungdami jo iš karto:
+
+1. **Laikyk Parcely įjungtą.** Jis ir toliau kuria realias siuntas + leidžia klientui
+   pasirinkti pastomatą krepšelyje.
+2. **Mūsų programą laikyk `MODE = TEST`.** Tada ji veikia kaip **šešėlis**: parenka
+   pastomatą, sukuria **TEST** Omniva siuntą, įdeda lipduką į Drive, viską parodo
+   dashboard'e — bet **realaus Shopify užsakymo neliečia** (jokio dvigubo „fulfilled",
+   jokios dvigubos siuntos).
+3. Kelias dienas palygink: ar mūsų parinktas pastomatas ir tracking atrodo teisingi,
+   ar lipdukai gražūs (Drive aplanke).
+4. Kai pasitikėsi — **išjunk Parcely** (General Settings → Turn off / pašalink) ir tik
+   tada perjunk mūsų programą į `MODE = LIVE`. Nuo tada mūsų programa rašo tracking +
+   pastomatą į Shopify, o Print Order Pro siunčia laišką klientui.
+
+> ⚠️ **Niekada nelaikyk abiejų LIVE vienu metu** — gausis dvi siuntos ir du
+> „fulfilled" tam pačiam užsakymui.
+
+## Ką gali daryti dashboard'e su kiekvienu užsakymu
+
+- **Lipdukas** — atidaryti PDF (Drive) arba „Generuoti", jei dar nėra.
+- **Pastomatas** — perparinkti iš 3 artimiausių; siunta atnaujinama (tas pats tracking),
+  lipdukas pergeneruojamas.
+- **Tel.** — pakeisti kliento telefoną (jei suklydo); siunta atnaujinama su nauju
+  numeriu ir lipdukas pergeneruojamas (tracking nepakinta).
+- **Grąžinimai** — pažymėti grąžintą arba užregistruoti realų Omniva grąžinimą.
+
+## Google Drive leidimas
+Pirmą kartą paleidus funkciją su lipduku, Google paprašys leisti programai pasiekti
+tavo **Drive** (lipdukams saugoti). Patvirtink — failai dedami į aplanką iš
+`DRIVE_FOLDER`.
 
 ## Svarbu
 - **Pakeitus kodą** reikia iš naujo **Deploy → New version**, kad įsigaliotų.

@@ -69,7 +69,7 @@
       <div class="card" style="overflow:auto; max-height:65vh">
         <table id="ordersTbl"><thead><tr>
           <th>Laikas</th><th>Užsakymas</th><th>Klientas</th><th>Pastomatas</th>
-          <th>km</th><th>Tracking</th><th>Būsena</th><th></th>
+          <th>km</th><th>Tracking</th><th>Lipdukas</th><th>Būsena</th><th>Veiksmai</th>
         </tr></thead><tbody></tbody></table>
       </div>
     </section>
@@ -155,12 +155,47 @@
     document.getElementById('ordersCount').textContent=rows.length+' užsakymų';
     var tb=document.querySelector('#ordersTbl tbody'); tb.innerHTML='';
     rows.forEach(function(o){
+      var name=esc(o['Užsakymas']);
+      var label = o['Lipdukas'] ? '<a href="'+esc(o['Lipdukas'])+'" target="_blank">📄 PDF</a>'
+                                : '<button class="act ghost" onclick="genLabel(\''+name+'\')">Generuoti</button>';
+      var actions = '<button class="act ghost" onclick="reassign(\''+name+'\')">Pastomatas</button> '
+                  + '<button class="act ghost" onclick="changePhone(\''+name+'\')">Tel.</button>';
       var tr=document.createElement('tr');
-      tr.innerHTML='<td>'+esc(o['Laikas'])+'</td><td>'+esc(o['Užsakymas'])+'</td><td>'+esc(o['Klientas'])+'</td>'
-        +'<td>'+esc(o['Pastomatas'])+'</td><td>'+esc(o['km'])+'</td><td>'+esc(o['Tracking'])+'</td>'
-        +'<td>'+statusPill(o['Būsena'])+'</td><td></td>';
+      tr.innerHTML='<td>'+esc(o['Laikas'])+'</td><td>'+name+'</td><td>'+esc(o['Klientas'])+'</td>'
+        +'<td title="'+esc(o['Alt pastomatai'])+'">'+esc(o['Pastomatas'])+'</td><td>'+esc(o['km'])+'</td><td>'+esc(o['Tracking'])+'</td>'
+        +'<td>'+label+'</td><td>'+statusPill(o['Būsena'])+'</td><td>'+actions+'</td>';
       tb.appendChild(tr);
     });
+  }
+
+  function genLabel(name){
+    toast('Generuojamas lipdukas…');
+    google.script.run
+      .withSuccessHandler(function(r){ renderOrders(r.orders); toast('Lipdukas paruoštas'); })
+      .withFailureHandler(function(e){ alert('Klaida: '+e.message); })
+      .uiGenerateLabel(name);
+  }
+
+  function reassign(name){
+    google.script.run.withSuccessHandler(function(list){
+      if(!list.length){ alert('Nerasta pastomatų'); return; }
+      var msg='Pasirink pastomatą užsakymui '+name+':\n';
+      list.forEach(function(l,i){ msg+=(i+1)+'. '+l.name+' ('+l.km+' km)\n'; });
+      var pick=prompt(msg+'\nĮrašyk numerį (1-'+list.length+'):','1');
+      var idx=parseInt(pick,10)-1;
+      if(isNaN(idx)||idx<0||idx>=list.length) return;
+      google.script.run.withSuccessHandler(function(r){ renderOrders(r.orders); toast('Pastomatas pakeistas'); })
+        .withFailureHandler(function(e){ alert('Klaida: '+e.message); })
+        .uiReassignLocker(name, list[idx].id);
+    }).withFailureHandler(function(e){ alert('Klaida: '+e.message); }).uiGetNearest(name);
+  }
+
+  function changePhone(name){
+    var p=prompt('Naujas kliento telefonas (su prefiksu, pvz. +37060000000) užsakymui '+name+':','');
+    if(!p) return;
+    google.script.run.withSuccessHandler(function(r){ renderOrders(r.orders); toast('Telefonas pakeistas: '+r.phone); })
+      .withFailureHandler(function(e){ alert('Klaida: '+e.message); })
+      .uiUpdatePhone(name, p);
   }
 
   function renderReturns(rows){
