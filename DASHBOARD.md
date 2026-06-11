@@ -7,7 +7,7 @@
 
 | Projektas | Būsena | Kitas žingsnis | Kieno eilė |
 |---|---|---|---|
-| **DBM / Omnibox** | 🟡 v1 paruošta, 2 fazė užblokuota | Gauti Omniva API raktus | **JONO** |
+| **DBM / Omnibox** | 🟢 raktai gauti 06-11! | Įvesti raktus į Nustatymus + Health check (naršyklėje, 5 min) | **JONO** |
 | **MG svetainė** | 🟡 veikia, auditas laukia sprendimų | Atsakyti į audito R-1…R-7 | **JONO** |
 | **MB buhalterija** | 🟢 automatika sukurta 06-11 | Patikrinti, ar inbox sync veikia | Claude |
 | **Drive tvarka** | 🟡 skriptas paruoštas | Paleisti `tools/drive_tvarkymas.gs` | **JONO** (5 min) |
@@ -16,9 +16,9 @@
 
 Čia visi taškai, kur darbai stovi, kol nenuspręsi. Sprendimą gali parašyti bet kuriame chate — sesija atnaujins šį failą.
 
-1. **Omniva API raktai** *(tavo laiko: 5 min; atblokuoja ~½ d. Claude darbo)*
-   Parašyti Omniva vadybininkui: „Prašau OMX API username, password, customerCode ir TEST aplinkos (test-omx.omniva.eu) prieigą."
-   Be šito DBM siuntos automatiškai nesiregistruoja. Detalės: `docs/RUNBOOK.md`.
+1. ~~**Omniva API raktai**~~ ✅ **GAUTA 2026-06-11.** Liko 5 min naršyklėje (jokio terminalo):
+   Apps Script web dashboard → **Nustatymai** → grupė „Omniva" → įvesk vartotoją, slaptažodį ir customerCode (`8206765`) → Išsaugoti → paspausk **Health check**. Jei parodo „Omniva siunta (TEST): Gautas tracking" — viskas veikia, sekanti sesija galės jungti pilną flow.
+   🔐 Raktai laikomi TIK Script Properties — repo ir Drive jų NĖRA ir nebus. Kadangi slaptažodis buvo atsiųstas chat'u, vėliau verta paprašyti Omnivos jį pakeisti.
 
 2. **MG svetainės auditas — R-1…R-7** *(tavo laiko: 10–15 min; darbų ~8–14 val.)*
    2026-05-08 auditas pateikė 7 rekomendacijas (hero, projektų puslapis, forma, social proof, premium copy, mobile, GDPR) ir laukia tavo ✅/❌ prie kiekvienos.

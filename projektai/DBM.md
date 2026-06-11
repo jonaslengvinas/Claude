@@ -25,3 +25,5 @@ Shopify parduotuvė + automatinis Omniva siuntimas (šio repo turinys). Užsakym
 ## Užrašai sesijoms
 
 *(pildyti naujausius viršuje)*
+
+- **2026-06-11:** Jonas atsiuntė Omniva OMX raktus (customerCode `8206765`). Slaptažodis chat'e — į repo/Drive NERAŠYTI; jis turi atsidurti tik Apps Script Script Properties (dashboard → Nustatymai → Omniva). Iš Claude debesies aplinkos test-omx.omniva.eu pasiekti negalima (tinklo allowlist), todėl raktų patikra daroma per Apps Script „Health check" mygtuką — jis pats sukuria TEST siuntą ir parodo tracking. Paštomato parinkimo variklis patikrintas lokaliai — veikia (Vilnius 08217 → Žalgirio 135, 0.34 km).
