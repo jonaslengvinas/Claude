@@ -31,7 +31,7 @@ var SETTINGS_KEYS = [
 
   // Siuntėjo (tavo) adresas — Omniva to reikalauja siuntai
   { key: 'SENDER_NAME', label: 'Siuntėjo vardas / įmonė', secret: false, group: 'Siuntėjas' },
-  { key: 'SENDER_PHONE', label: 'Siuntėjo telefonas', secret: false, group: 'Siuntėjas' },
+  { key: 'SENDER_PHONE', label: 'Siuntėjo telefonas (su šalies prefiksu, pvz. +37060000000)', secret: false, group: 'Siuntėjas' },
   { key: 'SENDER_EMAIL', label: 'Siuntėjo el. paštas', secret: false, group: 'Siuntėjas' },
   { key: 'SENDER_STREET', label: 'Siuntėjo gatvė', secret: false, group: 'Siuntėjas' },
   { key: 'SENDER_CITY', label: 'Siuntėjo miestas', secret: false, group: 'Siuntėjas' },

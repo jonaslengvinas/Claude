@@ -3,6 +3,29 @@
 This captures the key facts from the Omniva **OMX API** manual and the Parcely.app
 setup, so phase 2 (assign locker → label → tracking → email) is ready to build.
 
+## ✅ Verified against OMX API Manual (v1.7, Nov 2025)
+
+The Apps Script client (`apps_script/Omniva.gs`) was aligned to the official manual:
+
+- **Register B2C:** `POST /shipments/business-to-client`. Response (1.4.2):
+  `resultCode` `"OK"/"ERROR"`, **barcode in `savedShipments[].barcode`**, errors in
+  `failedShipments[].{messageCode,message}` (`clientItemId == partnerShipmentId`).
+- **Mandatory for a parcel-machine parcel:** `customerCode`, `mainService=PARCEL`,
+  `deliveryChannel=PARCEL_MACHINE`, `receiverAddressee.personName`,
+  `receiverAddressee.address.country` + `offloadPostcode` (= our locker id), and a
+  receiver `contactMobile` **or** `contactEmail`. `senderAddressee` needs
+  `personName`, `address.{deliverypoint,postcode,country}` and a `contactMobile`
+  (both addressees must carry at least one valid phone/mobile — EU rule).
+- **Label:** `POST /shipments/package-labels` → `successAddressCards[].filedata`
+  (base64 PDF) when `sendAddressCardTo="RESPONSE"`, or emailed when `"EMAIL"`.
+- **Tracking:** **GET** `/shipments/{barcode}` (1.10.3), not a POST.
+- **Returns:** `POST /shipments/omniva-return` with `returnShipments[].barcode`;
+  original must be **DELIVERED** (`registerReturn` in code). Plus `returnAllowed=true`
+  on registration already gives the recipient a self-service return code.
+- **Change locker:** `POST /shipments` with full `receiverAddressee` block while the
+  shipment is still in `REGISTERED` state (`changeLocker` in code).
+- **Auth:** HTTP Basic. `X-Integration-Agent-Id` only for platform integrators.
+
 ## The key link: locker `id` == Omniva `offloadPostcode`
 
 Our `find_nearest()` returns each locker's `id` (Omniva's own locker postcode,

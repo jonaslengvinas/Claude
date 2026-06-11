@@ -65,11 +65,28 @@ function runHealthCheck() {
   return { mode: cfg('MODE'), steps: steps };
 }
 
-/** Dashboard'o veiksmai grąžinimams. */
+/** Dashboard'o veiksmai grąžinimams — pažymi lentelėje. */
 function uiMarkReturned(orderName) {
   markReturned(orderName, new Date());
   updateOrderStatus(orderName, 'Grąžinta', null);
   return listOrders(200);
+}
+
+/**
+ * Užregistruoja realų Omniva grąžinimą pagal užsakymo tracking (1.5 API).
+ * Veikia tik jei originali siunta jau DELIVERED. Grąžina grąžinimo barcode.
+ */
+function uiRegisterReturn(orderName, tracking) {
+  if (!isLive() || !omnivaReady()) {
+    // TEST režime tik pažymim
+    markReturned(orderName, new Date());
+    updateOrderStatus(orderName, 'Grąžinta (TEST)', 'TEST režimas — reali grąžinimo siunta nesukurta.');
+    return { ok: true, simulated: true, orders: listOrders(200) };
+  }
+  var ret = registerReturn(tracking, orderName);
+  markReturned(orderName, new Date());
+  updateOrderStatus(orderName, 'Grąžinta', 'Grąžinimo barcode: ' + ret.barcode);
+  return { ok: true, returnBarcode: ret.barcode, orders: listOrders(200) };
 }
 
 /** Dashboard'o veiksmas: perdaryti užsakymą rankiniu būdu pagal jo numerį (paima iš Shopify). */

@@ -18,22 +18,40 @@ function omnivaBase() {
   return isLive() ? OMNIVA_BASES.live : OMNIVA_BASES.test;
 }
 
-/** Bendras POST į Omniva su Basic Auth. */
-function omnivaPost(path, body) {
+/** Basic Auth antraštės. */
+function omnivaHeaders() {
   if (!omnivaReady()) {
     throw new Error('Trūksta Omniva raktų (OMNIVA_USERNAME / PASSWORD / CUSTOMER_CODE).');
   }
   var token = Utilities.base64Encode(cfg('OMNIVA_USERNAME') + ':' + cfg('OMNIVA_PASSWORD'));
   var headers = { Authorization: 'Basic ' + token };
   if (cfg('OMNIVA_AGENT_ID')) headers['X-Integration-Agent-Id'] = cfg('OMNIVA_AGENT_ID');
+  return headers;
+}
 
+/** Bendras POST į Omniva su Basic Auth. */
+function omnivaPost(path, body) {
   var resp = UrlFetchApp.fetch(omnivaBase() + path, {
     method: 'post',
     contentType: 'application/json',
-    headers: headers,
+    headers: omnivaHeaders(),
     payload: JSON.stringify(body),
     muteHttpExceptions: true,
   });
+  return omnivaParse(resp);
+}
+
+/** Bendras GET į Omniva (sekimo užklausoms). */
+function omnivaGet(path) {
+  var resp = UrlFetchApp.fetch(omnivaBase() + path, {
+    method: 'get',
+    headers: omnivaHeaders(),
+    muteHttpExceptions: true,
+  });
+  return omnivaParse(resp);
+}
+
+function omnivaParse(resp) {
   var code = resp.getResponseCode();
   var text = resp.getContentText();
   if (code < 200 || code >= 300) {
@@ -81,17 +99,23 @@ function registerShipment(order, locker) {
   return { barcode: extractBarcode(res), raw: res };
 }
 
-/** Atsako struktūra įvairuoja — ištraukiam barcode kuo atspariau. */
+/**
+ * Pagal manual'ą (1.4.2): atsakyme resultCode "OK"/"ERROR",
+ * savedShipments[].barcode arba failedShipments[].{messageCode,message}.
+ */
 function extractBarcode(res) {
-  if (!res) return '';
-  if (res.barcodes && res.barcodes.length) return res.barcodes[0];
-  if (res.shipments && res.shipments.length) {
-    var s = res.shipments[0];
-    if (s.barcode) return s.barcode;
-    if (s.barcodes && s.barcodes.length) return s.barcodes[0];
+  if (!res) throw new Error('Omniva: tuščias atsakymas');
+  if (res.failedShipments && res.failedShipments.length) {
+    var f = res.failedShipments[0];
+    throw new Error('Omniva atmetė siuntą: ' + (f.message || f.messageCode || 'nežinoma klaida'));
   }
-  if (res.barcode) return res.barcode;
-  return '';
+  if (res.savedShipments && res.savedShipments.length && res.savedShipments[0].barcode) {
+    return res.savedShipments[0].barcode;
+  }
+  if (res.resultCode === 'ERROR') {
+    throw new Error('Omniva resultCode=ERROR: ' + JSON.stringify(res).slice(0, 300));
+  }
+  throw new Error('Omniva: atsakyme nerasta barcode: ' + JSON.stringify(res).slice(0, 300));
 }
 
 /** Lipduko PDF. Be el. pašto grąžina base64 PDF atsakyme. */
@@ -105,10 +129,52 @@ function requestLabel(barcodes, toEmail) {
   return omnivaPost('/shipments/package-labels', body);
 }
 
-/** Siuntos sekimo įvykiai. */
+/** Siuntos sekimo įvykiai (1.10.3 barcode metodas — GET /shipments/{barcode}). */
 function trackShipment(barcode) {
-  var body = { customerCode: cfg('OMNIVA_CUSTOMER_CODE'), barcodes: [barcode] };
-  return omnivaPost('/shipments/events', body);
+  return omnivaGet('/shipments/' + encodeURIComponent(barcode));
+}
+
+/**
+ * Registruoja Omniva grąžinimą (1.5). Originali siunta turi būti DELIVERED.
+ * Grąžina naują grąžinimo barcode.
+ */
+function registerReturn(barcode, partnerShipmentId) {
+  var ret = { barcode: barcode };
+  if (partnerShipmentId) ret.partnerShipmentId = String(partnerShipmentId);
+  var res = omnivaPost('/shipments/omniva-return', {
+    customerCode: cfg('OMNIVA_CUSTOMER_CODE'),
+    returnShipments: [ret],
+  });
+  if (res.failedShipments && res.failedShipments.length) {
+    var f = res.failedShipments[0];
+    throw new Error('Grąžinimo klaida: ' + (f.message || f.messageCode));
+  }
+  var saved = (res.savedShipments && res.savedShipments[0]) || {};
+  return { barcode: saved.barcode || '', raw: res };
+}
+
+/**
+ * Perkelia jau registruotą siuntą į kitą pastomatą (1.6). Veikia tik kol
+ * siuntos statusas REGISTERED. Naudinga, kai klientas nori kito pastomato.
+ */
+function changeLocker(barcode, order, locker) {
+  var receiver = {
+    personName: order.name,
+    address: {
+      country: order.country,
+      offloadPostcode: String(locker.id),
+    },
+  };
+  if (order.phone) receiver.contactMobile = order.phone;
+  if (order.email) receiver.contactEmail = order.email;
+
+  return omnivaPost('/shipments', {
+    customerCode: cfg('OMNIVA_CUSTOMER_CODE'),
+    barcode: barcode,
+    needsRelabel: false,
+    deliveryChannel: 'PARCEL_MACHINE',
+    receiverAddressee: receiver,
+  });
 }
 
 /** Tracking nuoroda klientui (pagal šabloną). */

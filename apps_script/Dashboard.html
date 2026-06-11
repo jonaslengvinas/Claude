@@ -168,15 +168,26 @@
     rows.forEach(function(o){
       var tr=document.createElement('tr');
       var ret=o['Grąžinta'];
-      tr.innerHTML='<td>'+esc(o['Užsakymas'])+'</td><td>'+esc(o['Klientas'])+'</td><td>'+esc(o['Tracking'])+'</td>'
-        +'<td>'+(ret?esc(ret):'—')+'</td><td>'
-        +(ret?'':'<button class="act warn" onclick="markRet(\''+esc(o['Užsakymas'])+'\')">Pažymėti grąžintą</button>')+'</td>';
+      var name=esc(o['Užsakymas']), trk=esc(o['Tracking']);
+      var actions = ret ? '' :
+        '<button class="act warn" onclick="regReturn(\''+name+'\',\''+trk+'\')">Registruoti Omniva grąžinimą</button> '
+        +'<button class="act ghost" onclick="markRet(\''+name+'\')">Tik pažymėti</button>';
+      tr.innerHTML='<td>'+name+'</td><td>'+esc(o['Klientas'])+'</td><td>'+trk+'</td>'
+        +'<td>'+(ret?esc(ret):'—')+'</td><td>'+actions+'</td>';
       tb.appendChild(tr);
     });
   }
 
   function markRet(name){
     google.script.run.withSuccessHandler(function(orders){ renderReturns(orders); renderOrders(orders); toast('Pažymėta grąžinta'); }).uiMarkReturned(name);
+  }
+
+  function regReturn(name, tracking){
+    if(!confirm('Registruoti Omniva grąžinimą užsakymui '+name+'?\n(Veikia tik jei siunta jau pristatyta / DELIVERED)')) return;
+    google.script.run
+      .withSuccessHandler(function(r){ renderReturns(r.orders); renderOrders(r.orders); toast(r.simulated?'Pažymėta (TEST)':'Grąžinimas užregistruotas: '+r.returnBarcode); })
+      .withFailureHandler(function(e){ alert('Klaida: '+e.message); })
+      .uiRegisterReturn(name, tracking);
   }
 
   function runCheck(){
