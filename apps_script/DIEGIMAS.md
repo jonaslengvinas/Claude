@@ -110,6 +110,26 @@ Parcely šiuo metu tvarko siuntas. Pereinam saugiai, neišjungdami jo iš karto:
   numeriu ir lipdukas pergeneruojamas (tracking nepakinta).
 - **Grąžinimai** — pažymėti grąžintą arba užregistruoti realų Omniva grąžinimą.
 
+## Kaip išbandyti sistemą
+
+**A. Greitas testas dashboard'e (be Shopify, be pinigų) — rekomenduojama pradžiai**
+1. „Užsakymai" skiltyje pasirink šalį (LT / LV / EE) ir spausk **➕ Bandomasis užsakymas**.
+2. Programa praleidžia netikrą užsakymą per visą grandinę ir įrašo eilutę į lentelę:
+   pastomatas, 3 artimiausios alternatyvos, tracking, būsena, lipdukas.
+3. Jei jau įvedei Omniva raktus — `MODE = TEST` sukurs **realią TEST siuntą**
+   (test-omx.omniva.eu) ir lipduką Drive. Jei raktų dar nėra — imituos.
+4. Išbandyk veiksmus: **Pastomatas** (perparinkti), **Tel.** (pakeisti), **Lipdukas**.
+
+**B. Realus testas Shopify'uje (kai norėsi patikrinti tikrą webhook'ą)**
+1. Šopify'uje sukurk realų užsakymą (gali sau pačiam, su nuolaidos kodu -100% arba
+   maža preke), kad webhook'as `orders/paid` realiai pasileistų.
+2. Užsakymas atsiras dashboard'e automatiškai.
+3. Baigęs — Shopify **Refund / Cancel**, kad atgautum pinigus. (Mūsų programa siuntos
+   automatiškai neatšaukia — TEST režime jokia reali siunta ir nesukuriama.)
+
+> Patarimas: realų testą daryk **TEST režime** — taip net ir realus užsakymas neims
+> kurti tikros Omniva siuntos ir neras tavęs Shopify (šešėlis).
+
 ## Google Drive leidimas
 Pirmą kartą paleidus funkciją su lipduku, Google paprašys leisti programai pasiekti
 tavo **Drive** (lipdukams saugoti). Patvirtink — failai dedami į aplanką iš

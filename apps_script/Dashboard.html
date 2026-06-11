@@ -63,7 +63,15 @@
       <div class="card">
         <div class="row" style="justify-content:space-between">
           <div class="muted" id="ordersCount">Kraunama…</div>
-          <button class="act ghost" onclick="loadData()">↻ Atnaujinti</button>
+          <div class="row">
+            <select id="testCountry" style="width:auto">
+              <option value="0">LT (Vilnius)</option>
+              <option value="1">LV (Rīga)</option>
+              <option value="2">EE (Tallinn)</option>
+            </select>
+            <button class="act ghost" onclick="createTest()">➕ Bandomasis užsakymas</button>
+            <button class="act ghost" onclick="loadData()">↻ Atnaujinti</button>
+          </div>
         </div>
       </div>
       <div class="card" style="overflow:auto; max-height:65vh">
@@ -166,6 +174,19 @@
         +'<td>'+label+'</td><td>'+statusPill(o['Būsena'])+'</td><td>'+actions+'</td>';
       tb.appendChild(tr);
     });
+  }
+
+  function createTest(){
+    var idx=document.getElementById('testCountry').value;
+    toast('Kuriamas bandomasis užsakymas…');
+    google.script.run
+      .withSuccessHandler(function(r){
+        renderOrders(r.orders); renderReturns(r.orders);
+        if(r.result && r.result.ok) toast('Sukurta: '+r.result.locker.name+' · '+r.result.tracking);
+        else alert('Klaida: '+((r.result&&r.result.error)||'nežinoma'));
+      })
+      .withFailureHandler(function(e){ alert('Klaida: '+e.message); })
+      .uiCreateTestOrder(idx);
   }
 
   function genLabel(name){
