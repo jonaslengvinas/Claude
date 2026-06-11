@@ -26,4 +26,5 @@ Shopify parduotuvė + automatinis Omniva siuntimas (šio repo turinys). Užsakym
 
 *(pildyti naujausius viršuje)*
 
+- **2026-06-11 (vakaras):** Jonas Apps Script dashboardo nemato — v1 dar NEĮDIEGTA jo Google paskyroje; diegti pagal `apps_script/DIEGIMAS.md` (Sheet.gs duoda būtent tai, ko Jonas prašo: užsakymų lentelę su kliento duomenimis, paštomatu, lipduko/tracking nuoroda, pildomą automatiškai iš Shopify webhook). Shopify patikrinta: 296 užsakymai iš viso, naujausi 15 (iki #DBM3312) — PAID + FULFILLED per dabartinį Parcely srautą. Naujos platformos ar viešo Shopify app'o NEREIKIA — tai privati programa Google debesyje.
 - **2026-06-11:** Jonas atsiuntė Omniva OMX raktus (customerCode `8206765`). Slaptažodis chat'e — į repo/Drive NERAŠYTI; jis turi atsidurti tik Apps Script Script Properties (dashboard → Nustatymai → Omniva). Iš Claude debesies aplinkos test-omx.omniva.eu pasiekti negalima (tinklo allowlist), todėl raktų patikra daroma per Apps Script „Health check" mygtuką — jis pats sukuria TEST siuntą ir parodo tracking. Paštomato parinkimo variklis patikrintas lokaliai — veikia (Vilnius 08217 → Žalgirio 135, 0.34 km).

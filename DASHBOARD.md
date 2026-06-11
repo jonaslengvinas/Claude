@@ -1,73 +1,69 @@
 # 📊 DASHBOARD — visų darbų būsena
 
-> Atnaujinta: **2026-06-11** (sistemos sutvarkymo sesija).
+> Atnaujinta: **2026-06-11 vakaras**.
 > Atnaujinti: bet kuriame Claude Code pokalbyje parašyk `/dashboard`.
+> Šis failas internete: `github.com/jonaslengvinas/Claude` → šaka `claude/gracious-johnson-r9eq3w` → `DASHBOARD.md`.
 
 ## Bendras vaizdas
 
 | Projektas | Būsena | Kitas žingsnis | Kieno eilė |
 |---|---|---|---|
-| **DBM / Omnibox** | 🟢 raktai gauti 06-11! | Įvesti raktus į Nustatymus + Health check (naršyklėje, 5 min) | **JONO** |
-| **MG svetainė** | 🟡 veikia, auditas laukia sprendimų | Atsakyti į audito R-1…R-7 | **JONO** |
-| **MB buhalterija** | 🟢 automatika sukurta 06-11 | Patikrinti, ar inbox sync veikia | Claude |
+| **DBM / Omnibox** | 🟡 raktai gauti, programa dar neįdiegta | Įdiegti v1 kartu su Claude (~30–45 min, be terminalo) | **JONO + Claude** |
+| **MG svetainė** | 🟢 auditas įgyvendintas (Jonas, 06-11) | Tik smulkūs pakeitimai pagal poreikį | — |
+| **MB buhalterija** | 🟢 veikia (patikrinta 06-11) | Įjungti kasdienę peržiūrą + įkelti banko išrašą | **JONO** (5 min) |
 | **Drive tvarka** | 🟡 skriptas paruoštas | Paleisti `tools/drive_tvarkymas.gs` | **JONO** (5 min) |
 
-## 🔴 Laukia TAVO sprendimo
+## 🔴 Laukia TAVO veiksmo / sprendimo
 
-Čia visi taškai, kur darbai stovi, kol nenuspręsi. Sprendimą gali parašyti bet kuriame chate — sesija atnaujins šį failą.
+1. **DBM diegimas** *(~30–45 min kartu su Claude)*
+   Programa, kurios nori (užsakymų lentelė Google Sheets + lipduko nuoroda + tracking), **jau parašyta** (`apps_script/`), bet dar neįdiegta tavo Google paskyroje — todėl jos nematai. Atsidaryk naują Claude Code sesiją ir parašyk: *„Diegiame DBM programą pagal apps_script/DIEGIMAS.md — vesk mane žingsnis po žingsnio."* Pabaigoje įvesi Omniva raktus (Nustatymai → Omniva, customerCode `8206765`) ir paspausi Health check.
+   🔐 Raktai laikomi TIK Script Properties; chat'u siųstą slaptažodį vėliau verta pasikeisti per Omniva.
 
-1. ~~**Omniva API raktai**~~ ✅ **GAUTA 2026-06-11.** Liko 5 min naršyklėje (jokio terminalo):
-   Apps Script web dashboard → **Nustatymai** → grupė „Omniva" → įvesk vartotoją, slaptažodį ir customerCode (`8206765`) → Išsaugoti → paspausk **Health check**. Jei parodo „Omniva siunta (TEST): Gautas tracking" — viskas veikia, sekanti sesija galės jungti pilną flow.
-   🔐 Raktai laikomi TIK Script Properties — repo ir Drive jų NĖRA ir nebus. Kadangi slaptažodis buvo atsiųstas chat'u, vėliau verta paprašyti Omnivos jį pakeisti.
+2. **MB kasdienė peržiūra — įjungti** *(2 min)*
+   Sukurtas skill'as `mb-lengvina-daily-review` (Drive aplankas `18xpe5PaJ8BLfdJU8GL8e1bLZ8RmkRfSP`, šalia veikiančio hourly-sync). Claude app → **Routines** → pridėk jį kasdieniam paleidimui (pvz. 18:00).
 
-2. **MG svetainės auditas — R-1…R-7** *(tavo laiko: 10–15 min; darbų ~8–14 val.)*
-   2026-05-08 auditas pateikė 7 rekomendacijas (hero, projektų puslapis, forma, social proof, premium copy, mobile, GDPR) ir laukia tavo ✅/❌ prie kiekvienos.
-   Dokumentas: Drive „STRATEGIC-AUDIT-2026-05-08.md" (`1SPMM-PrKoyX_SVEFz-BVRgszZ4z-qx57SKtug-H89y0`), skiltis „TAU SPRĘSTI".
-   ⚠️ GDPR/cookie banerio nebuvimas — teisinė rizika, rekomenduoju bent R-7 patvirtinti.
+3. **MB banko suderinimas — įkelti išrašą**
+   Įkelk birželio banko išrašą į `Banko transakcijos 2026-06` ir pasakyk bet kuriame chate — Claude padarys suderinimo ataskaitą: kurios sąskaitos apmokėtos, kurios laukia.
 
-3. **Parcely vs tiesioginis Omniva OMX** *(sprendimas, kai bus raktai)*
-   Lipdukus toliau generuoti per Parcely (paprasčiau, bet reikia išsiaiškinti, iš kur Parcely skaito paštomatą) ar tiesiogiai per OMX API (pilna kontrolė). Faktai: `docs/PHASE2_OMNIVA.md`.
+4. **Drive tvarkymas** *(5 min)* — paleisti `tools/drive_tvarkymas.gs` (instrukcija failo viršuje; „Dekoras" eilutes ištrink, jei tai ne MG).
 
-4. **Ar daryti viešą Shopify app'są?** *(strateginis, neskubus)*
-   Tyrimas (`docs/BUSINESS_RESEARCH.md`): niša reali (~€0.5–3k MRR per 1 m.), bet Swotzy jau daro tą patį. Spręsti po to, kai DBM flow veiks sau.
-
-5. **Drive tvarkymas — paleisti skriptą** *(tavo laiko: 5 min)*
-   `tools/drive_tvarkymas.gs` perkelia ~25 palaidus failus iš Drive šaknies į projektų aplankus. Instrukcija failo viršuje. Prieš paleisdamas peržiūrėk planą — ypač ar „Dekoras" skaičiuoklės tikrai MG.
+5. **Parcely vs tiesioginis OMX** — spręsim po TEST diegimo (v1 jau daro tiesiogiai, Parcely lieka atsarga).
+6. **Viešas Shopify app'sas** — atidėta, kol DBM flow veiks sau (`docs/BUSINESS_RESEARCH.md`).
 
 ## 🗂 Neužbaigti darbai (backlog)
 
 ### DBM / Omnibox
-- [ ] **(užblokuota #1)** OMX TEST integracija: siunta + lipdukas + tracking — *~½ d.*
-- [ ] **(po #3)** Pilnas flow LIVE: order → locker → shipment → fulfill → email — *~1 d.*
-- [ ] Lockerių datasetas atsinaujina pagal grafiką (dabar — rankinis snapshot) — *~1 val.*
-- [ ] Patikrinti, ar Apps Script webhook'as gyvas (health check dashboarde) — *~15 min*
+- [ ] Įdiegti v1 Apps Script (→ užsakymų lentelė, lipdukai, web dashboardas) — *~45 min su Jonu*
+- [ ] TEST siunta + Health check (po diegimo) — *~15 min*
+- [ ] LIVE perjungimas, Parcely fallback — *po sėkmingo TEST*
+- [ ] Lockerių dataseto auto atnaujinimas — *~1 val.*
 
 ### MG
-- [ ] **(po #2)** Įgyvendinti patvirtintas audito rekomendacijas — *~8–14 val. pagal pasirinkimą*
-- [ ] Surinkti testimonials iš buvusių klientų (be jų R-4 nedaromas) — *Jono outreach, 1–2 sav.*
-- [ ] Analytics Phase 1 (GA4 + Clarity + consent) — *~2 val., galima be sprendimų*
+- [x] Audito rekomendacijos įgyvendintos (Jonas kitame chate, 06-11) — projektas uždarytas, liko tik ad hoc smulkmenos
 
 ### MB Lengvina
-- [ ] Patikrinti, ar `mb-lengvina-inbox-hourly-sync` realiai sukasi kas valandą — *~15 min*
-- [ ] Birželio sąskaitų suvedimas į `MB Lengvina/2026-06/` — *automatika turėtų daryti; patikrinti*
-- [ ] Mėnesio ataskaita („mb-lengvina-ataskaita") — pasikartojantis procesas mėnesio gale
+- [x] Sync patikrintas 06-11: veikia (06:48 suklasifikavo 3 sąskaitas su tvarkingais pavadinimais)
+- [x] Praleista IRE26_05037 (30.15 €, data 2026-05-31) rasta ir įkelta į `Įmonės pirkimai 2026-05`
+- [x] Sukurtas kasdienės peržiūros skill'as (saugiklis nuo praleidimų + ranka įkeltų sąskaitų priskyrimas + ataskaita)
+- [ ] Įjungti daily-review kaip Routine — **JONO**
+- [ ] Banko išrašo ↔ sąskaitų suderinimas (apmokėta/laukia) — *laukia išrašo*
+- [ ] Mėnesio ataskaita mėnesio gale (`mb-lengvina-ataskaita`)
 
 ### Sistema
-- [x] Bendras kontekstas visiems chatams (`CLAUDE.md`) — 2026-06-11
-- [x] Dashboard + `/dashboard` komanda — 2026-06-11
-- [x] Drive tvarkymo skriptas — 2026-06-11
-- [ ] Po Drive sutvarkymo: pašalinti dublikatus (2× KATALOGAS, 3× Layout PDF)
+- [x] CLAUDE.md + DASHBOARD + projektų failai + `/dashboard` — 06-11
+- [x] Priminimas kalendoriuje (06-12 09:00)
+- [ ] Po Drive sutvarkymo: ištrinti dublikatus (2× KATALOGAS, 3× Layout PDF)
+- [ ] (siūlymas) Sulieti šią šaką į pagrindinę, kad DASHBOARD matytųsi atsidarius repo be šakos rinkimo
 
-## ⚙️ Automatika (kas jau sukasi be tavęs)
+## ⚙️ Automatika (kas sukasi be tavęs)
 
 | Kas | Kur | Būsena |
 |---|---|---|
-| DBM: order→locker→shipment webhook | Google Apps Script (žr. `apps_script/DIEGIMAS.md`) | patikrinti health check |
-| MB sąskaitų inbox sync (kas val.) | Drive `mb-lengvina-inbox-hourly-sync` | sukurta 06-11, nepatvirtinta |
-| MB ataskaita | Drive `mb-lengvina-ataskaita` | sukurta 06-11 |
+| MB sąskaitų sync iš Gmail (kas val., 6 paskyros) | Routine + Drive `mb-lengvina-inbox-hourly-sync` | ✅ veikia (patikrinta 06-11) |
+| MB kasdienė peržiūra + ataskaita | Drive `mb-lengvina-daily-review` | 🟡 sukurta, laukia Routine įjungimo |
+| MB mėnesio ataskaita | Drive `mb-lengvina-ataskaita` | sukurta 06-11 |
+| DBM: order→locker→shipment webhook | Apps Script (`apps_script/`) | ⏳ kodas paruoštas, neįdiegta |
 
 ## 💳 Usage (Claude limitai)
 
-Iš sesijos vidaus usage nematomas. Žiūrėti: **claude.ai → Settings → Usage** (planas, savaitės limitai)
-arba Claude Code terminale — komanda `/usage`. Patarimas: ilgus tyrimo/kodavimo darbus leisti per
-Claude Code sesijas (jos efektyvesnės už daug atskirų chatų su kartojamu kontekstu).
+Iš sesijos vidaus nematoma. Žiūrėti: **claude.ai → Settings → Usage** arba terminale `/usage`.

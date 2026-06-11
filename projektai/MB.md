@@ -25,3 +25,5 @@ Jono įmonės dokumentų tvarkymas: gaunamos/išrašomos sąskaitos, banko trans
 ## Užrašai sesijoms
 
 *(pildyti naujausius viršuje)*
+
+- **2026-06-11 (vakaras):** Sync patikrintas — VEIKIA: 06:48 suklasifikavo Netlify + 2 Anthropic sąskaitas į „Įmonės pirkimai 2026-06" su praturtintais pavadinimais; „Nepaskirstyti 2026-06" tuščias. Rasta valandinio sync praleista IRE26_05037 (komunaliniai 30.15 €, sąskaitos data 2026-05-31) — įkelta į „Įmonės pirkimai 2026-05" (`1RSgC92-pKrxNjICf40ygl9LaFkE7IiWh`). Sukurtas kasdienės peržiūros skill'as „mb-lengvina-daily-review" (`18xpe5PaJ8BLfdJU8GL8e1bLZ8RmkRfSP`) — Jonas turi įjungti kaip Routine. Jonas nori: banko išrašo ↔ sąskaitų suderinimo (apmokėta/laukia) — laukiam išrašo `Banko transakcijos 2026-06`; ir kad jo paties išrašytos sąskaitos (mokinių, koncertų), ranka įmestos į mėnesio aplanką, būtų kasdien priskiriamos + ataskaita (tai daro naujasis skill'as).

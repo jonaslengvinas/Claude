@@ -24,3 +24,5 @@ Gyvos muzikos grupė: 13 muzikinių projektų su žinomais LT vokalistais; vestu
 ## Užrašai sesijoms
 
 *(pildyti naujausius viršuje: data — kas sužinota/padaryta)*
+
+- **2026-06-11:** Jonas patvirtino — audito rekomendacijos įgyvendintos kitame chate, projektas užbaigtas. Toliau tik smulkūs pakeitimai pagal poreikį; „Atvira" sąrašas nebeaktualus.
