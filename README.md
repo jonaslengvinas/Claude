@@ -1,5 +1,8 @@
 # Omnibox — automatic Omniva shipping for Shopify (LT / LV / EE)
 
+> 📊 **Visų Jono projektų (MG / MB / DBM) būsena: [`DASHBOARD.md`](DASHBOARD.md).**
+> Bendras kontekstas Claude sesijoms: [`CLAUDE.md`](CLAUDE.md) · darbo sistema: [`docs/DARBO-SISTEMA.md`](docs/DARBO-SISTEMA.md)
+
 Pick the **closest Omniva parcel machine (paštomatas / pakomāts / pakiautomaat)** for
 each order, create the Omniva shipment, write the tracking code back to Shopify, and
 let your invoice app (Print Order Pro) email the customer — all automatically, with no
