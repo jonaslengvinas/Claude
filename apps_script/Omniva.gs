@@ -182,9 +182,13 @@ function registerReturnShipment(o, returnLocker) {
 
 /** Lipduko PDF. Be el. pašto grąžina base64 PDF atsakyme. */
 function requestLabel(barcodes, toEmail) {
+  // Omniva tikisi [{ barcode: "..." }], ne ["..."]
+  var barcodeObjects = barcodes.map(function (b) {
+    return typeof b === 'string' ? { barcode: b } : b;
+  });
   var body = {
     customerCode: cfg('OMNIVA_CUSTOMER_CODE'),
-    barcodes: barcodes,
+    barcodes: barcodeObjects,
     sendAddressCardTo: toEmail ? 'EMAIL' : 'RESPONSE',
   };
   if (toEmail) body.cardReceiverEmail = toEmail;
