@@ -116,11 +116,12 @@ function processOrder(order) {
     }
 
     // 5. Į Shopify rašom TIK LIVE (kad nesidubliuotų su Parcely).
-    var shopifyMsg = '';
+    var shopifyMsg = '', shopifyOk = false;
     if (isLive() && shopifyReady() && order.id) {
       try {
         addLockerToOrder(order.id, locker.name + ' (' + locker.address + ')');
         fulfillOrderWithTracking(order.id, barcode, trackingUrl(barcode));
+        shopifyOk = true;
       } catch (sErr) {
         shopifyMsg = ' | Shopify: ' + sErr.message;
       }
@@ -128,6 +129,10 @@ function processOrder(order) {
       shopifyMsg = ' | TEST šešėlis: Shopify neliestas (Parcely tvarko realų užsakymą)';
     }
 
+    // Atskiri statusų langeliai
+    rec.shipmentOk = barcode ? (simulated ? '🧪 TEST' : '✅') : '❌';
+    rec.labelOk = rec.label ? '✅' : (omnivaReady() && !simulated ? '❌' : '—');
+    rec.fulfilledOk = isLive() ? (shopifyOk ? '✅' : '❌') : '—';
     rec.status = simulated ? 'TEST' : 'Įvykdyta';
     rec.notes = (rec.notes ? rec.notes + ' | ' : '') +
       (simulated ? 'TEST režimas.' : 'Siunta + lipdukas sukurti.') + shopifyMsg;

@@ -39,6 +39,21 @@ function lockerById(country, id) {
   return null;
 }
 
+/** Surasti pastomatą pagal pavadinimą (tikslus, tada „dalis pavadinimo"). */
+function lockerByName(country, name) {
+  if (!name) return null;
+  var q = String(name).trim().toLowerCase();
+  if (!q) return null;
+  var lockers = getLockers((country || '').toUpperCase());
+  for (var i = 0; i < lockers.length; i++) {
+    if (lockers[i].name.toLowerCase() === q) return lockers[i];
+  }
+  for (var j = 0; j < lockers.length; j++) {
+    if (lockers[j].name.toLowerCase().indexOf(q) >= 0) return lockers[j];
+  }
+  return null;
+}
+
 /** Adresas -> {lat, lon} per Nominatim (nemokamai). */
 function geocode(query, country) {
   var url =
