@@ -54,26 +54,31 @@ function onEditInstalled(e) {
     if (!e || !e.range) return;
     var sh = e.range.getSheet();
     if (sh.getName() !== SHEET_NAME) return;
-    if (e.range.getColumn() !== _col('Patvirtinti (OK)')) return;
-    var row = e.range.getRow();
+    var col = e.range.getColumn(), row = e.range.getRow();
     if (row < 2) return;
     if (String(e.value || '').trim().toLowerCase() !== 'ok') return;
 
-    var resCol = _col('Pakeitimo rezultatas');
+    var resCol = _col('Veiksmo rezultatas');
     var orderName = sh.getRange(row, _col('Užsakymas')).getValue();
-    var newName = sh.getRange(row, _col('Naujas pastomatas')).getValue();
-    if (!newName) {
-      sh.getRange(row, resCol).setValue('❌ Pirma įrašyk pastomato pavadinimą');
-      sh.getRange(row, _col('Patvirtinti (OK)')).clearContent();
-      return;
+
+    if (col === _col('Patvirtinti (OK)')) {
+      var newName = sh.getRange(row, _col('Naujas pastomatas')).getValue();
+      if (!newName) {
+        sh.getRange(row, resCol).setValue('❌ Pirma įrašyk pastomato pavadinimą');
+      } else {
+        sh.getRange(row, resCol).setValue('⏳ Keičiama…');
+        var r = reassignByName(orderName, newName);
+        sh.getRange(row, resCol).setValue(r.ok ? ('✅ ' + r.locker + (r.label ? ' · lipdukas atnaujintas' : '')) : ('❌ ' + r.error));
+      }
+      sh.getRange(row, col).clearContent();
+
+    } else if (col === _col('Sukurti grąžinimą (OK)')) {
+      sh.getRange(row, resCol).setValue('⏳ Kuriamas grąžinimas…');
+      var g = createReturnLabel(orderName);
+      sh.getRange(row, resCol).setValue(g.ok ? ('✅ Grąžinimo siunta: ' + g.tracking + ' → ' + g.locker) : ('❌ ' + g.error));
+      sh.getRange(row, col).clearContent();
     }
-    sh.getRange(row, resCol).setValue('⏳ Keičiama…');
-    var r = reassignByName(orderName, newName);
-    sh.getRange(row, resCol).setValue(
-      r.ok ? ('✅ ' + r.locker + (r.label ? ' · lipdukas atnaujintas' : '')) : ('❌ ' + r.error)
-    );
-    sh.getRange(row, _col('Patvirtinti (OK)')).clearContent();
   } catch (err) {
-    try { e.range.getSheet().getRange(e.range.getRow(), _col('Pakeitimo rezultatas')).setValue('❌ ' + err.message); } catch (_) {}
+    try { e.range.getSheet().getRange(e.range.getRow(), _col('Veiksmo rezultatas')).setValue('❌ ' + err.message); } catch (_) {}
   }
 }

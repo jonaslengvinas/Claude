@@ -195,6 +195,40 @@ function reassignByName(orderName, lockerName) {
   return doReassign(o, locker);
 }
 
+/**
+ * Sukuria atvirkštinį GRĄŽINIMO lipduką ir prideda NAUJĄ eilutę.
+ * Klientas = siuntėjas, tu = gavėjas grąžinimo pastomate (RETURN_LOCKER).
+ */
+function createReturnLabel(orderName) {
+  var o = getOrder(orderName);
+  if (!o) return { ok: false, error: 'Užsakymas nerastas' };
+  var rl = cfg('RETURN_LOCKER');
+  if (!rl) return { ok: false, error: 'Nustatymuose nenurodytas grąžinimo pastomatas (RETURN_LOCKER)' };
+  var country = cfg('SENDER_COUNTRY') || 'LT';
+  var locker = /^\d+$/.test(String(rl).trim()) ? lockerById(country, rl) : lockerByName(country, rl);
+  if (!locker) return { ok: false, error: 'Grąžinimo pastomatas nerastas: ' + rl };
+
+  var retName = orderName + '-GRAZ';
+  var barcode = '', labelUrl = '';
+  if (omnivaReady()) {
+    var ship = registerReturnShipment(o, locker);
+    barcode = ship.barcode;
+    try { labelUrl = generateAndStoreLabel(retName, barcode, cfg('LABEL_TO_EMAIL') || null); } catch (e) {}
+  } else {
+    barcode = 'TEST-GRAZ-' + Date.now();
+  }
+
+  upsertOrder({
+    order: retName, customer: o['Klientas'], email: o['El. paštas'], phone: o['Telefonas'],
+    country: country, address: o['Adresas'], locker: locker.name, lockerId: locker.id,
+    tracking: barcode, label: labelUrl,
+    shipmentOk: barcode ? '↩️' : '❌', labelOk: labelUrl ? '✅' : '—',
+    status: 'Grąžinimo lipdukas',
+    notes: 'Atvirkštinis: klientas siuntėjas → ' + locker.name + ' (tavo). Tel.: ' + o['Telefonas'],
+  });
+  return { ok: true, tracking: barcode, label: labelUrl, locker: locker.name };
+}
+
 /** Keičia kliento telefoną ir perdaro siuntą/lipduką su nauju numeriu. */
 function uiUpdatePhone(orderName, newPhone) {
   var o = getOrder(orderName);

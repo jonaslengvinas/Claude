@@ -43,6 +43,7 @@ var SETTINGS_KEYS = [
   { key: 'SENDER_CITY', label: 'Siuntėjo miestas', secret: false, group: 'Siuntėjas' },
   { key: 'SENDER_POSTCODE', label: 'Siuntėjo pašto kodas', secret: false, group: 'Siuntėjas' },
   { key: 'SENDER_COUNTRY', label: 'Siuntėjo šalis (LT / LV / EE)', secret: false, group: 'Siuntėjas' },
+  { key: 'RETURN_LOCKER', label: 'Grąžinimo pastomatas — kur grįžta prekės (Jonažolių; pavadinimas arba ID)', secret: false, group: 'Siuntėjas' },
 ];
 
 /** Numatytosios reikšmės (jei Script Property dar neįrašyta). */

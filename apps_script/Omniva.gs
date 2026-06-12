@@ -118,6 +118,43 @@ function extractBarcode(res) {
   throw new Error('Omniva: atsakyme nerasta barcode: ' + JSON.stringify(res).slice(0, 300));
 }
 
+/**
+ * Atvirkštinė (grąžinimo) siunta: KLIENTAS = siuntėjas, TU = gavėjas savo
+ * grąžinimo pastomate. Klientas numeš prekę bet kuriame pastomate, ji atkeliaus
+ * pas tave. Telefonas — kliento (kad jis gautų pranešimus).
+ */
+function registerReturnShipment(o, returnLocker) {
+  var parts = String(o['Adresas'] || '').split(',').map(function (s) { return s.trim(); });
+  var sender = {
+    personName: o['Klientas'],
+    address: {
+      country: (o['Šalis'] || cfg('SENDER_COUNTRY') || 'LT'),
+      street: parts[0] || '',
+      postcode: parts[1] || '',
+      deliverypoint: parts[2] || parts[1] || '',
+    },
+  };
+  if (o['Telefonas']) sender.contactMobile = o['Telefonas'];
+  if (o['El. paštas']) sender.contactEmail = o['El. paštas'];
+
+  var receiver = {
+    personName: cfg('SENDER_NAME'),
+    address: { country: cfg('SENDER_COUNTRY') || 'LT', offloadPostcode: String(returnLocker.id) },
+  };
+  if (cfg('SENDER_PHONE')) receiver.contactMobile = cfg('SENDER_PHONE');
+  if (cfg('SENDER_EMAIL')) receiver.contactEmail = cfg('SENDER_EMAIL');
+
+  var shipment = {
+    partnerShipmentId: String(o['Užsakymas']) + '-R',
+    mainService: 'PARCEL',
+    deliveryChannel: 'PARCEL_MACHINE',
+    receiverAddressee: receiver,
+    senderAddressee: sender,
+  };
+  var res = omnivaPost('/shipments/business-to-client', { customerCode: cfg('OMNIVA_CUSTOMER_CODE'), shipments: [shipment] });
+  return { barcode: extractBarcode(res), raw: res };
+}
+
 /** Lipduko PDF. Be el. pašto grąžina base64 PDF atsakyme. */
 function requestLabel(barcodes, toEmail) {
   var body = {

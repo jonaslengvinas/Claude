@@ -19,8 +19,8 @@ var HEADERS = [
   'Pastomatas', 'Pastomato ID', 'km', '3 artimiausi', 'Tracking', 'Lipdukas',
   // C) Statusai
   'Siunta sukurta', 'Lipdukas sukurtas', 'Fulfilled Shopify', 'Būsena',
-  // D) Pakeisti pastomatą
-  'Naujas pastomatas', 'Patvirtinti (OK)', 'Pakeitimo rezultatas',
+  // D) Veiksmai eilutėje (rankiniai)
+  'Naujas pastomatas', 'Patvirtinti (OK)', 'Sukurti grąžinimą (OK)', 'Veiksmo rezultatas',
   // E) Grąžinimai / pastabos
   'Grąžinta', 'Pastabos',
   // F) Techninis
@@ -35,7 +35,8 @@ var HEADER_KEY = {
   'Tracking': 'tracking', 'Lipdukas': 'label',
   'Siunta sukurta': 'shipmentOk', 'Lipdukas sukurtas': 'labelOk', 'Fulfilled Shopify': 'fulfilledOk',
   'Būsena': 'status',
-  'Naujas pastomatas': 'newLocker', 'Patvirtinti (OK)': 'confirm', 'Pakeitimo rezultatas': 'changeResult',
+  'Naujas pastomatas': 'newLocker', 'Patvirtinti (OK)': 'confirm',
+  'Sukurti grąžinimą (OK)': 'makeReturn', 'Veiksmo rezultatas': 'changeResult',
   'Grąžinta': 'returned', 'Pastabos': 'notes', 'OrderID': 'orderId',
 };
 
