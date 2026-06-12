@@ -583,19 +583,21 @@ function saveLabelToDrive(orderName, barcode, base64pdf) {
 
 /**
  * Atsparus lipduko duomenų ištraukimas.
- * Omniva gali grąžinti arba base64 (filedata) arba pre-signed S3 URL.
- * Grąžina { type: 'base64'|'url', data: '...' } arba null.
+ * Omniva grąžina successAddressCards[].fileData (base64 PDF, didžioji D!),
+ * arba (rečiau) URL. Grąžina { type: 'base64'|'url', data: '...' } arba null.
  */
 function extractLabelData(res) {
   if (!res) return null;
   var arr = res.successAddressCards || res.addressCards || [];
   if (arr.length && arr[0]) {
     var card = arr[0];
-    if (card.filedata) return { type: 'base64', data: card.filedata };
+    var fd = card.fileData || card.filedata || card.file_data;
+    if (fd) return { type: 'base64', data: fd };
     var url = card.fileUrl || card.url || card.labelUrl || card.documentUrl || card.mergedDocumentUrl;
     if (url) return { type: 'url', data: url };
   }
-  if (res.filedata) return { type: 'base64', data: res.filedata };
+  var topFd = res.fileData || res.filedata;
+  if (topFd) return { type: 'base64', data: topFd };
   var topUrl = res.fileUrl || res.mergedDocumentUrl || res.url;
   if (topUrl) return { type: 'url', data: topUrl };
   return null;
