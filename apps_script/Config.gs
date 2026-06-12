@@ -51,7 +51,7 @@ var DEFAULTS = {
   MODE: 'TEST',
   NOTIFY_CUSTOMER: 'false',
   LOCKER_NOTE_FIELD: 'Paštomatas',
-  TRACKING_URL_TEMPLATE: 'https://www.omniva.lt/private/track_and_trace?barcode={barcode}',
+  TRACKING_URL_TEMPLATE: 'https://www.omniva.lt/siuntos-sekimas/?barcode={barcode}',
   SENDER_COUNTRY: 'LT',
   DRIVE_FOLDER: 'Omniva lipdukai',
   DRIVE_FOLDER_ID: '1J_D_TfO0I7VOCFAHPTV_AMI9bwSqnr5L', // "Lipdukai siuntimui"

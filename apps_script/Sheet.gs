@@ -85,13 +85,31 @@ function _findRow(s, orderName) {
  * Įrašo / atnaujina užsakymą. Esamoje eilutėje atnaujina TIK tuos stulpelius,
  * kuriuos rec pateikia (rankiniai laukai, pvz. "Naujas pastomatas", nedingsta).
  */
+/** Ar tikras (ne testinis) siuntos kodas. */
+function isRealBarcode(b) {
+  return b && String(b).indexOf('TEST') !== 0;
+}
+
+/** HYPERLINK formulė į Omniva sekimą (setFormula naudoja kablelį — nepriklauso nuo kalbos). */
+function trackingFormula(barcode) {
+  return '=HYPERLINK("' + trackingUrl(barcode) + '", "' + barcode + '")';
+}
+
+/** Įrašo siuntos kodą į langelį: kaip nuorodą (jei tikras) arba paprastą tekstą. */
+function _setTrackingCell(range, barcode) {
+  if (isRealBarcode(barcode)) range.setFormula(trackingFormula(barcode));
+  else range.setValue(barcode || '');
+}
+
 function upsertOrder(rec) {
   var s = _sheet();
   var existing = _findRow(s, rec.order);
   if (existing) {
     HEADERS.forEach(function (h, i) {
       var k = HEADER_KEY[h];
-      if (k && rec.hasOwnProperty(k)) s.getRange(existing, i + 1).setValue(rec[k]);
+      if (!(k && rec.hasOwnProperty(k))) return;
+      if (h === 'Tracking') _setTrackingCell(s.getRange(existing, i + 1), rec[k]);
+      else s.getRange(existing, i + 1).setValue(rec[k]);
     });
     return existing;
   }
@@ -101,7 +119,11 @@ function upsertOrder(rec) {
   });
   if (!rec.hasOwnProperty('time')) row[HEADERS.indexOf('Laikas')] = new Date();
   s.appendRow(row);
-  return s.getLastRow();
+  var newRow = s.getLastRow();
+  if (rec.hasOwnProperty('tracking') && isRealBarcode(rec.tracking)) {
+    _setTrackingCell(s.getRange(newRow, _col('Tracking')), rec.tracking);
+  }
+  return newRow;
 }
 
 /** Atnaujina būseną / pastabą (nepaliesdamas kitų laukų). */
@@ -124,12 +146,12 @@ function setLabelUrl(orderName, url) {
   return true;
 }
 
-/** Įrašo naują tracking. */
+/** Įrašo naują tracking (kaip nuorodą). */
 function setTracking(orderName, barcode) {
   var s = _sheet();
   var row = _findRow(s, orderName);
   if (!row) return false;
-  s.getRange(row, _col('Tracking')).setValue(barcode);
+  _setTrackingCell(s.getRange(row, _col('Tracking')), barcode);
   return true;
 }
 

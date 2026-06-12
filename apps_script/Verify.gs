@@ -229,6 +229,8 @@ function createReturnLabel(orderName) {
     status: 'Grąžinimo lipdukas',
     notes: 'Atvirkštinis: klientas siuntėjas → ' + locker.name + ' (tavo). Tel.: ' + o['Telefonas'],
   });
+  // Originalioje eilutėje „Grąžinta" stulpelyje — grąžinimo lipduko nuoroda (pasiekiama bet kam)
+  if (labelUrl) markReturned(orderName, labelUrl);
   return { ok: true, tracking: barcode, label: labelUrl, locker: locker.name };
 }
 

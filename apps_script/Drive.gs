@@ -30,11 +30,20 @@ function saveLabelToDrive(orderName, barcode, base64pdf) {
   var blob = Utilities.newBlob(Utilities.base64Decode(base64pdf), 'application/pdf', fname);
   var file = folder.createFile(blob);
   try {
-    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.EDIT); // pasiekiama bet kam su nuoroda
   } catch (e) {
     // jei organizacija draudžia viešą dalinimąsi — paliekam privatų, nuoroda veiks savininkui
   }
   return file.getUrl();
+}
+
+/** Atsparus lipduko duomenų ištraukimas iš įvairių atsako formų. */
+function extractLabelData(res) {
+  if (!res) return null;
+  var arr = res.successAddressCards || res.addressCards || [];
+  if (arr.length && arr[0] && arr[0].filedata) return arr[0].filedata;
+  if (res.filedata) return res.filedata;
+  return null;
 }
 
 /**
@@ -47,10 +56,10 @@ function generateAndStoreLabel(orderName, barcode, toEmail) {
     return ''; // išsiųsta el. paštu, Drive nuorodos nėra
   }
   var res = requestLabel([barcode], null); // RESPONSE -> base64 PDF
-  var card = (res.successAddressCards && res.successAddressCards[0]) || null;
-  if (!card || !card.filedata) {
+  var data = extractLabelData(res);
+  if (!data) {
     var failed = res.failedAddressCards ? JSON.stringify(res.failedAddressCards) : JSON.stringify(res).slice(0, 200);
     throw new Error('Negautas lipdukas: ' + failed);
   }
-  return saveLabelToDrive(orderName, barcode, card.filedata);
+  return saveLabelToDrive(orderName, barcode, data);
 }

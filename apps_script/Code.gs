@@ -79,6 +79,11 @@ function processOrder(order) {
     // 2. Vienu geokodavimu gaunam 3 artimiausius pastomatus.
     var near = findNearest(country, address, 3);
     if (near.error || !near.lockers || !near.lockers.length) {
+      // Lankstumas: jei pilnas adresas (pvz. be namo nr) nepavyko — bandom miestą+indeksą
+      var fb = [a.zip, a.city].filter(Boolean).join(', ') || a.city || '';
+      if (fb && fb !== address) near = findNearest(country, fb, 3);
+    }
+    if (near.error || !near.lockers || !near.lockers.length) {
       rec.status = 'KLAIDA: nerastas pastomatas';
       rec.notes = near.error || 'Nepavyko nustatyti adreso koordinačių. Apdoroti rankiniu būdu.';
       upsertOrder(rec);

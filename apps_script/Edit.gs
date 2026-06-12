@@ -75,7 +75,8 @@ function onEditInstalled(e) {
     } else if (col === _col('Sukurti grąžinimą (OK)')) {
       sh.getRange(row, resCol).setValue('⏳ Kuriamas grąžinimas…');
       var g = createReturnLabel(orderName);
-      sh.getRange(row, resCol).setValue(g.ok ? ('✅ Grąžinimo siunta: ' + g.tracking + ' → ' + g.locker) : ('❌ ' + g.error));
+      // be jokių užrašų — tik siuntos kodas; jei nepavyko — klaida
+      sh.getRange(row, resCol).setValue(g.ok ? g.tracking : ('❌ ' + g.error));
       sh.getRange(row, col).clearContent();
     }
   } catch (err) {
