@@ -55,15 +55,39 @@ function omnivaParse(resp) {
   var code = resp.getResponseCode();
   var text = resp.getContentText();
   if (code < 200 || code >= 300) {
-    throw new Error('Omniva API klaida (' + code + '): ' + text);
+    throw new Error('Omniva: ' + omnivaErrorMessage(text, code));
   }
   return text ? JSON.parse(text) : {};
+}
+
+/** Iš Omniva JSON klaidos ištraukia žmogui suprantamą žinutę (be techninių šiukšlių). */
+function omnivaErrorMessage(text, code) {
+  try {
+    var j = JSON.parse(text);
+    if (j.errors) {
+      var msgs = [];
+      Object.keys(j.errors).forEach(function (k) {
+        (j.errors[k] || []).forEach(function (e) { msgs.push(k + ': ' + (e.message || e.code)); });
+      });
+      if (msgs.length) return msgs.join('; ');
+    }
+    if (j.details) return j.details;
+    if (j.message) return j.message;
+    if (j.error) return j.error;
+  } catch (e) {}
+  return 'klaida (' + code + ')';
+}
+
+/** Vardas + užsakymo nr (kad lipduke matytųsi iškart po vardo). Maks. 50 simb. */
+function nameWithOrder(name, orderNo) {
+  var s = orderNo ? (name + '  ' + orderNo) : String(name || '');
+  return s.length > 50 ? s.slice(0, 50) : s;
 }
 
 /** Sukuria B2C siuntą į pastomatą. Grąžina { barcode, raw }. */
 function registerShipment(order, locker) {
   var receiver = {
-    personName: order.name,
+    personName: nameWithOrder(order.name, order.partner_shipment_id),
     address: {
       country: order.country,
       offloadPostcode: String(locker.id), // <-- pastomatas
@@ -74,6 +98,7 @@ function registerShipment(order, locker) {
 
   var sender = {
     personName: cfg('SENDER_NAME'),
+    altName: cfg('SENDER_NAME'), // ant lipduko rodomas vardas (override paskyros pavadinimui)
     contactMobile: cfg('SENDER_PHONE'),
     contactEmail: cfg('SENDER_EMAIL'),
     address: {

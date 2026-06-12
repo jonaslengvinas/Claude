@@ -141,13 +141,17 @@ function uiSearchLockers(orderName, query, country) {
   if (!String(query || '').trim()) return [];
   var c = (country || o['Šalis'] || 'LT').toUpperCase();
   var lockers = getLockers(c);
+  var coords = null;
+  try { coords = geocode(o['Adresas'], o['Šalis'] || c); } catch (e) {}
   var out = [];
-  for (var i = 0; i < lockers.length && out.length < 25; i++) {
+  for (var i = 0; i < lockers.length; i++) {
     if (lockerMatchesQuery(lockers[i], query)) {
-      out.push({ id: lockers[i].id, name: lockers[i].name, address: lockers[i].address });
+      var km = coords ? round2(haversine(coords.lat, coords.lon, lockers[i].lat, lockers[i].lon)) : '';
+      out.push({ id: lockers[i].id, name: lockers[i].name, address: lockers[i].address, km: km });
     }
   }
-  return out;
+  if (coords) out.sort(function (a, b) { return a.km - b.km; });
+  return out.slice(0, 25);
 }
 
 /** Bendra pastomato perparinkimo logika (naudoja ir dashboard, ir lentelės „OK"). */

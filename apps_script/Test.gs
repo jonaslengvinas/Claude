@@ -12,20 +12,20 @@
 
 /** Pavyzdiniai užsakymai (imituoja Shopify orders/paid struktūrą). */
 function sampleOrders() {
-  var ts = Date.now();
+  var n = String(Date.now()).slice(-4); // trumpas numeris, mažiau šiukšlių
   return [
     {
-      id: '', name: '#TEST-LT-' + ts, email: 'testas@pavyzdys.lt', phone: '860000001',
+      id: '', name: '#TEST-LT-' + n, email: 'testas@pavyzdys.lt', phone: '860000001',
       shipping_address: { name: 'Testas Vilnietis', address1: 'Gedimino pr. 9', zip: '01103', city: 'Vilnius', country_code: 'LT', phone: '860000001' },
       line_items: [{ title: 'Bandomoji prekė', quantity: 1 }],
     },
     {
-      id: '', name: '#TEST-LV-' + ts, email: 'test@piemers.lv', phone: '+37120000001',
+      id: '', name: '#TEST-LV-' + n, email: 'test@piemers.lv', phone: '+37120000001',
       shipping_address: { name: 'Test Rīdzinieks', address1: 'Brīvības iela 30', zip: 'LV-1011', city: 'Rīga', country_code: 'LV', phone: '+37120000001' },
       line_items: [{ title: 'Bandomoji prekė', quantity: 1 }],
     },
     {
-      id: '', name: '#TEST-EE-' + ts, email: 'test@naide.ee', phone: '+37250000001',
+      id: '', name: '#TEST-EE-' + n, email: 'test@naide.ee', phone: '+37250000001',
       shipping_address: { name: 'Test Tallinlane', address1: 'Narva mnt 7', zip: '10117', city: 'Tallinn', country_code: 'EE', phone: '+37250000001' },
       line_items: [{ title: 'Bandomoji prekė', quantity: 1 }],
     },
