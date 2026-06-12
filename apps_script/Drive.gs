@@ -5,8 +5,13 @@
  * -> gaunam viešą (su nuoroda) URL -> jį įrašom į užsakymo eilutę / Shopify.
  */
 
-/** Drive aplankas lipdukams (sukuriamas jei nėra). */
+/** Drive aplankas lipdukams: pirma pagal ID, kitaip pagal pavadinimą. */
 function getLabelFolder() {
+  var id = cfg('DRIVE_FOLDER_ID');
+  if (id) {
+    try { return DriveApp.getFolderById(id); }
+    catch (e) { throw new Error('Nepavyko atidaryti Drive aplanko pagal ID (' + id + '). Patikrink, ar turi prieigą.'); }
+  }
   var name = cfg('DRIVE_FOLDER') || 'Omniva lipdukai';
   var it = DriveApp.getFoldersByName(name);
   return it.hasNext() ? it.next() : DriveApp.createFolder(name);

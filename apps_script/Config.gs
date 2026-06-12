@@ -30,7 +30,8 @@ var SETTINGS_KEYS = [
   { key: 'TRACKING_URL_TEMPLATE', label: 'Tracking nuorodos šablonas ({barcode})', secret: false, group: 'Omniva' },
 
   // Lipdukai / Drive
-  { key: 'DRIVE_FOLDER', label: 'Google Drive aplankas lipdukams', secret: false, group: 'Lipdukai' },
+  { key: 'DRIVE_FOLDER_ID', label: 'Google Drive aplanko ID lipdukams (iš aplanko URL)', secret: false, group: 'Lipdukai' },
+  { key: 'DRIVE_FOLDER', label: 'ARBA aplanko pavadinimas (jei ID nenurodytas)', secret: false, group: 'Lipdukai' },
   { key: 'LABEL_TO_EMAIL', label: 'Lipduką siųsti el. paštu (palik tuščią = saugot į Drive)', secret: false, group: 'Lipdukai' },
   { key: 'RETURN_DAYS', label: 'Grąžinimo terminas dienomis (pvz. 14)', secret: false, group: 'Lipdukai' },
 
@@ -52,6 +53,7 @@ var DEFAULTS = {
   TRACKING_URL_TEMPLATE: 'https://www.omniva.lt/private/track_and_trace?barcode={barcode}',
   SENDER_COUNTRY: 'LT',
   DRIVE_FOLDER: 'Omniva lipdukai',
+  DRIVE_FOLDER_ID: '1J_D_TfO0I7VOCFAHPTV_AMI9bwSqnr5L', // "Lipdukai siuntimui"
   RETURN_DAYS: '14',
 };
 
