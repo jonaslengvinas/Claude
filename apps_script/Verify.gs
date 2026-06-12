@@ -119,7 +119,7 @@ function uiGenerateLabel(orderName) {
   if (!barcode || String(barcode).indexOf('TEST') === 0) {
     throw new Error('Nėra realaus tracking — pirma sukurk siuntą (LIVE arba su Omniva raktais).');
   }
-  var url = generateAndStoreLabel(barcode, cfg('LABEL_TO_EMAIL') || null);
+  var url = generateAndStoreLabel(orderName, barcode, cfg('LABEL_TO_EMAIL') || null);
   if (url) setLabelUrl(orderName, url);
   return { ok: true, label: url, orders: listOrders(200) };
 }
@@ -145,7 +145,7 @@ function uiReassignLocker(orderName, lockerId) {
   var note = '';
   if (omnivaReady() && barcode && String(barcode).indexOf('TEST') !== 0) {
     changeLocker(barcode, rowToOmnivaOrder(o), locker); // tas pats barcode, naujas pastomatas
-    try { var url = generateAndStoreLabel(barcode, cfg('LABEL_TO_EMAIL') || null); if (url) setLabelUrl(orderName, url); }
+    try { var url = generateAndStoreLabel(orderName, barcode, cfg('LABEL_TO_EMAIL') || null); if (url) setLabelUrl(orderName, url); }
     catch (e) { note = ' (lipduko pergeneruoti nepavyko: ' + e.message + ')'; }
   } else {
     note = ' (TEST — Omniva siunta nekeista)';
@@ -169,7 +169,7 @@ function uiUpdatePhone(orderName, newPhone) {
   var locker = lockerById(o['Šalis'], o['Pastomato ID']);
   if (omnivaReady() && barcode && String(barcode).indexOf('TEST') !== 0 && locker) {
     changeLocker(barcode, rowToOmnivaOrder(o, phone), locker); // pakeičia receiver (telefoną), tas pats barcode
-    try { var url = generateAndStoreLabel(barcode, cfg('LABEL_TO_EMAIL') || null); if (url) setLabelUrl(orderName, url); } catch (e) {}
+    try { var url = generateAndStoreLabel(orderName, barcode, cfg('LABEL_TO_EMAIL') || null); if (url) setLabelUrl(orderName, url); } catch (e) {}
   }
   if (isLive() && shopifyReady() && o['OrderID']) {
     try { shopifyFetch('put', '/orders/' + o['OrderID'] + '.json', { order: { id: o['OrderID'], phone: phone } }); } catch (e) {}

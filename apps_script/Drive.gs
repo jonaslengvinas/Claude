@@ -12,27 +12,31 @@ function getLabelFolder() {
   return it.hasNext() ? it.next() : DriveApp.createFolder(name);
 }
 
-/** Įrašo base64 PDF į Drive, grąžina nuorodą (peržiūrai su nuoroda). */
-function saveLabelToDrive(barcode, base64pdf) {
-  var blob = Utilities.newBlob(
-    Utilities.base64Decode(base64pdf),
-    'application/pdf',
-    'Omniva_' + barcode + '.pdf'
-  );
-  var file = getLabelFolder().createFile(blob);
+/** Įrašo base64 PDF į Drive (failas pavadinamas pagal užsakymo nr), grąžina nuorodą. */
+function saveLabelToDrive(orderName, barcode, base64pdf) {
+  var folder = getLabelFolder();
+  var base = String(orderName || ('Omniva_' + barcode)).replace(/[\\/:*?"<>|#]/g, '').trim();
+  var fname = base + '.pdf';
+
+  // jei tas pats užsakymas perdaromas — pašalinam seną to paties pavadinimo lipduką
+  var old = folder.getFilesByName(fname);
+  while (old.hasNext()) old.next().setTrashed(true);
+
+  var blob = Utilities.newBlob(Utilities.base64Decode(base64pdf), 'application/pdf', fname);
+  var file = folder.createFile(blob);
   try {
     file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
   } catch (e) {
-    // jei organizacija draudžia viešą dalinimąsi — paliekam privatų, nuoroda vis tiek veiks savininkui
+    // jei organizacija draudžia viešą dalinimąsi — paliekam privatų, nuoroda veiks savininkui
   }
   return file.getUrl();
 }
 
 /**
- * Paima lipduką iš Omniva (base64) ir įrašo į Drive. Grąžina Drive nuorodą.
- * Jei toEmail nurodytas — Omniva nusiunčia lipduką el. paštu (į Drive nededam).
+ * Paima lipduką iš Omniva (base64) ir įrašo į Drive pagal užsakymo nr.
+ * Grąžina Drive nuorodą. Jei toEmail nurodytas — Omniva nusiunčia el. paštu.
  */
-function generateAndStoreLabel(barcode, toEmail) {
+function generateAndStoreLabel(orderName, barcode, toEmail) {
   if (toEmail) {
     requestLabel([barcode], toEmail);
     return ''; // išsiųsta el. paštu, Drive nuorodos nėra
@@ -43,5 +47,5 @@ function generateAndStoreLabel(barcode, toEmail) {
     var failed = res.failedAddressCards ? JSON.stringify(res.failedAddressCards) : JSON.stringify(res).slice(0, 200);
     throw new Error('Negautas lipdukas: ' + failed);
   }
-  return saveLabelToDrive(barcode, card.filedata);
+  return saveLabelToDrive(orderName, barcode, card.filedata);
 }

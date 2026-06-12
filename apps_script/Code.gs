@@ -109,7 +109,7 @@ function processOrder(order) {
     // 4. Lipdukas -> Google Drive (arba el. paštu, jei nustatyta).
     if (omnivaReady() && barcode && String(barcode).indexOf('TEST') !== 0) {
       try {
-        rec.label = generateAndStoreLabel(barcode, cfg('LABEL_TO_EMAIL') || null);
+        rec.label = generateAndStoreLabel(orderName, barcode, cfg('LABEL_TO_EMAIL') || null);
       } catch (lErr) {
         rec.notes = 'Lipdukas: ' + lErr.message;
       }
