@@ -7,8 +7,11 @@
  * Svarbu: locker.id == Omniva offloadPostcode (būtent jo reikia siuntai sukurti).
  */
 
-var LOCKERS_URL =
-  'https://raw.githubusercontent.com/mijora/omniva-prestahop-1.7/master/locations.json';
+// Pirma bandom gyvą Omniva šaltinį (pilnas, šviežias), tada GitHub veidrodį.
+var LOCKERS_URLS = [
+  'https://www.omniva.lt/locations.json',
+  'https://raw.githubusercontent.com/mijora/omniva-prestahop-1.7/master/locations.json',
+];
 var COUNTRIES = ['LT', 'LV', 'EE'];
 
 /** Adresas -> artimiausi pastomatai. */
@@ -39,36 +42,67 @@ function lockerById(country, id) {
   return null;
 }
 
-/** Surasti pastomatą pagal pavadinimą (tikslus, tada „dalis pavadinimo"). */
+/** Normalizuoja tekstą paieškai: be diakritikų, mažosiomis. „Jonažolių" -> „jonazoliu". */
+function _norm(s) {
+  return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+}
+
+/** Ar pastomatas atitinka paiešką (pagal ATSKIRUS žodžius, be diakritikų). */
+function lockerMatchesQuery(locker, query) {
+  var hay = _norm(locker.name + ' ' + (locker.city || '') + ' ' + (locker.address || ''));
+  var toks = _norm(query).split(/\s+/).filter(Boolean);
+  if (!toks.length) return false;
+  for (var i = 0; i < toks.length; i++) {
+    if (hay.indexOf(toks[i]) < 0) return false;
+  }
+  return true;
+}
+
+/** Surasti pastomatą pagal pavadinimą (be diakritikų, pagal žodžius). */
 function lockerByName(country, name) {
   if (!name) return null;
-  var q = String(name).trim().toLowerCase();
-  if (!q) return null;
   var lockers = getLockers((country || '').toUpperCase());
+  var qn = _norm(name).trim();
+  if (!qn) return null;
   for (var i = 0; i < lockers.length; i++) {
-    if (lockers[i].name.toLowerCase() === q) return lockers[i];
+    if (_norm(lockers[i].name).trim() === qn) return lockers[i]; // tikslus
   }
   for (var j = 0; j < lockers.length; j++) {
-    if (lockers[j].name.toLowerCase().indexOf(q) >= 0) return lockers[j];
+    if (lockerMatchesQuery(lockers[j], name)) return lockers[j]; // pagal žodžius
   }
   return null;
 }
 
-/** Adresas -> {lat, lon} per Nominatim (nemokamai). */
+/**
+ * Adresas -> {lat, lon}. Pirma per ĮMONTUOTĄ Apps Script Google geokoderį
+ * (be API rakto, patikimas), atsarginis variantas — Nominatim.
+ */
 function geocode(query, country) {
-  var url =
-    'https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=' +
-    country.toLowerCase() +
-    '&q=' +
-    encodeURIComponent(query);
-  var resp = UrlFetchApp.fetch(url, {
-    headers: { 'User-Agent': 'omnibox-locker-finder/1.0 (Omniva app)' },
-    muteHttpExceptions: true,
-  });
-  if (resp.getResponseCode() !== 200) return null;
-  var data = JSON.parse(resp.getContentText());
-  if (!data || !data.length) return null;
-  return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
+  // 1) Google geokoderis (Maps servisas — be rakto)
+  try {
+    var g = Maps.newGeocoder();
+    if (country) g.setRegion(country.toLowerCase());
+    var r = g.geocode(query);
+    if (r && r.status === 'OK' && r.results && r.results.length) {
+      var loc = r.results[0].geometry.location;
+      return { lat: loc.lat, lon: loc.lng };
+    }
+  } catch (e) { /* krentam į atsarginį */ }
+
+  // 2) Atsarginis: Nominatim (OpenStreetMap)
+  try {
+    var url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=' +
+      country.toLowerCase() + '&q=' + encodeURIComponent(query);
+    var resp = UrlFetchApp.fetch(url, {
+      headers: { 'User-Agent': 'omnibox-locker-finder/1.0 (Omniva app)' },
+      muteHttpExceptions: true,
+    });
+    if (resp.getResponseCode() === 200) {
+      var data = JSON.parse(resp.getContentText());
+      if (data && data.length) return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
+    }
+  } catch (e2) {}
+  return null;
 }
 
 /** Pastomatai vienai šaliai (parsiunčiama ir laikoma talpykloje 6 val.). */
@@ -78,7 +112,7 @@ function getLockers(country) {
   var cached = cache.get(key);
   if (cached) return JSON.parse(cached);
 
-  var raw = JSON.parse(UrlFetchApp.fetch(LOCKERS_URL).getContentText());
+  var raw = fetchLockersRaw();
   var out = [];
   raw.forEach(function (r) {
     if (r.A0_NAME !== country) return;
@@ -104,6 +138,20 @@ function getLockers(country) {
   });
   cache.put(key, JSON.stringify(out), 21600); // 6 val.
   return out;
+}
+
+/** Parsisiunčia pastomatų sąrašą (bando kelis šaltinius). */
+function fetchLockersRaw() {
+  for (var i = 0; i < LOCKERS_URLS.length; i++) {
+    try {
+      var resp = UrlFetchApp.fetch(LOCKERS_URLS[i], { muteHttpExceptions: true });
+      if (resp.getResponseCode() === 200) {
+        var arr = JSON.parse(resp.getContentText());
+        if (arr && arr.length) return arr;
+      }
+    } catch (e) { /* bandom kitą */ }
+  }
+  throw new Error('Nepavyko parsisiųsti pastomatų sąrašo nė iš vieno šaltinio.');
 }
 
 /** Atstumas tarp dviejų taškų (km). */

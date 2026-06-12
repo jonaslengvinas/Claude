@@ -132,7 +132,14 @@
     </div>
     <div class="muted" style="margin-bottom:10px">Spustelk pastomatą, kad priskirtum. Užsidaro paspaudus šalia.</div>
     <div id="pickerNearest"></div>
-    <input id="pickerSearch" placeholder="Ieškoti pastomato pagal pavadinimą ar miestą…" oninput="searchPicker()" style="margin:12px 0 8px">
+    <div class="row" style="margin:12px 0 8px;gap:8px">
+      <select id="pickerCountry" style="width:auto" onchange="searchPicker()">
+        <option value="LT">LT</option>
+        <option value="LV">LV</option>
+        <option value="EE">EE</option>
+      </select>
+      <input id="pickerSearch" placeholder="Ieškoti pastomato pagal pavadinimą ar miestą…" oninput="searchPicker()" style="flex:1">
+    </div>
     <div id="pickerResults"></div>
   </div></div>
 
@@ -181,7 +188,7 @@
       var name=esc(o['Užsakymas']);
       var label = o['Lipdukas'] ? '<a href="'+esc(o['Lipdukas'])+'" target="_blank">📄 PDF</a>'
                                 : '<button class="act ghost" onclick="genLabel(\''+name+'\')">Generuoti</button>';
-      var actions = '<button class="act ghost" onclick="reassign(\''+name+'\')">Pastomatas</button> '
+      var actions = '<button class="act ghost" onclick="reassign(\''+name+'\',\''+esc(o['Šalis']||'LT')+'\')">Pastomatas</button> '
                   + '<button class="act ghost" onclick="changePhone(\''+name+'\')">Tel.</button>';
       var tr=document.createElement('tr');
       tr.innerHTML='<td>'+esc(o['Laikas'])+'</td><td>'+name+'</td><td>'+esc(o['Klientas'])+'</td>'
@@ -218,11 +225,12 @@
     return '<div class="lk" onclick="doPick(\''+esc(l.id)+'\')"><div><b>'+esc(l.name)+'</b>'
       +'<div class="muted">'+esc(l.address||'')+'</div></div><div class="muted">'+km+'</div></div>';
   }
-  function reassign(name){
+  function reassign(name, country){
     pickerOrder=name;
     document.getElementById('pickerTitle').textContent='Pastomatas užsakymui '+name;
     document.getElementById('pickerResults').innerHTML='';
     document.getElementById('pickerSearch').value='';
+    if(country) document.getElementById('pickerCountry').value=country;
     document.getElementById('pickerNearest').innerHTML='<div class="muted">Kraunami artimiausi…</div>';
     document.getElementById('picker').classList.remove('hidden');
     google.script.run.withSuccessHandler(function(list){
@@ -231,12 +239,13 @@
   }
   function searchPicker(){
     var q=document.getElementById('pickerSearch').value;
+    var c=document.getElementById('pickerCountry').value;
     if(q.length<2){ document.getElementById('pickerResults').innerHTML=''; return; }
     google.script.run.withSuccessHandler(function(list){
       document.getElementById('pickerResults').innerHTML = list.length
-        ? '<div class="muted">Paieška:</div>'+list.map(lkRow).join('')
+        ? '<div class="muted">Paieška ('+c+'):</div>'+list.map(lkRow).join('')
         : '<div class="muted">Nerasta</div>';
-    }).uiSearchLockers(pickerOrder, q);
+    }).uiSearchLockers(pickerOrder, q, c);
   }
   function doPick(id){
     closePicker(); toast('Keičiamas pastomatas…');

@@ -134,18 +134,17 @@ function uiGetNearest(orderName) {
   });
 }
 
-/** Paieška: bet kuris pastomatas pagal pavadinimą ar miestą (perparinkimui). */
-function uiSearchLockers(orderName, query) {
+/** Paieška: pastomatas pagal pavadinimą/miestą pasirinktoje šalyje (be diakritikų, pagal žodžius). */
+function uiSearchLockers(orderName, query, country) {
   var o = getOrder(orderName);
   if (!o) throw new Error('Užsakymas nerastas');
-  var q = String(query || '').trim().toLowerCase();
-  if (!q) return [];
-  var lockers = getLockers((o['Šalis'] || '').toUpperCase());
+  if (!String(query || '').trim()) return [];
+  var c = (country || o['Šalis'] || 'LT').toUpperCase();
+  var lockers = getLockers(c);
   var out = [];
   for (var i = 0; i < lockers.length && out.length < 25; i++) {
-    var l = lockers[i];
-    if (l.name.toLowerCase().indexOf(q) >= 0 || String(l.city || '').toLowerCase().indexOf(q) >= 0) {
-      out.push({ id: l.id, name: l.name, address: l.address });
+    if (lockerMatchesQuery(lockers[i], query)) {
+      out.push({ id: lockers[i].id, name: lockers[i].name, address: lockers[i].address });
     }
   }
   return out;
