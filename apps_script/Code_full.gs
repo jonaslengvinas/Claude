@@ -1231,6 +1231,11 @@ function onOpen() {
       .addItem('1. Paruošti lentelę (stulpelius)', 'setupSheet')
       .addItem('2. Įjungti pastomato keitimo trigerį', 'setupTriggers')
       .addSeparator()
+      .addSubMenu(SpreadsheetApp.getUi().createMenu('🧪 Testas: siunta + lipdukas')
+        .addItem('Lietuva (LT)', 'testLabelFlowLT')
+        .addItem('Latvija (LV)', 'testLabelFlowLV')
+        .addItem('Estija (EE)', 'testLabelFlowEE'))
+      .addSeparator()
       .addItem('Parodyti pulto (dashboard) URL', 'showDashboardUrl')
       .addToUi();
   } catch (e) {}
@@ -1342,6 +1347,57 @@ function testCreateSampleLT() {
   var r = uiCreateTestOrder(0);
   Logger.log(JSON.stringify(r.result, null, 2));
 }
+
+/**
+ * PILNAS LIPDUKO TESTAS — paleisk šitą (Run) arba per meniu.
+ * Praleidžia testinį užsakymą per visą sistemą ir aiškiai parodo kiekvieną žingsnį:
+ *   1) adresas -> artimiausias pastomatas
+ *   2) Omniva siunta (barcode)
+ *   3) lipdukas (PDF) -> Google Drive nuoroda
+ * Testinio užsakymo id tuščias, todėl net LIVE režime Shopify NELIEČIAMAS.
+ *
+ * country: 'LT' (numatyta), 'LV' arba 'EE'.
+ */
+function testLabelFlow(country) {
+  var map = { LT: 0, LV: 1, EE: 2 };
+  var idx = map[String(country || 'LT').toUpperCase()] || 0;
+  var order = sampleOrders()[idx];
+
+  var log = [];
+  function L(s) { log.push(s); Logger.log(s); }
+
+  L('===== OMNIBOX LIPDUKO TESTAS =====');
+  L('Režimas: ' + cfg('MODE') + ' | Omniva raktai: ' + (omnivaReady() ? 'yra' : 'NĖRA'));
+  L('Užsakymas: ' + order.name + '  (' + order.shipping_address.country_code + ')');
+  L('Adresas: ' + [order.shipping_address.address1, order.shipping_address.zip, order.shipping_address.city].join(', '));
+  L('----------------------------------');
+
+  var res = processOrder(order);
+
+  if (res.ok) {
+    L('1) Pastomatas: ' + (res.locker && res.locker.name) + ' (' + (res.locker && res.locker.distance_km) + ' km)');
+    L('2) Siuntos kodas (barcode): ' + (res.tracking || '—'));
+    if (res.label) {
+      L('3) ✅ LIPDUKAS DRIVE: ' + res.label);
+      L('   -> Atidaryk šią nuorodą — tai tavo PDF lipdukas.');
+    } else {
+      L('3) ⚠️ Lipdukas NESUKURTAS. Žr. „Pastabos" stulpelį lentelėje.');
+    }
+    L('----------------------------------');
+    L(res.simulated ? 'BAIGTA (TEST imitacija).' : '✅ BAIGTA SĖKMINGAI. Patikrink Drive aplanką ir lentelę.');
+  } else {
+    L('❌ KLAIDA: ' + res.error);
+  }
+
+  // Parodom suvestinę pop-up'e, jei paleista iš lentelės
+  try { SpreadsheetApp.getUi().alert(log.join('\n')); } catch (e) {}
+  return res;
+}
+
+/** Meniu pagalbininkai (LT/LV/EE) — kad būtų patogu paleisti iš lentelės meniu. */
+function testLabelFlowLT() { return testLabelFlow('LT'); }
+function testLabelFlowLV() { return testLabelFlow('LV'); }
+function testLabelFlowEE() { return testLabelFlow('EE'); }
 /**
  * Code.gs — pagrindinis įėjimo taškas.
  *

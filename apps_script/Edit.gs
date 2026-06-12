@@ -19,6 +19,11 @@ function onOpen() {
       .addItem('1. Paruošti lentelę (stulpelius)', 'setupSheet')
       .addItem('2. Įjungti pastomato keitimo trigerį', 'setupTriggers')
       .addSeparator()
+      .addSubMenu(SpreadsheetApp.getUi().createMenu('🧪 Testas: siunta + lipdukas')
+        .addItem('Lietuva (LT)', 'testLabelFlowLT')
+        .addItem('Latvija (LV)', 'testLabelFlowLV')
+        .addItem('Estija (EE)', 'testLabelFlowEE'))
+      .addSeparator()
       .addItem('Parodyti pulto (dashboard) URL', 'showDashboardUrl')
       .addToUi();
   } catch (e) {}
