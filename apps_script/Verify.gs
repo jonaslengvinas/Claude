@@ -134,6 +134,23 @@ function uiGetNearest(orderName) {
   });
 }
 
+/** Paieška: bet kuris pastomatas pagal pavadinimą ar miestą (perparinkimui). */
+function uiSearchLockers(orderName, query) {
+  var o = getOrder(orderName);
+  if (!o) throw new Error('Užsakymas nerastas');
+  var q = String(query || '').trim().toLowerCase();
+  if (!q) return [];
+  var lockers = getLockers((o['Šalis'] || '').toUpperCase());
+  var out = [];
+  for (var i = 0; i < lockers.length && out.length < 25; i++) {
+    var l = lockers[i];
+    if (l.name.toLowerCase().indexOf(q) >= 0 || String(l.city || '').toLowerCase().indexOf(q) >= 0) {
+      out.push({ id: l.id, name: l.name, address: l.address });
+    }
+  }
+  return out;
+}
+
 /** Bendra pastomato perparinkimo logika (naudoja ir dashboard, ir lentelės „OK"). */
 function doReassign(o, locker) {
   var orderName = o['Užsakymas'];

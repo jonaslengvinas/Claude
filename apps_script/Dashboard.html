@@ -41,6 +41,10 @@
     .spin { color:var(--muted); }
     .hidden { display:none; }
     .toast { position:fixed; bottom:20px; right:20px; background:var(--card); border:1px solid var(--line); padding:12px 18px; border-radius:10px; }
+    .modal { position:fixed; inset:0; background:rgba(0,0,0,.55); display:flex; align-items:center; justify-content:center; z-index:50; }
+    .modal .box { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; width:min(560px,94vw); max-height:82vh; overflow:auto; }
+    .lk { display:flex; justify-content:space-between; gap:10px; padding:10px 12px; border:1px solid var(--line); border-radius:8px; margin-bottom:8px; cursor:pointer; }
+    .lk:hover { border-color:var(--accent); background:rgba(91,140,255,.08); }
   </style>
 </head>
 <body>
@@ -121,6 +125,16 @@
 
   <div id="toast" class="toast hidden"></div>
 
+  <div id="picker" class="modal hidden"><div class="box">
+    <div class="row" style="justify-content:space-between;margin-bottom:10px">
+      <b id="pickerTitle">Pasirink pastomatą</b>
+      <button class="act ghost" onclick="closePicker()">✕</button>
+    </div>
+    <div id="pickerNearest"></div>
+    <input id="pickerSearch" placeholder="Ieškoti pastomato pagal pavadinimą ar miestą…" oninput="searchPicker()" style="margin:12px 0 8px">
+    <div id="pickerResults"></div>
+  </div></div>
+
 <script>
   var SETTINGS = [];
   function toast(msg) { var t=document.getElementById('toast'); t.textContent=msg; t.classList.remove('hidden'); setTimeout(function(){t.classList.add('hidden')},2500); }
@@ -197,19 +211,39 @@
       .uiGenerateLabel(name);
   }
 
-  function reassign(name){
-    google.script.run.withSuccessHandler(function(list){
-      if(!list.length){ alert('Nerasta pastomatų'); return; }
-      var msg='Pasirink pastomatą užsakymui '+name+':\n';
-      list.forEach(function(l,i){ msg+=(i+1)+'. '+l.name+' ('+l.km+' km)\n'; });
-      var pick=prompt(msg+'\nĮrašyk numerį (1-'+list.length+'):','1');
-      var idx=parseInt(pick,10)-1;
-      if(isNaN(idx)||idx<0||idx>=list.length) return;
-      google.script.run.withSuccessHandler(function(r){ renderOrders(r.orders); toast('Pastomatas pakeistas'); })
-        .withFailureHandler(function(e){ alert('Klaida: '+e.message); })
-        .uiReassignLocker(name, list[idx].id);
-    }).withFailureHandler(function(e){ alert('Klaida: '+e.message); }).uiGetNearest(name);
+  var pickerOrder=null;
+  function lkRow(l){
+    var km = (l.km!=null&&l.km!=='') ? esc(l.km)+' km' : '';
+    return '<div class="lk" onclick="doPick(\''+esc(l.id)+'\')"><div><b>'+esc(l.name)+'</b>'
+      +'<div class="muted">'+esc(l.address||'')+'</div></div><div class="muted">'+km+'</div></div>';
   }
+  function reassign(name){
+    pickerOrder=name;
+    document.getElementById('pickerTitle').textContent='Pastomatas užsakymui '+name;
+    document.getElementById('pickerResults').innerHTML='';
+    document.getElementById('pickerSearch').value='';
+    document.getElementById('pickerNearest').innerHTML='<div class="muted">Kraunami artimiausi…</div>';
+    document.getElementById('picker').classList.remove('hidden');
+    google.script.run.withSuccessHandler(function(list){
+      document.getElementById('pickerNearest').innerHTML='<div class="muted">Artimiausi:</div>'+list.map(lkRow).join('');
+    }).withFailureHandler(function(e){ document.getElementById('pickerNearest').innerHTML='<div class="pill err">'+esc(e.message)+'</div>'; }).uiGetNearest(name);
+  }
+  function searchPicker(){
+    var q=document.getElementById('pickerSearch').value;
+    if(q.length<2){ document.getElementById('pickerResults').innerHTML=''; return; }
+    google.script.run.withSuccessHandler(function(list){
+      document.getElementById('pickerResults').innerHTML = list.length
+        ? '<div class="muted">Paieška:</div>'+list.map(lkRow).join('')
+        : '<div class="muted">Nerasta</div>';
+    }).uiSearchLockers(pickerOrder, q);
+  }
+  function doPick(id){
+    closePicker(); toast('Keičiamas pastomatas…');
+    google.script.run.withSuccessHandler(function(r){ renderOrders(r.orders); toast('Pastomatas pakeistas'); })
+      .withFailureHandler(function(e){ alert('Klaida: '+e.message); })
+      .uiReassignLocker(pickerOrder, id);
+  }
+  function closePicker(){ document.getElementById('picker').classList.add('hidden'); }
 
   function changePhone(name){
     var p=prompt('Naujas kliento telefonas (su prefiksu, pvz. +37060000000) užsakymui '+name+':','');
