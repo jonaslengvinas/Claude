@@ -37,29 +37,53 @@ function saveLabelToDrive(orderName, barcode, base64pdf) {
   return file.getUrl();
 }
 
-/** Atsparus lipduko duomenų ištraukimas iš įvairių atsako formų. */
+/**
+ * Atsparus lipduko duomenų ištraukimas.
+ * Omniva gali grąžinti arba base64 (filedata) arba pre-signed S3 URL.
+ * Grąžina { type: 'base64'|'url', data: '...' } arba null.
+ */
 function extractLabelData(res) {
   if (!res) return null;
   var arr = res.successAddressCards || res.addressCards || [];
-  if (arr.length && arr[0] && arr[0].filedata) return arr[0].filedata;
-  if (res.filedata) return res.filedata;
+  if (arr.length && arr[0]) {
+    var card = arr[0];
+    if (card.filedata) return { type: 'base64', data: card.filedata };
+    var url = card.fileUrl || card.url || card.labelUrl || card.documentUrl || card.mergedDocumentUrl;
+    if (url) return { type: 'url', data: url };
+  }
+  if (res.filedata) return { type: 'base64', data: res.filedata };
+  var topUrl = res.fileUrl || res.mergedDocumentUrl || res.url;
+  if (topUrl) return { type: 'url', data: topUrl };
   return null;
 }
 
 /**
- * Paima lipduką iš Omniva (base64) ir įrašo į Drive pagal užsakymo nr.
+ * Paima lipduką iš Omniva ir įrašo į Drive pagal užsakymo nr.
+ * Omniva LIVE grąžina pre-signed URL → atsisiunčiame PDF ir saugome.
  * Grąžina Drive nuorodą. Jei toEmail nurodytas — Omniva nusiunčia el. paštu.
  */
 function generateAndStoreLabel(orderName, barcode, toEmail) {
   if (toEmail) {
     requestLabel([barcode], toEmail);
-    return ''; // išsiųsta el. paštu, Drive nuorodos nėra
+    return '';
   }
-  var res = requestLabel([barcode], null); // RESPONSE -> base64 PDF
-  var data = extractLabelData(res);
-  if (!data) {
-    var failed = res.failedAddressCards ? JSON.stringify(res.failedAddressCards) : JSON.stringify(res).slice(0, 200);
-    throw new Error('Negautas lipdukas: ' + failed);
+  var res = requestLabel([barcode], null);
+  var label = extractLabelData(res);
+  if (!label) {
+    throw new Error('Negautas lipdukas. Omniva atsakymas: ' + JSON.stringify(res).slice(0, 400));
   }
-  return saveLabelToDrive(orderName, barcode, data);
+
+  var pdfBase64;
+  if (label.type === 'url') {
+    // Omniva LIVE grąžina pre-signed S3 URL (galioja ~5 min) — atsisiunčiame iš karto
+    var pdfResp = UrlFetchApp.fetch(label.data, { muteHttpExceptions: true });
+    if (pdfResp.getResponseCode() !== 200) {
+      throw new Error('Nepavyko atsisiųsti lipduko PDF (' + pdfResp.getResponseCode() + ')');
+    }
+    pdfBase64 = Utilities.base64Encode(pdfResp.getContent());
+  } else {
+    pdfBase64 = label.data;
+  }
+
+  return saveLabelToDrive(orderName, barcode, pdfBase64);
 }
