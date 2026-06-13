@@ -128,7 +128,7 @@ function getLockers(country) {
     var city = r.A3_NAME && r.A3_NAME !== 'NULL' ? r.A3_NAME : r.A2_NAME || '';
     out.push({
       id: r.ZIP, // == Omniva offloadPostcode
-      name: r.NAME,
+      name: String(r.NAME).replace(/\s*\(naujas!?\)/ig, '').trim(), // nuvalom Omniva „(naujas!)"
       country: r.A0_NAME,
       city: city,
       address: [street, city].filter(Boolean).join(', '),

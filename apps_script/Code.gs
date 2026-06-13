@@ -261,18 +261,18 @@ function toOmnivaOrder(rec, country, phone) {
  */
 function normalizePhone(raw, country) {
   if (!raw) return '';
-  var p = String(raw).replace(/[^\d+]/g, '');
-  if (p.indexOf('+') === 0) return p;
+  var p = String(raw).replace(/[^\d]/g, ''); // tik skaitmenys (pašalinam +, tarpus, brūkšnius, skliaustus)
+  if (!p) return '';
   var cc = { LT: '370', LV: '371', EE: '372' }[country] || '';
-  if (p.indexOf('00') === 0) return '+' + p.slice(2);
-  if (cc && p.indexOf(cc) === 0) return '+' + p;
-  // LT vietinis formatas: 86xxxxxxx arba 6xxxxxxx
-  if (country === 'LT') {
-    if (p.indexOf('8') === 0) p = p.slice(1);
-    return '+370' + p;
-  }
-  if (cc) return '+' + cc + p.replace(/^0/, '');
-  return p;
+  // 1) tarptautinis „00" prefiksas -> nuimam
+  if (p.indexOf('00') === 0) p = p.slice(2);
+  // 2) jei jau yra šalies kodas priekyje -> nuimam, kad liktų tik vietinis numeris
+  if (cc && p.indexOf(cc) === 0) p = p.slice(cc.length);
+  // 3) nuimam vietinį „trunk" prefiksą: LT naudoja 8 arba 0 (pvz. 8 612.. / 0 612..)
+  //    Baltijos mobilieji prasideda 6/2/5, niekada 0 ar 8 — tad saugu nuimti.
+  p = p.replace(/^[80]+/, '');
+  if (!cc) return p ? ('+' + p) : '';
+  return '+' + cc + p;
 }
 
 function _json(obj) {

@@ -253,7 +253,7 @@ function getLockers(country) {
     var city = r.A3_NAME && r.A3_NAME !== 'NULL' ? r.A3_NAME : r.A2_NAME || '';
     out.push({
       id: r.ZIP, // == Omniva offloadPostcode
-      name: r.NAME,
+      name: String(r.NAME).replace(/\s*\(naujas!?\)/ig, '').trim(), // nuvalom Omniva „(naujas!)"
       country: r.A0_NAME,
       city: city,
       address: [street, city].filter(Boolean).join(', '),
@@ -966,8 +966,13 @@ function addLockerToOrder(orderId, lockerName) {
  * Sujungia su esamais (neperrašo svetimų laukų). Tušti laukai praleidžiami.
  */
 function writeOrderDetails(orderId, details) {
+  // Parcely paliktos „šiukšlės" note_attributes — jas pašalinam, kad „Additional details"
+  // liktų švarus (tik mūsų laukai). (Parcely app'ą rekomenduojama išvis pašalinti.)
+  var PARCELY_KEYS = ['Location_ID', 'Location_name', 'Town', 'Address', 'COD_allowed',
+    'Shipping Method', 'Parcely Provider ID', 'Service provider', '_Fulfilly', 'Montonio Order Export', 'Montonio Shipment ID'];
+
   var existing = shopifyFetch('get', '/orders/' + orderId + '.json?fields=note_attributes').order || {};
-  var attrs = existing.note_attributes || [];
+  var attrs = (existing.note_attributes || []).filter(function (a) { return PARCELY_KEYS.indexOf(a.name) < 0; });
   var byName = {};
   attrs.forEach(function (a) { byName[a.name] = a; });
 
@@ -1796,18 +1801,18 @@ function toOmnivaOrder(rec, country, phone) {
  */
 function normalizePhone(raw, country) {
   if (!raw) return '';
-  var p = String(raw).replace(/[^\d+]/g, '');
-  if (p.indexOf('+') === 0) return p;
+  var p = String(raw).replace(/[^\d]/g, ''); // tik skaitmenys (pašalinam +, tarpus, brūkšnius, skliaustus)
+  if (!p) return '';
   var cc = { LT: '370', LV: '371', EE: '372' }[country] || '';
-  if (p.indexOf('00') === 0) return '+' + p.slice(2);
-  if (cc && p.indexOf(cc) === 0) return '+' + p;
-  // LT vietinis formatas: 86xxxxxxx arba 6xxxxxxx
-  if (country === 'LT') {
-    if (p.indexOf('8') === 0) p = p.slice(1);
-    return '+370' + p;
-  }
-  if (cc) return '+' + cc + p.replace(/^0/, '');
-  return p;
+  // 1) tarptautinis „00" prefiksas -> nuimam
+  if (p.indexOf('00') === 0) p = p.slice(2);
+  // 2) jei jau yra šalies kodas priekyje -> nuimam, kad liktų tik vietinis numeris
+  if (cc && p.indexOf(cc) === 0) p = p.slice(cc.length);
+  // 3) nuimam vietinį „trunk" prefiksą: LT naudoja 8 arba 0 (pvz. 8 612.. / 0 612..)
+  //    Baltijos mobilieji prasideda 6/2/5, niekada 0 ar 8 — tad saugu nuimti.
+  p = p.replace(/^[80]+/, '');
+  if (!cc) return p ? ('+' + p) : '';
+  return '+' + cc + p;
 }
 
 function _json(obj) {

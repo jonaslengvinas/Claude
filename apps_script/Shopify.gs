@@ -117,8 +117,13 @@ function addLockerToOrder(orderId, lockerName) {
  *   { 'Paštomatas': 'Kauno MAXIMA ...', 'Atstumas nuo kliento': '0.4 km', ... }
  */
 function writeOrderDetails(orderId, details) {
+  // Parcely paliktos „šiukšlės" note_attributes — pašalinam, kad „Additional details"
+  // liktų švarus (tik mūsų laukai). (Parcely app'ą rekomenduojama išvis pašalinti.)
+  var PARCELY_KEYS = ['Location_ID', 'Location_name', 'Town', 'Address', 'COD_allowed',
+    'Shipping Method', 'Parcely Provider ID', 'Service provider', '_Fulfilly', 'Montonio Order Export', 'Montonio Shipment ID'];
+
   var existing = shopifyFetch('get', '/orders/' + orderId + '.json?fields=note_attributes').order || {};
-  var attrs = existing.note_attributes || [];
+  var attrs = (existing.note_attributes || []).filter(function (a) { return PARCELY_KEYS.indexOf(a.name) < 0; });
   var byName = {};
   attrs.forEach(function (a) { byName[a.name] = a; });
 
