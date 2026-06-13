@@ -96,6 +96,32 @@ function uiReprocessOrder(orderId) {
   return processOrder(order);
 }
 
+/**
+ * Rankinis „Įvykdyti" — kai automatinis fulfill nepavyko (pvz. blogas token),
+ * bet siunta JAU sukurta ir duomenys lentelėje. NEkuria naujos siuntos: paima
+ * esamą tracking'ą, įrašo info į užsakymą ir pažymi „fulfilled" (atnaujina Shopify).
+ */
+function uiFulfillExisting(orderName) {
+  var o = getOrder(orderName);
+  if (!o) throw new Error('Užsakymas nerastas: ' + orderName);
+  var barcode = o['Tracking'];
+  if (!barcode || String(barcode).indexOf('TEST') === 0) throw new Error('Nėra realaus tracking kodo (pirma sukurk siuntą).');
+  if (!o['OrderID']) throw new Error('Nėra Shopify OrderID — šis užsakymas ne iš Shopify.');
+  if (!shopifyReady()) throw new Error('Trūksta Shopify raktų (Nustatymai).');
+
+  writeOrderDetails(o['OrderID'], {
+    'Paštomatas': o['Pastomatas'],
+    'Atstumas nuo kliento': o['km'] ? (o['km'] + ' km') : '',
+    'Kiti artimi paštomatai': o['3 artimiausi'] || '',
+    'Omniva tracking': barcode,
+    'Tracking nuoroda': trackingUrl(barcode),
+    'Lipdukas (PDF)': o['Lipdukas'] || '',
+  });
+  fulfillOrderWithTracking(o['OrderID'], barcode, trackingUrl(barcode));
+  upsertOrder({ order: orderName, fulfilledOk: '✅', status: 'Įvykdyta', notes: 'Rankiniu būdu įvykdyta (Įvykdyti mygtukas).' });
+  return { ok: true, orders: listOrders(200) };
+}
+
 // ---------------------------------------------------------------------------
 // Rankiniai veiksmai dashboard'e (lipdukas, pastomato keitimas, tel. keitimas)
 // ---------------------------------------------------------------------------

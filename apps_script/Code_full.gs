@@ -233,7 +233,7 @@ function geocode(query, country) {
 /** Pastomatai vienai šaliai (parsiunčiama ir laikoma talpykloje 6 val.). */
 function getLockers(country) {
   var cache = CacheService.getScriptCache();
-  var key = 'lockers_' + country;
+  var key = 'lockers_v2_' + country; // v2: priverstinai atnaujinam (senas cache galėjo turėti dalinį sąrašą)
   var cached = cache.get(key);
   if (cached) return JSON.parse(cached);
 
@@ -265,17 +265,32 @@ function getLockers(country) {
   return out;
 }
 
-/** Parsisiunčia pastomatų sąrašą (bando kelis šaltinius). */
+/**
+ * Parsisiunčia pastomatų sąrašą. SVARBU: omniva.lt sąrašas yra PILNAS (~300+ LT
+ * pastomatų), o GitHub veidrodis — pasenęs (~150, be naujų). Todėl:
+ *   1) kvietimas su User-Agent (be jo serveris gali atmesti -> kristume į veidrodį);
+ *   2) PILNUMO patikra — jei šaltinis duoda per mažai LT pastomatų, jis dalinis,
+ *      bandom kitą; tik kraštutiniu atveju grąžinam ką turim.
+ */
 function fetchLockersRaw() {
+  var opts = { muteHttpExceptions: true, followRedirects: true,
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Omnibox/1.0; +omniva)' } };
+  var fallback = null;
   for (var i = 0; i < LOCKERS_URLS.length; i++) {
     try {
-      var resp = UrlFetchApp.fetch(LOCKERS_URLS[i], { muteHttpExceptions: true });
-      if (resp.getResponseCode() === 200) {
-        var arr = JSON.parse(resp.getContentText());
-        if (arr && arr.length) return arr;
+      var resp = UrlFetchApp.fetch(LOCKERS_URLS[i], opts);
+      if (resp.getResponseCode() !== 200) continue;
+      var arr = JSON.parse(resp.getContentText());
+      if (!arr || !arr.length) continue;
+      var ltMachines = 0;
+      for (var k = 0; k < arr.length; k++) {
+        if (arr[k].A0_NAME === 'LT' && String(arr[k].TYPE) === '0') ltMachines++;
       }
+      if (ltMachines >= 200) return arr;     // pilnas, šviežias sąrašas
+      if (!fallback) fallback = arr;          // dalinis — pasiliekam atsargai
     } catch (e) { /* bandom kitą */ }
   }
+  if (fallback) return fallback;              // geriau dalinis nei nieko
   throw new Error('Nepavyko parsisiųsti pastomatų sąrašo nė iš vieno šaltinio.');
 }
 
@@ -1103,6 +1118,33 @@ function uiReprocessOrder(orderId) {
   if (!shopifyReady()) throw new Error('Reikia Shopify raktų, kad paimtume užsakymą.');
   var order = shopifyFetch('get', '/orders/' + orderId + '.json').order;
   return processOrder(order);
+}
+
+/**
+ * Rankinis „Įvykdyti" — kai automatinis fulfill nepavyko (pvz. blogas token),
+ * bet siunta JAU sukurta ir duomenys lentelėje. NEkuria naujos Omniva siuntos:
+ * paima esamą tracking'ą, įrašo info į užsakymą („Additional details") ir pažymi
+ * „fulfilled". Taip pat tai atnaujina užsakymą Shopify (suveikia order-update eksportas).
+ */
+function uiFulfillExisting(orderName) {
+  var o = getOrder(orderName);
+  if (!o) throw new Error('Užsakymas nerastas: ' + orderName);
+  var barcode = o['Tracking'];
+  if (!barcode || String(barcode).indexOf('TEST') === 0) throw new Error('Nėra realaus tracking kodo (pirma sukurk siuntą).');
+  if (!o['OrderID']) throw new Error('Nėra Shopify OrderID — šis užsakymas ne iš Shopify.');
+  if (!shopifyReady()) throw new Error('Trūksta Shopify raktų (Nustatymai).');
+
+  writeOrderDetails(o['OrderID'], {
+    'Paštomatas': o['Pastomatas'],
+    'Atstumas nuo kliento': o['km'] ? (o['km'] + ' km') : '',
+    'Kiti artimi paštomatai': o['3 artimiausi'] || '',
+    'Omniva tracking': barcode,
+    'Tracking nuoroda': trackingUrl(barcode),
+    'Lipdukas (PDF)': o['Lipdukas'] || '',
+  });
+  fulfillOrderWithTracking(o['OrderID'], barcode, trackingUrl(barcode));
+  upsertOrder({ order: orderName, fulfilledOk: '✅', status: 'Įvykdyta', notes: 'Rankiniu būdu įvykdyta (Įvykdyti mygtukas).' });
+  return { ok: true, orders: listOrders(200) };
 }
 
 // ---------------------------------------------------------------------------

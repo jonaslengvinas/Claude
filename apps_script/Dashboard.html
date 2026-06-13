@@ -194,7 +194,10 @@
       var name=esc(o['Užsakymas']);
       var label = o['Lipdukas'] ? '<a href="'+esc(o['Lipdukas'])+'" target="_blank">📄 PDF</a>'
                                 : '<button class="act ghost" onclick="genLabel(\''+name+'\')">Generuoti</button>';
-      var actions = '<button class="act ghost" onclick="reassign(\''+name+'\',\''+esc(o['Šalis']||'LT')+'\')">Pastomatas</button> '
+      var trk = String(o['Tracking']||'');
+      var canFulfill = o['OrderID'] && trk && trk.indexOf('TEST')!==0 && String(o['Fulfilled Shopify']||'').indexOf('✅')<0;
+      var actions = (canFulfill ? '<button class="act" onclick="fulfillNow(\''+name+'\')">Įvykdyti</button> ' : '')
+                  + '<button class="act ghost" onclick="reassign(\''+name+'\',\''+esc(o['Šalis']||'LT')+'\')">Pastomatas</button> '
                   + '<button class="act ghost" onclick="changePhone(\''+name+'\')">Tel.</button>';
       var tr=document.createElement('tr');
       tr.innerHTML='<td>'+esc(o['Laikas'])+'</td><td>'+name+'</td><td>'+esc(o['Klientas'])+'</td>'
@@ -223,6 +226,14 @@
       .withSuccessHandler(function(r){ renderOrders(r.orders); toast('Lipdukas paruoštas'); })
       .withFailureHandler(function(e){ alert('Klaida: '+e.message); })
       .uiGenerateLabel(name);
+  }
+
+  function fulfillNow(name){
+    toast('Vykdoma į Shopify…');
+    google.script.run
+      .withSuccessHandler(function(r){ renderOrders(r.orders); toast('Įvykdyta ✅ (Shopify atnaujintas)'); })
+      .withFailureHandler(function(e){ alert('Klaida: '+e.message); })
+      .uiFulfillExisting(name);
   }
 
   var pickerOrder=null;

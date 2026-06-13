@@ -108,7 +108,7 @@ function geocode(query, country) {
 /** Pastomatai vienai šaliai (parsiunčiama ir laikoma talpykloje 6 val.). */
 function getLockers(country) {
   var cache = CacheService.getScriptCache();
-  var key = 'lockers_' + country;
+  var key = 'lockers_v2_' + country; // v2: priverstinai atnaujinam (senas cache galėjo turėti dalinį sąrašą)
   var cached = cache.get(key);
   if (cached) return JSON.parse(cached);
 
@@ -140,17 +140,31 @@ function getLockers(country) {
   return out;
 }
 
-/** Parsisiunčia pastomatų sąrašą (bando kelis šaltinius). */
+/**
+ * Parsisiunčia pastomatų sąrašą. SVARBU: omniva.lt sąrašas yra PILNAS (~300+ LT
+ * pastomatų), o GitHub veidrodis — pasenęs (~150). Todėl: kvietimas su User-Agent
+ * (be jo serveris gali atmesti) + PILNUMO patikra (jei per mažai LT pastomatų —
+ * šaltinis dalinis, bandom kitą; tik kraštutiniu atveju grąžinam dalinį).
+ */
 function fetchLockersRaw() {
+  var opts = { muteHttpExceptions: true, followRedirects: true,
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Omnibox/1.0; +omniva)' } };
+  var fallback = null;
   for (var i = 0; i < LOCKERS_URLS.length; i++) {
     try {
-      var resp = UrlFetchApp.fetch(LOCKERS_URLS[i], { muteHttpExceptions: true });
-      if (resp.getResponseCode() === 200) {
-        var arr = JSON.parse(resp.getContentText());
-        if (arr && arr.length) return arr;
+      var resp = UrlFetchApp.fetch(LOCKERS_URLS[i], opts);
+      if (resp.getResponseCode() !== 200) continue;
+      var arr = JSON.parse(resp.getContentText());
+      if (!arr || !arr.length) continue;
+      var ltMachines = 0;
+      for (var k = 0; k < arr.length; k++) {
+        if (arr[k].A0_NAME === 'LT' && String(arr[k].TYPE) === '0') ltMachines++;
       }
+      if (ltMachines >= 200) return arr;
+      if (!fallback) fallback = arr;
     } catch (e) { /* bandom kitą */ }
   }
+  if (fallback) return fallback;
   throw new Error('Nepavyko parsisiųsti pastomatų sąrašo nė iš vieno šaltinio.');
 }
 
