@@ -467,8 +467,11 @@ function extractBarcode(res) {
  */
 function registerReturnShipment(o, returnLocker) {
   var parts = String(o['Adresas'] || '').split(',').map(function (s) { return s.trim(); });
+  var orderNo = o['Užsakymas'] || '';
   var sender = {
-    personName: o['Klientas'],
+    // Vardas + užsakymo nr (kad matytųsi, iš ko ir kurio užsakymo grąžinimas).
+    personName: nameWithOrder(o['Klientas'], orderNo),
+    altName: nameWithOrder(o['Klientas'], orderNo), // bandom perrašyti paskyros pavadinimą ant lipduko
     address: {
       country: (o['Šalis'] || cfg('SENDER_COUNTRY') || 'LT'),
       street: parts[0] || '',
@@ -480,14 +483,15 @@ function registerReturnShipment(o, returnLocker) {
   if (o['El. paštas']) sender.contactEmail = o['El. paštas'];
 
   var receiver = {
-    personName: cfg('SENDER_NAME'),
+    // Gavėjas (tu) + užsakymo nr — kad ir jei siuntėjo info neatspausdintų, matytum, kuris užsakymas.
+    personName: nameWithOrder(cfg('SENDER_NAME'), orderNo),
     address: { country: cfg('SENDER_COUNTRY') || 'LT', offloadPostcode: String(returnLocker.id) },
   };
   if (cfg('SENDER_PHONE')) receiver.contactMobile = cfg('SENDER_PHONE');
   if (cfg('SENDER_EMAIL')) receiver.contactEmail = cfg('SENDER_EMAIL');
 
   var shipment = {
-    partnerShipmentId: String(o['Užsakymas']) + '-R',
+    partnerShipmentId: String(orderNo) + '-R',
     mainService: 'PARCEL',
     deliveryChannel: 'PARCEL_MACHINE',
     receiverAddressee: receiver,
