@@ -861,10 +861,27 @@ function listOrders(limit) {
  *   fulfillOrderWithTracking(...)          -> sukuria fulfillment su tracking
  */
 
-var SHOPIFY_API_VERSION = '2024-10';
+var SHOPIFY_API_VERSION = '2025-07';
 
 function shopifyBase() {
   return 'https://' + cfg('SHOPIFY_SHOP') + '/admin/api/' + SHOPIFY_API_VERSION;
+}
+
+/** Bendras GraphQL kvietimas į Shopify Admin API (patikimiau fulfillment'ui). */
+function shopifyGraphQL(query, variables) {
+  if (!shopifyReady()) throw new Error('Trūksta Shopify raktų.');
+  var resp = UrlFetchApp.fetch(shopifyBase() + '/graphql.json', {
+    method: 'post',
+    contentType: 'application/json',
+    headers: { 'X-Shopify-Access-Token': getShopifyAccessToken() },
+    payload: JSON.stringify({ query: query, variables: variables || {} }),
+    muteHttpExceptions: true,
+  });
+  var code = resp.getResponseCode(), text = resp.getContentText();
+  if (code < 200 || code >= 300) throw new Error('Shopify GraphQL klaida (' + code + '): ' + text);
+  var data = JSON.parse(text);
+  if (data.errors) throw new Error('Shopify GraphQL: ' + JSON.stringify(data.errors).slice(0, 300));
+  return data.data;
 }
 
 /**
@@ -978,23 +995,27 @@ function getFulfillmentOrders(orderId) {
  * (numatyta false — laišką siunčia Print Order Pro, ne Shopify).
  */
 function fulfillOrderWithTracking(orderId, barcode, trackUrl) {
-  var fos = getFulfillmentOrders(orderId);
-  var open = fos.filter(function (f) {
-    return f.status === 'open' || f.status === 'in_progress';
-  });
-  if (!open.length) throw new Error('Užsakymas neturi atvirų fulfillment orders (gal jau įvykdytas?).');
+  // Atvirus fulfillment orders imam per GraphQL (REST fulfillment naujose API versijose nepatikimas).
+  var d1 = shopifyGraphQL(
+    'query($id:ID!){ order(id:$id){ fulfillmentOrders(first:10){ edges{ node{ id status } } } } }',
+    { id: 'gid://shopify/Order/' + orderId });
+  var edges = (d1.order && d1.order.fulfillmentOrders && d1.order.fulfillmentOrders.edges) || [];
+  var openIds = edges
+    .filter(function (e) { return e.node.status === 'OPEN' || e.node.status === 'IN_PROGRESS'; })
+    .map(function (e) { return e.node.id; });
+  if (!openIds.length) throw new Error('Užsakymas neturi atvirų fulfillment orders (gal jau įvykdytas?).');
 
   var notify = String(cfg('NOTIFY_CUSTOMER')).toLowerCase() === 'true';
-  var body = {
-    fulfillment: {
-      notify_customer: notify,
-      tracking_info: { number: barcode, company: 'Omniva', url: trackUrl },
-      line_items_by_fulfillment_order: open.map(function (f) {
-        return { fulfillment_order_id: f.id };
-      }),
-    },
-  };
-  return shopifyFetch('post', '/fulfillments.json', body);
+  var d2 = shopifyGraphQL(
+    'mutation f($fulfillment: FulfillmentV2Input!){ fulfillmentCreateV2(fulfillment:$fulfillment){ fulfillment{ id status } userErrors{ field message } } }',
+    { fulfillment: {
+        notifyCustomer: notify,
+        trackingInfo: { number: barcode, url: trackUrl, company: 'Omniva' },
+        lineItemsByFulfillmentOrder: openIds.map(function (id) { return { fulfillmentOrderId: id }; }),
+    } });
+  var ue = d2.fulfillmentCreateV2 && d2.fulfillmentCreateV2.userErrors;
+  if (ue && ue.length) throw new Error('Fulfillment: ' + ue.map(function (e) { return e.message; }).join('; '));
+  return d2.fulfillmentCreateV2.fulfillment;
 }
 
 /**
