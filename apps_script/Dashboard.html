@@ -4,35 +4,41 @@
   <base target="_top">
   <meta charset="utf-8">
   <style>
-    :root { --bg:#0f1320; --card:#1a2032; --line:#2a3350; --txt:#e7ebf5; --muted:#9aa6c4;
-            --green:#37d399; --red:#ff6b6b; --amber:#ffcf5c; --accent:#5b8cff; }
+    :root { --bg:#f4f6fb; --card:#ffffff; --line:#dde2ec; --txt:#1b2333; --muted:#5d6781;
+            --green:#0f9d6b; --red:#d64545; --amber:#b97f0b; --accent:#2f6bff; }
     * { box-sizing: border-box; }
     body { margin:0; font-family: -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--txt); }
-    header { padding:18px 22px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+    a { color:var(--accent); text-decoration:underline; }
+    a:visited { color:var(--accent); }
+    header { padding:18px 22px; background:var(--card); border-bottom:1px solid var(--line); display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
     header h1 { font-size:18px; margin:0; }
     .badge { font-size:12px; padding:4px 10px; border-radius:20px; font-weight:600; }
-    .badge.test { background:rgba(255,207,92,.15); color:var(--amber); }
-    .badge.live { background:rgba(55,211,153,.15); color:var(--green); }
-    nav { display:flex; gap:6px; padding:14px 22px 0; flex-wrap:wrap; }
+    .badge.test { background:#fbf1d6; color:var(--amber); }
+    .badge.live { background:#dcf5ea; color:var(--green); }
+    nav { display:flex; gap:6px; padding:14px 22px 0; background:var(--card); border-bottom:1px solid var(--line); flex-wrap:wrap; }
     nav button { background:none; border:none; color:var(--muted); padding:10px 16px; cursor:pointer; border-radius:8px 8px 0 0; font-size:14px; }
-    nav button.active { background:var(--card); color:var(--txt); font-weight:600; }
+    nav button.active { background:#eaf0ff; color:var(--accent); font-weight:600; }
     main { padding:22px; }
-    .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; margin-bottom:16px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; margin-bottom:16px; box-shadow:0 1px 3px rgba(20,30,60,.05); }
     table { width:100%; border-collapse:collapse; font-size:13px; }
     th, td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--line); }
     th { color:var(--muted); font-weight:600; position:sticky; top:0; background:var(--card); }
     .pill { font-size:11px; padding:3px 8px; border-radius:12px; white-space:nowrap; }
-    .pill.ok { background:rgba(55,211,153,.15); color:var(--green); }
-    .pill.err { background:rgba(255,107,107,.15); color:var(--red); }
-    .pill.test { background:rgba(255,207,92,.15); color:var(--amber); }
+    .pill.ok { background:#dcf5ea; color:var(--green); }
+    .pill.err { background:#fbe3e3; color:var(--red); }
+    .pill.test { background:#fbf1d6; color:var(--amber); }
     button.act { background:var(--accent); color:#fff; border:none; padding:8px 14px; border-radius:8px; cursor:pointer; font-size:13px; }
-    button.act.ghost { background:transparent; border:1px solid var(--line); color:var(--txt); }
-    button.act.warn { background:transparent; border:1px solid var(--amber); color:var(--amber); }
-    input, select { width:100%; background:var(--bg); border:1px solid var(--line); color:var(--txt); padding:9px 11px; border-radius:8px; font-size:13px; }
+    button.act:hover { background:#2257e0; }
+    button.act.ghost { background:#fff; border:1px solid var(--line); color:var(--txt); }
+    button.act.ghost:hover { border-color:var(--accent); color:var(--accent); }
+    button.act.warn { background:#fff; border:1px solid var(--amber); color:var(--amber); }
+    input, select { width:100%; background:#fff; border:1px solid var(--line); color:var(--txt); padding:9px 11px; border-radius:8px; font-size:13px; }
+    input:focus, select:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(47,107,255,.12); }
     label.fld { display:block; margin-bottom:14px; }
     label.fld span { display:block; color:var(--muted); font-size:12px; margin-bottom:5px; }
     .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:0 18px; }
     h3 { margin:4px 0 14px; font-size:14px; color:var(--accent); }
+    code { background:#eef1f7; border:1px solid var(--line); padding:2px 6px; border-radius:6px; font-size:12px; color:var(--txt); }
     .step { display:flex; gap:10px; padding:8px 0; border-bottom:1px solid var(--line); align-items:flex-start; }
     .step .ico { font-size:16px; }
     .step .d { color:var(--muted); font-size:12px; }
@@ -40,13 +46,13 @@
     .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
     .spin { color:var(--muted); }
     .hidden { display:none !important; }
-    .toast { position:fixed; bottom:20px; right:20px; background:var(--card); border:1px solid var(--line); padding:12px 18px; border-radius:10px; }
-    .modal { position:fixed; inset:0; background:rgba(0,0,0,.4); display:flex; align-items:flex-start; justify-content:center; padding-top:8vh; z-index:50; }
-    .modal .box { position:relative; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; width:min(460px,92vw); max-height:72vh; overflow:auto; box-shadow:0 20px 60px rgba(0,0,0,.5); }
-    .modalx { position:absolute; top:12px; right:14px; background:transparent; border:1px solid var(--line); color:var(--txt); border-radius:8px; padding:4px 11px; cursor:pointer; font-size:15px; line-height:1; }
+    .toast { position:fixed; bottom:20px; right:20px; background:var(--card); border:1px solid var(--line); color:var(--txt); padding:12px 18px; border-radius:10px; box-shadow:0 8px 28px rgba(20,30,60,.16); }
+    .modal { position:fixed; inset:0; background:rgba(20,30,60,.32); display:flex; align-items:flex-start; justify-content:center; padding-top:8vh; z-index:50; }
+    .modal .box { position:relative; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; width:min(460px,92vw); max-height:72vh; overflow:auto; box-shadow:0 20px 60px rgba(20,30,60,.25); }
+    .modalx { position:absolute; top:12px; right:14px; background:#fff; border:1px solid var(--line); color:var(--txt); border-radius:8px; padding:4px 11px; cursor:pointer; font-size:15px; line-height:1; }
     .modalx:hover { border-color:var(--accent); }
     .lk { display:flex; justify-content:space-between; gap:10px; padding:10px 12px; border:1px solid var(--line); border-radius:8px; margin-bottom:8px; cursor:pointer; }
-    .lk:hover { border-color:var(--accent); background:rgba(91,140,255,.08); }
+    .lk:hover { border-color:var(--accent); background:rgba(47,107,255,.07); }
   </style>
 </head>
 <body>
@@ -90,7 +96,7 @@
 
     <!-- GRĄŽINIMAI -->
     <section id="tab-returns" class="hidden">
-      <div class="card muted">Užsakymai siunčiami su <b>returnAllowed</b> — klientas gali grąžinti su Omniva grąžinimo kodu. Čia pažymėk grąžintus.</div>
+      <div class="card muted">Įprastai klientas grąžina pats su <b>returnAllowed</b> SMS kodu (automatiška). Jei kodas pasibaigęs ar reikia rankiniu būdu — <b>„Sukurti grąžinimo siuntą"</b> padaro naują Omniva siuntą apkeistomis rolėmis (klientas → tu) ir grąžinimo lipduką PDF, kurį nusiunti klientui. <b>„Tik pažymėti"</b> — vien įrašo lentelėje, kad grąžinta (be Omniva). Reikalauja nustatymuose nurodyto <b>grąžinimo pastomato</b>.</div>
       <div class="card" style="overflow:auto; max-height:65vh">
         <table id="returnsTbl"><thead><tr>
           <th>Užsakymas</th><th>Klientas</th><th>Tracking</th><th>Grąžinta</th><th></th>
@@ -270,7 +276,7 @@
       var ret=o['Grąžinta'];
       var name=esc(o['Užsakymas']), trk=esc(o['Tracking']);
       var actions = ret ? '' :
-        '<button class="act warn" onclick="regReturn(\''+name+'\',\''+trk+'\')">Registruoti Omniva grąžinimą</button> '
+        '<button class="act warn" onclick="regReturn(\''+name+'\')">Sukurti grąžinimo siuntą</button> '
         +'<button class="act ghost" onclick="markRet(\''+name+'\')">Tik pažymėti</button>';
       tr.innerHTML='<td>'+name+'</td><td>'+esc(o['Klientas'])+'</td><td>'+trk+'</td>'
         +'<td>'+(ret?esc(ret):'—')+'</td><td>'+actions+'</td>';
@@ -282,12 +288,17 @@
     google.script.run.withSuccessHandler(function(orders){ renderReturns(orders); renderOrders(orders); toast('Pažymėta grąžinta'); }).uiMarkReturned(name);
   }
 
-  function regReturn(name, tracking){
-    if(!confirm('Registruoti Omniva grąžinimą užsakymui '+name+'?\n(Veikia tik jei siunta jau pristatyta / DELIVERED)')) return;
+  function regReturn(name){
+    if(!confirm('Sukurti grąžinimo siuntą užsakymui '+name+'?\n\nSukuria NAUJĄ Omniva siuntą apkeistomis rolėmis (klientas = siuntėjas, tu = gavėjas grąžinimo pastomate) ir grąžinimo lipduką PDF, kurį gali nusiųsti klientui.')) return;
+    toast('Kuriama grąžinimo siunta…');
     google.script.run
-      .withSuccessHandler(function(r){ renderReturns(r.orders); renderOrders(r.orders); toast(r.simulated?'Pažymėta (TEST)':'Grąžinimas užregistruotas: '+r.returnBarcode); })
+      .withSuccessHandler(function(r){
+        if(r && r.ok) toast('Grąžinimo siunta: '+r.tracking+(r.label?' · lipdukas paruoštas':''));
+        else alert('Klaida: '+((r&&r.error)||'nežinoma'));
+        loadData();
+      })
       .withFailureHandler(function(e){ alert('Klaida: '+e.message); })
-      .uiRegisterReturn(name, tracking);
+      .createReturnLabel(name);
   }
 
   function runCheck(){
