@@ -64,6 +64,19 @@ function processOrder(order) {
   var orderName = order.name || String(order.id || '');
   var phone = normalizePhone(a.phone || order.phone || '', country);
 
+  // APSAUGA NUO DUBLIKATŲ: Shopify kartoja webhook'ą, jei atsakymas vėluoja (>5 s),
+  // o Omniva siunta + lipdukas užtrunka ~10 s. Be šios apsaugos kiekvienas kartojimas
+  // sukurtų NAUJĄ Omniva siuntą (floodina servisą). Sprendimas:
+  //   1) užraktas — lygiagrečios kopijos laukia, ne kuria antros siuntos;
+  //   2) patikra — jei užsakymas JAU turi realų tracking'ą, naujos siuntos NEkuriam.
+  var _lock = LockService.getScriptLock();
+  try { _lock.waitLock(50000); } catch (e) {}
+  try {
+  var _prev = getOrder(orderName);
+  if (_prev && _prev['Tracking'] && String(_prev['Tracking']).indexOf('TEST') !== 0) {
+    return retryFulfillExisting(order, _prev); // jau turi siuntą — tik (per)bandom Shopify
+  }
+
   var rec = {
     order: orderName,
     orderId: order.id || '',
@@ -118,6 +131,12 @@ function processOrder(order) {
       barcode = 'TEST' + (order.id || Date.now());
     }
     rec.tracking = barcode;
+    // Tracking įrašom IŠ KARTO (kad dublikatų apsauga matytų jį net jei toliau kas nors kris).
+    if (barcode && String(barcode).indexOf('TEST') !== 0) {
+      upsertOrder({ order: orderName, tracking: barcode, locker: rec.locker, lockerId: rec.lockerId,
+        km: rec.km, alt: rec.alt, customer: rec.customer, email: rec.email, phone: rec.phone,
+        country: rec.country, address: rec.address, shipmentOk: '✅', status: 'Apdorojama' });
+    }
 
     // 4. Lipdukas -> Google Drive (arba el. paštu, jei nustatyta).
     if (omnivaReady() && barcode && String(barcode).indexOf('TEST') !== 0) {
@@ -171,6 +190,39 @@ function processOrder(order) {
     upsertOrder(rec);
     return { ok: false, error: rec.notes, order: orderName };
   }
+  } finally {
+    try { _lock.releaseLock(); } catch (e) {}
+  }
+}
+
+/**
+ * Užsakymas JAU turi Omniva siuntą (webhook'o kartojimas) — naujos NEkuriam.
+ * Tik (per)bandom įrašyti tracking + įvykdyti Shopify, jei tai dar nepadaryta.
+ */
+function retryFulfillExisting(order, prev) {
+  var orderName = prev['Užsakymas'] || order.name || '';
+  var barcode = prev['Tracking'];
+  var note = 'Kartotinis webhook\'as: jau turi siuntą ' + barcode + ' — nauja NEkurta.';
+  var alreadyFulfilled = String(prev['Fulfilled Shopify'] || '').indexOf('✅') >= 0;
+  if (isLive() && shopifyReady() && order.id && !alreadyFulfilled) {
+    try {
+      writeOrderDetails(order.id, {
+        'Paštomatas': prev['Pastomatas'],
+        'Atstumas nuo kliento': prev['km'] ? (prev['km'] + ' km') : '',
+        'Kiti artimi paštomatai': prev['3 artimiausi'] || '',
+        'Omniva tracking': barcode,
+        'Tracking nuoroda': trackingUrl(barcode),
+        'Lipdukas (PDF)': prev['Lipdukas'] || '',
+      });
+      fulfillOrderWithTracking(order.id, barcode, trackingUrl(barcode));
+      upsertOrder({ order: orderName, fulfilledOk: '✅', status: 'Įvykdyta', notes: note + ' Shopify įvykdyta dabar.' });
+      note += ' Shopify įvykdyta dabar.';
+    } catch (e) {
+      upsertOrder({ order: orderName, notes: note + ' Shopify vis tiek nepavyko: ' + e.message });
+      note += ' Shopify vis tiek nepavyko: ' + e.message;
+    }
+  }
+  return { ok: true, order: orderName, tracking: barcode, deduped: true, note: note };
 }
 
 /**
