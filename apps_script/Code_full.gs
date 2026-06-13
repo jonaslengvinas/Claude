@@ -17,7 +17,9 @@ var SETTINGS_KEYS = [
 
   // Shopify
   { key: 'SHOPIFY_SHOP', label: 'Shopify domenas (pvz. mano-parduotuve.myshopify.com)', secret: false, group: 'Shopify' },
-  { key: 'SHOPIFY_ADMIN_TOKEN', label: 'Shopify Admin API token (shpat_...)', secret: true, group: 'Shopify' },
+  { key: 'SHOPIFY_CLIENT_ID', label: 'Shopify Client ID (Dev Dashboard → Settings → Credentials)', secret: false, group: 'Shopify' },
+  { key: 'SHOPIFY_CLIENT_SECRET', label: 'Shopify Client Secret (shpss_…) — token gaunamas automatiškai (24 val.)', secret: true, group: 'Shopify' },
+  { key: 'SHOPIFY_ADMIN_TOKEN', label: 'Shopify Admin API token (NEBŪTINA — palik tuščią, jei įvesti Client ID/Secret)', secret: true, group: 'Shopify' },
   { key: 'WEBHOOK_TOKEN', label: 'Webhook slaptas token (sugeneruok mygtuku)', secret: true, group: 'Shopify' },
   { key: 'NOTIFY_CUSTOMER', label: 'Ar Shopify pats siunčia laišką? (false = palieka Print Order Pro)', secret: false, group: 'Shopify' },
   { key: 'LOCKER_NOTE_FIELD', label: 'Užsakymo lauko pavadinimas pastomatui (note_attribute)', secret: false, group: 'Shopify' },
@@ -79,9 +81,10 @@ function omnivaReady() {
   return !!(cfg('OMNIVA_USERNAME') && cfg('OMNIVA_PASSWORD') && cfg('OMNIVA_CUSTOMER_CODE'));
 }
 
-/** Ar yra Shopify raktai, kad galėtume rašyti tracking į užsakymą? */
+/** Ar yra Shopify raktai (statinis token ARBA Client ID+Secret automatiniam token'ui)? */
 function shopifyReady() {
-  return !!(cfg('SHOPIFY_SHOP') && cfg('SHOPIFY_ADMIN_TOKEN'));
+  return !!(cfg('SHOPIFY_SHOP') && (cfg('SHOPIFY_ADMIN_TOKEN') ||
+    (cfg('SHOPIFY_CLIENT_ID') && cfg('SHOPIFY_CLIENT_SECRET'))));
 }
 
 /** Įrašyti nustatymą (kviečiama iš dashboard'o). */
@@ -845,13 +848,50 @@ function shopifyBase() {
   return 'https://' + cfg('SHOPIFY_SHOP') + '/admin/api/' + SHOPIFY_API_VERSION;
 }
 
+/**
+ * Grąžina galiojantį Shopify Admin API access token'ą.
+ *  - Jei įvestas statinis SHOPIFY_ADMIN_TOKEN (legacy) — naudojam jį.
+ *  - Kitaip iš Client ID + Secret automatiškai gaunam token'ą per Client Credentials
+ *    Grant (galioja ~24 val.) ir laikom talpykloje. Taip nereikia rankiniu būdu
+ *    atnaujinti token'o — sistema pati pasiima naują.
+ * SVARBU: app turi būti įdiegtas toje pačioje parduotuvėje (tavo nuosava) — tada CCG veikia.
+ */
+function getShopifyAccessToken() {
+  var staticTok = cfg('SHOPIFY_ADMIN_TOKEN');
+  var cid = cfg('SHOPIFY_CLIENT_ID'), csec = cfg('SHOPIFY_CLIENT_SECRET');
+  if (!cid || !csec) {
+    if (staticTok) return staticTok;
+    throw new Error('Trūksta Shopify raktų: įvesk Client ID + Secret (arba Admin token).');
+  }
+  var cache = CacheService.getScriptCache();
+  var cached = cache.get('shopify_ccg_token');
+  if (cached) return cached;
+
+  var resp = UrlFetchApp.fetch('https://' + cfg('SHOPIFY_SHOP') + '/admin/oauth/access_token', {
+    method: 'post',
+    contentType: 'application/json',
+    payload: JSON.stringify({ grant_type: 'client_credentials', client_id: cid, client_secret: csec }),
+    muteHttpExceptions: true,
+  });
+  var code = resp.getResponseCode(), text = resp.getContentText();
+  if (code < 200 || code >= 300) {
+    throw new Error('Shopify token (Client Credentials) klaida (' + code + '): ' + text);
+  }
+  var data = JSON.parse(text);
+  if (!data.access_token) throw new Error('Shopify CCG: negautas access_token: ' + text.slice(0, 200));
+  // CacheService maks. 6 val.; token galioja ~24 val., tad atsinaujins kas kelias valandas.
+  var ttl = Math.max(60, Math.min((data.expires_in || 86399) - 300, 21600));
+  cache.put('shopify_ccg_token', data.access_token, ttl);
+  return data.access_token;
+}
+
 /** Bendras kvietimas į Shopify Admin API. */
 function shopifyFetch(method, path, body) {
-  if (!shopifyReady()) throw new Error('Trūksta Shopify raktų (SHOPIFY_SHOP / ADMIN_TOKEN).');
+  if (!shopifyReady()) throw new Error('Trūksta Shopify raktų (SHOPIFY_SHOP + Client ID/Secret arba Admin token).');
   var opts = {
     method: method,
     contentType: 'application/json',
-    headers: { 'X-Shopify-Access-Token': cfg('SHOPIFY_ADMIN_TOKEN') },
+    headers: { 'X-Shopify-Access-Token': getShopifyAccessToken() },
     muteHttpExceptions: true,
   };
   if (body) opts.payload = JSON.stringify(body);

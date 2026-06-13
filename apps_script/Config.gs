@@ -17,7 +17,9 @@ var SETTINGS_KEYS = [
 
   // Shopify
   { key: 'SHOPIFY_SHOP', label: 'Shopify domenas (pvz. mano-parduotuve.myshopify.com)', secret: false, group: 'Shopify' },
-  { key: 'SHOPIFY_ADMIN_TOKEN', label: 'Shopify Admin API token (shpat_...)', secret: true, group: 'Shopify' },
+  { key: 'SHOPIFY_CLIENT_ID', label: 'Shopify Client ID (Dev Dashboard → Settings → Credentials)', secret: false, group: 'Shopify' },
+  { key: 'SHOPIFY_CLIENT_SECRET', label: 'Shopify Client Secret (shpss_…) — token gaunamas automatiškai (24 val.)', secret: true, group: 'Shopify' },
+  { key: 'SHOPIFY_ADMIN_TOKEN', label: 'Shopify Admin API token (NEBŪTINA — palik tuščią, jei įvesti Client ID/Secret)', secret: true, group: 'Shopify' },
   { key: 'WEBHOOK_TOKEN', label: 'Webhook slaptas token (sugeneruok mygtuku)', secret: true, group: 'Shopify' },
   { key: 'NOTIFY_CUSTOMER', label: 'Ar Shopify pats siunčia laišką? (false = palieka Print Order Pro)', secret: false, group: 'Shopify' },
   { key: 'LOCKER_NOTE_FIELD', label: 'Užsakymo lauko pavadinimas pastomatui (note_attribute)', secret: false, group: 'Shopify' },
@@ -79,9 +81,10 @@ function omnivaReady() {
   return !!(cfg('OMNIVA_USERNAME') && cfg('OMNIVA_PASSWORD') && cfg('OMNIVA_CUSTOMER_CODE'));
 }
 
-/** Ar yra Shopify raktai, kad galėtume rašyti tracking į užsakymą? */
+/** Ar yra Shopify raktai (statinis token ARBA Client ID+Secret automatiniam token'ui)? */
 function shopifyReady() {
-  return !!(cfg('SHOPIFY_SHOP') && cfg('SHOPIFY_ADMIN_TOKEN'));
+  return !!(cfg('SHOPIFY_SHOP') && (cfg('SHOPIFY_ADMIN_TOKEN') ||
+    (cfg('SHOPIFY_CLIENT_ID') && cfg('SHOPIFY_CLIENT_SECRET'))));
 }
 
 /** Įrašyti nustatymą (kviečiama iš dashboard'o). */
