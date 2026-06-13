@@ -43,13 +43,15 @@ function runHealthCheck() {
 
   // 5. Omniva ryšys (sukuriam TEST siuntą test aplinkoje)
   if (omnivaReady()) {
+    _forceTestOmniva = true; // patikra NIEKADA nekuria realios siuntos
     try {
       var testOrder = { partner_shipment_id: 'HEALTHCHECK-' + Date.now(), name: 'Testas Testaitis', email: cfg('SENDER_EMAIL') || 'test@test.lt', phone: '+37060000000', country: 'LT' };
       var lk2 = getLockers('LT')[0];
       var ship = registerShipment(testOrder, lk2);
-      if (ship.barcode) ok('Omniva siunta (TEST)', 'Gautas tracking: ' + ship.barcode);
+      if (ship.barcode) ok('Omniva siunta (TEST)', 'Gautas tracking: ' + ship.barcode + ' (test aplinka)');
       else fail('Omniva siunta (TEST)', 'siunta sukurta, bet negautas barcode: ' + JSON.stringify(ship.raw).slice(0, 200));
     } catch (e) { fail('Omniva siunta (TEST)', e.message); }
+    finally { _forceTestOmniva = false; }
   } else {
     steps.push({ name: 'Omniva siunta', ok: false, warn: true, detail: 'Raktai dar neįvesti (nustatymuose)' });
   }

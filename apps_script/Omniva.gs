@@ -14,8 +14,12 @@ var OMNIVA_BASES = {
   live: 'https://omx.omniva.eu/api/v01/omx',
 };
 
+// Kai true — Omniva kvietimai EINA Į TEST aplinką, net jei MODE=LIVE.
+// Naudojama testams/patikrai, kad NIEKADA nesukurtų realios siuntos.
+var _forceTestOmniva = false;
+
 function omnivaBase() {
-  return isLive() ? OMNIVA_BASES.live : OMNIVA_BASES.test;
+  return (isLive() && !_forceTestOmniva) ? OMNIVA_BASES.live : OMNIVA_BASES.test;
 }
 
 /** Basic Auth antraštės. */

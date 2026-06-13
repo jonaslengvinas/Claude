@@ -327,8 +327,12 @@ var OMNIVA_BASES = {
   live: 'https://omx.omniva.eu/api/v01/omx',
 };
 
+// Kai true — Omniva kvietimai EINA Į TEST aplinką, net jei MODE=LIVE.
+// Naudojama testams/patikrai, kad NIEKADA nesukurtų realios siuntos.
+var _forceTestOmniva = false;
+
 function omnivaBase() {
-  return isLive() ? OMNIVA_BASES.live : OMNIVA_BASES.test;
+  return (isLive() && !_forceTestOmniva) ? OMNIVA_BASES.live : OMNIVA_BASES.test;
 }
 
 /** Basic Auth antraštės. */
@@ -1067,13 +1071,15 @@ function runHealthCheck() {
 
   // 5. Omniva ryšys (sukuriam TEST siuntą test aplinkoje)
   if (omnivaReady()) {
+    _forceTestOmniva = true; // patikra NIEKADA nekuria realios siuntos
     try {
       var testOrder = { partner_shipment_id: 'HEALTHCHECK-' + Date.now(), name: 'Testas Testaitis', email: cfg('SENDER_EMAIL') || 'test@test.lt', phone: '+37060000000', country: 'LT' };
       var lk2 = getLockers('LT')[0];
       var ship = registerShipment(testOrder, lk2);
-      if (ship.barcode) ok('Omniva siunta (TEST)', 'Gautas tracking: ' + ship.barcode);
+      if (ship.barcode) ok('Omniva siunta (TEST)', 'Gautas tracking: ' + ship.barcode + ' (test aplinka)');
       else fail('Omniva siunta (TEST)', 'siunta sukurta, bet negautas barcode: ' + JSON.stringify(ship.raw).slice(0, 200));
     } catch (e) { fail('Omniva siunta (TEST)', e.message); }
+    finally { _forceTestOmniva = false; }
   } else {
     steps.push({ name: 'Omniva siunta', ok: false, warn: true, detail: 'Raktai dar neįvesti (nustatymuose)' });
   }
@@ -1444,7 +1450,10 @@ function sampleOrders() {
 function uiCreateTestOrder(idx) {
   var orders = sampleOrders();
   var i = Math.max(0, Math.min(orders.length - 1, Number(idx) || 0));
-  var result = processOrder(orders[i]);
+  _forceTestOmniva = true; // bandomasis užsakymas NIEKADA nekuria realios Omniva siuntos
+  try {
+    var result = processOrder(orders[i]);
+  } finally { _forceTestOmniva = false; }
   return { result: result, orders: listOrders(200) };
 }
 
@@ -1478,7 +1487,8 @@ function testLabelFlow(country) {
   L('Adresas: ' + [order.shipping_address.address1, order.shipping_address.zip, order.shipping_address.city].join(', '));
   L('----------------------------------');
 
-  var res = processOrder(order);
+  _forceTestOmniva = true; // testas NIEKADA nekuria realios Omniva siuntos
+  try { var res = processOrder(order); } finally { _forceTestOmniva = false; }
 
   if (res.ok) {
     L('1) Pastomatas: ' + (res.locker && res.locker.name) + ' (' + (res.locker && res.locker.distance_km) + ' km)');

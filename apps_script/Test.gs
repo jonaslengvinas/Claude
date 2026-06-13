@@ -36,7 +36,10 @@ function sampleOrders() {
 function uiCreateTestOrder(idx) {
   var orders = sampleOrders();
   var i = Math.max(0, Math.min(orders.length - 1, Number(idx) || 0));
-  var result = processOrder(orders[i]);
+  _forceTestOmniva = true; // bandomasis užsakymas NIEKADA nekuria realios Omniva siuntos
+  try {
+    var result = processOrder(orders[i]);
+  } finally { _forceTestOmniva = false; }
   return { result: result, orders: listOrders(200) };
 }
 
@@ -70,7 +73,8 @@ function testLabelFlow(country) {
   L('Adresas: ' + [order.shipping_address.address1, order.shipping_address.zip, order.shipping_address.city].join(', '));
   L('----------------------------------');
 
-  var res = processOrder(order);
+  _forceTestOmniva = true; // testas NIEKADA nekuria realios Omniva siuntos
+  try { var res = processOrder(order); } finally { _forceTestOmniva = false; }
 
   if (res.ok) {
     L('1) Pastomatas: ' + (res.locker && res.locker.name) + ' (' + (res.locker && res.locker.distance_km) + ' km)');
