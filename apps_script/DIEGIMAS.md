@@ -48,10 +48,17 @@ Užpildyk laukus ir spausk **💾 Išsaugoti**:
 - `MODE` — `TEST` testavimui (šešėlis), `LIVE` realiems siuntimams
 
 ### Kaip gauti Shopify Admin API token
-Shopify admin → **Settings → Apps and sales channels → Develop apps → Create an app**
-→ **Configure Admin API scopes** → įjunk: `read_orders`, `write_orders`,
+> Nuo 2026‑01‑01 legacy „Develop apps" nebeleidžia kurti naujų app'ų — naudok
+> **Dev Dashboard**: Shopify admin → **Settings → Apps → App development →
+> „Build apps in Dev Dashboard"** → **Create an app** (pvz. „Omnibox").
+
+→ pridėk **Admin API scopes**: `read_orders`, `write_orders`,
 `write_merchant_managed_fulfillment_orders`, `read_fulfillments`, `write_fulfillments`
-→ **Install app** → nukopijuok **Admin API access token** (`shpat_...`).
+→ **Install** į parduotuvę → nukopijuok **Admin API access token**.
+
+`write_orders` užtenka, kad rašytume pastomato/atstumo/tracking laukus į užsakymo
+**„Additional details"** kortelę (note_attributes). Fulfillment scope'ai reikalingi
+tracking'o įrašymui ir „fulfilled" pažymėjimui.
 
 ## 4. Patikrink, ar viskas veikia (dashboard → „Patikrinimas")
 Spausk **▶ Patikrinti**. Pamatysi grandinę su ✅ / ⚠️ / ❌:

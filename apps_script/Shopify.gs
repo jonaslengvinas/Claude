@@ -55,6 +55,34 @@ function addLockerToOrder(orderId, lockerName) {
   });
 }
 
+/**
+ * Įrašo kelis naudingus laukus į užsakymo note_attributes — jie matomi Shopify
+ * užsakymo lange „Additional details" kortelėje (kaip kažkada darė Parcely).
+ * Sujungia su esamais (neperrašo svetimų laukų). Tušti laukai praleidžiami,
+ * kad nesikauptų šiukšlių.
+ *
+ * details pvyzdys:
+ *   { 'Paštomatas': 'Kauno MAXIMA ...', 'Atstumas nuo kliento': '0.4 km', ... }
+ */
+function writeOrderDetails(orderId, details) {
+  var existing = shopifyFetch('get', '/orders/' + orderId + '.json?fields=note_attributes').order || {};
+  var attrs = existing.note_attributes || [];
+  var byName = {};
+  attrs.forEach(function (a) { byName[a.name] = a; });
+
+  Object.keys(details).forEach(function (name) {
+    var value = details[name];
+    if (value === undefined || value === null || String(value) === '') return;
+    value = String(value);
+    if (byName[name]) byName[name].value = value;          // atnaujinam esamą
+    else { var na = { name: name, value: value }; attrs.push(na); byName[name] = na; }
+  });
+
+  return shopifyFetch('put', '/orders/' + orderId + '.json', {
+    order: { id: orderId, note_attributes: attrs },
+  });
+}
+
 /** Užsakymo fulfillment orders (jų reikia, kad galėtume kurti fulfillment). */
 function getFulfillmentOrders(orderId) {
   var res = shopifyFetch('get', '/orders/' + orderId + '/fulfillment_orders.json');

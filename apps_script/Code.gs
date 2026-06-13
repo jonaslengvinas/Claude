@@ -89,11 +89,19 @@ function processOrder(order) {
       upsertOrder(rec);
       return { ok: false, error: rec.notes, order: orderName };
     }
-    var locker = pickLocker(order, country, near.lockers);
+    var picked = pickLocker(order, country, near.lockers);
+    var locker = picked.locker;
     rec.locker = locker.name;
     rec.lockerId = locker.id;
     rec.km = locker.distance_km || '';
+    rec.byCustomer = picked.byCustomer;
     rec.alt = near.lockers.map(function (l) { return l.name + ' (' + l.distance_km + ' km)'; }).join('  |  ');
+    // Alternatyvos užsakymui — 2 artimiausi, IŠSKYRUS parinktą pastomatą.
+    var altShort = near.lockers
+      .filter(function (l) { return String(l.id) !== String(locker.id); })
+      .slice(0, 2)
+      .map(function (l) { return l.name + ' (' + l.distance_km + ' km)'; })
+      .join('  |  ');
 
     // 3. Siunta: LIVE -> reali Omniva siunta; kitu atveju TEST/imitacija.
     var barcode, simulated = false;
@@ -124,7 +132,20 @@ function processOrder(order) {
     var shopifyMsg = '', shopifyOk = false;
     if (isLive() && shopifyReady() && order.id) {
       try {
-        addLockerToOrder(order.id, locker.name + ' (' + locker.address + ')');
+        // ⚠️ žyma, jei pastomatą priskyrė sistema (klientas nepasirinko) ir jis toli
+        // — gali reikšti netikslų adresą; verta peržiūrėti rankiniu būdu.
+        var km = locker.distance_km;
+        var flag = (!picked.byCustomer && typeof km === 'number' && km > 15) ? '⚠️ ' : '';
+        writeOrderDetails(order.id, {
+          'Paštomatas': locker.name,
+          'Paštomato adresas': locker.address,
+          'Atstumas nuo kliento': flag + (km != null && km !== '' ? km + ' km' : '—'),
+          'Pasirinko': picked.byCustomer ? 'Klientas (checkout)' : 'Auto – artimiausias',
+          'Kiti artimi paštomatai': altShort,
+          'Omniva tracking': barcode,
+          'Tracking nuoroda': trackingUrl(barcode),
+          'Lipdukas (PDF)': rec.label || '',
+        });
         fulfillOrderWithTracking(order.id, barcode, trackingUrl(barcode));
         shopifyOk = true;
       } catch (sErr) {
@@ -152,17 +173,23 @@ function processOrder(order) {
   }
 }
 
-/** Pastomato parinkimas: kliento pasirinkimas (jei yra) > artimiausias. */
+/**
+ * Pastomato parinkimas: kliento pasirinkimas (jei yra) > artimiausias.
+ * Grąžina { locker, byCustomer } — byCustomer parodo, ar pastomatą pasirinko
+ * pats klientas checkout'e (true), ar sistema priskyrė artimiausią (false).
+ */
 function pickLocker(order, country, nearLockers) {
   var chosen = lockerFromOrder(order);
   if (chosen && chosen.raw) {
     var m = String(chosen.raw).match(/\b(\d{4,6})\b/);
     if (m) {
       var byId = lockerById(country, m[1]);
-      if (byId) return byId;
+      if (byId) return { locker: byId, byCustomer: true };
     }
+    var byName = lockerByName(country, chosen.raw); // jei checkout'e saugomas pavadinimas, ne ID
+    if (byName) return { locker: byName, byCustomer: true };
   }
-  return nearLockers[0];
+  return { locker: nearLockers[0], byCustomer: false };
 }
 
 /** Paruošia Omniva.gs reikalingą order objektą. */
