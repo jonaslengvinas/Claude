@@ -48,7 +48,7 @@ function _token() {
 var HEADERS = [
   'Laikas', 'Užsakymas', 'El. paštas', 'Prekė', 'Lytis',
   'Ūgis', 'Krūtinė', 'Svoris', 'Kūno forma', 'Fit',
-  'Rekomenduota', 'Alternatyva', 'Priežastis', 'Pokalbio santrauka',
+  'Užsakyta', 'Rekomenduota', 'Alternatyva', 'Priežastis', 'Pokalbio santrauka',
   'AI statusas',
 ];
 
@@ -64,12 +64,17 @@ var FIELD = {
   'Svoris': 'weight',
   'Kūno forma': 'body_shape_notes',
   'Fit': 'fit_preference',
+  'Užsakyta': 'ordered_size',
   'Rekomenduota': 'recommended_size',
   'Alternatyva': 'alternative_size',
   'Priežastis': 'ai_reason',
   'Pokalbio santrauka': 'chat_summary',
   'AI statusas': '_status',
 };
+
+/** Laukai, kurie galioja PER PREKĘ (gali skirtis kiekvienai eilutei).
+ *  Visi kiti laukai laikomi bendrais visam užsakymui (klientas, ūgis ir t. t.). */
+var ITEM_FIELDS = ['product_type', 'ordered_size', 'recommended_size', 'alternative_size', 'ai_reason'];
 
 // ─────────────────────────────────────────────────────────────────────────
 // ĮĖJIMO TAŠKAI
@@ -101,7 +106,16 @@ function doPost(e) {
 // LOGIKA
 // ─────────────────────────────────────────────────────────────────────────
 
-/** Įrašo vieną dydžių konsultaciją į lentelę. Grąžina {ok, row}. */
+/**
+ * Įrašo dydžių konsultaciją į lentelę.
+ *
+ * Vienas produktas: visi laukai tiesiai payload'e -> viena eilutė.
+ * Keli produktai: payload turi `items: [...]` -> PO EILUTĘ KIEKVIENAM produktui,
+ *   visi su TUO PAČIU užsakymo numeriu. Bendri kliento laukai (ūgis, svoris,
+ *   kūno forma ir t. t.) imami iš payload viršaus; prekės laukai — iš items[i].
+ *
+ * Grąžina { ok, order, count, rows }.
+ */
 function handleSizeReview(p) {
   p = p || {};
   var order = String(p.order_number || '').trim();
@@ -110,16 +124,26 @@ function handleSizeReview(p) {
     return { ok: false, error: 'reikia bent order_number arba customer_email' };
   }
 
-  var s = _sheet();
-  var row = HEADERS.map(function (h) {
-    var key = FIELD[h];
-    if (key === '_time') return new Date();
-    if (key === '_status') return AI_STATUS;
-    return p[key] != null ? String(p[key]) : '';
-  });
-  s.appendRow(row);
+  // Jei yra items[] — po eilutę kiekvienam; kitaip viena eilutė iš paties payload.
+  var items = (p.items && p.items.length) ? p.items : [null];
 
-  return { ok: true, order: order, email: email, status: AI_STATUS, row: s.getLastRow() };
+  var s = _sheet();
+  var now = new Date();
+  var rows = [];
+  items.forEach(function (item) {
+    var row = HEADERS.map(function (h) {
+      var key = FIELD[h];
+      if (key === '_time') return now;
+      if (key === '_status') return AI_STATUS;
+      // Prekės laukas: pirmiausia iš item, jei nėra — iš payload viršaus.
+      if (item && item[key] != null) return String(item[key]);
+      return p[key] != null ? String(p[key]) : '';
+    });
+    s.appendRow(row);
+    rows.push(s.getLastRow());
+  });
+
+  return { ok: true, order: order, email: email, status: AI_STATUS, count: rows.length, rows: rows };
 }
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -161,7 +185,7 @@ function generateWebhookToken() {
   return t;
 }
 
-/** Rankinis testas (Run → testSizeReview). Įrašo bandomąją eilutę. */
+/** Rankinis testas: VIENAS produktas (Run → testSizeReview). */
 function testSizeReview() {
   var res = handleSizeReview({
     action: 'size_review',
@@ -174,10 +198,46 @@ function testSizeReview() {
     weight: '95 kg',
     body_shape_notes: 'platesnis liemuo',
     fit_preference: 'regular',
+    ordered_size: 'L',
     recommended_size: 'XL',
     alternative_size: 'L',
     ai_reason: 'XL plotis 59.5 cm, L plotis 56.5 cm.',
     chat_summary: 'Klientas dvejojo tarp L ir XL.',
+  });
+  Logger.log(JSON.stringify(res, null, 2));
+  return res;
+}
+
+/** Rankinis testas: KELI produktai viename užsakyme (Run → testSizeReviewMulti).
+ *  Sukuria 2 eilutes su tuo pačiu užsakymo nr. #TEST-MULTI. */
+function testSizeReviewMulti() {
+  var res = handleSizeReview({
+    action: 'size_review',
+    order_number: '#TEST-MULTI',
+    customer_email: 'testas@pastas.lt',
+    gender: 'male',
+    height: '182 cm',
+    chest: '104 cm',
+    weight: '95 kg',
+    body_shape_notes: 'platesnis liemuo',
+    fit_preference: 'regular',
+    chat_summary: 'Klientas dvejojo dėl abiejų prekių.',
+    items: [
+      {
+        product_type: 'T-shirt',
+        ordered_size: 'L',
+        recommended_size: 'XL',
+        alternative_size: 'L',
+        ai_reason: 'T-shirt: XL plotis 59.5 cm vs L 56.5 cm.',
+      },
+      {
+        product_type: 'Sweatshirt',
+        ordered_size: 'M',
+        recommended_size: 'L',
+        alternative_size: 'M',
+        ai_reason: 'Sweatshirt: L plotis tinka liemeniui.',
+      },
+    ],
   });
   Logger.log(JSON.stringify(res, null, 2));
   return res;
