@@ -49,7 +49,7 @@ var HEADERS = [
   'Laikas', 'Užsakymas', 'El. paštas', 'Prekė', 'Lytis',
   'Ūgis', 'Krūtinė', 'Svoris', 'Kūno forma', 'Fit',
   'Užsakyta', 'Rekomenduota', 'Alternatyva', 'Priežastis', 'Pokalbio santrauka',
-  'AI statusas',
+  'Pastabos', 'AI statusas',
 ];
 
 /** JSON lauko raktas pagal antraštę. */
@@ -69,6 +69,7 @@ var FIELD = {
   'Alternatyva': 'alternative_size',
   'Priežastis': 'ai_reason',
   'Pokalbio santrauka': 'chat_summary',
+  'Pastabos': 'notes',
   'AI statusas': '_status',
 };
 
@@ -120,30 +121,43 @@ function handleSizeReview(p) {
   p = p || {};
   var order = String(p.order_number || '').trim();
   var email = String(p.customer_email || '').trim();
-  if (!order && !email) {
-    return { ok: false, error: 'reikia bent order_number arba customer_email' };
-  }
-
-  // Jei yra items[] — po eilutę kiekvienam; kitaip viena eilutė iš paties payload.
-  var items = (p.items && p.items.length) ? p.items : [null];
-
   var s = _sheet();
   var now = new Date();
+
+  // TRŪKSTA ESMINĖS INFO: vis tiek UŽREGISTRUOJAM, kad matytum, jog konsultacija
+  // įvyko, bet duomenų nepakako. Eilutės nepildom — tik statusas + pastaba.
+  if (!order && !email) {
+    s.appendRow(_buildRow(p, null, now, 'TRŪKSTA INFO',
+      p.notes || 'Nepavyko nustatyti užsakymo numerio ar el. pašto.'));
+    return { ok: true, logged: true, status: 'TRŪKSTA INFO', row: s.getLastRow() };
+  }
+
+  // Statusą gali nurodyti siuntėjas (pvz. Pabbly/ChatGPT); kitu atveju numatytasis.
+  var status = p.status ? String(p.status) : AI_STATUS;
+  var notes = p.notes || '';
+
+  // Vienas ar keli produktai (items[]) — po eilutę kiekvienam, tas pats užsakymo nr.
+  var items = (p.items && p.items.length) ? p.items : [null];
   var rows = [];
   items.forEach(function (item) {
-    var row = HEADERS.map(function (h) {
-      var key = FIELD[h];
-      if (key === '_time') return now;
-      if (key === '_status') return AI_STATUS;
-      // Prekės laukas: pirmiausia iš item, jei nėra — iš payload viršaus.
-      if (item && item[key] != null) return String(item[key]);
-      return p[key] != null ? String(p[key]) : '';
-    });
-    s.appendRow(row);
+    s.appendRow(_buildRow(p, item, now, status, notes));
     rows.push(s.getLastRow());
   });
 
-  return { ok: true, order: order, email: email, status: AI_STATUS, count: rows.length, rows: rows };
+  return { ok: true, order: order, email: email, status: status, count: rows.length, rows: rows };
+}
+
+/** Sukuria vieną eilutę (HEADERS tvarka). item = prekės laukai (arba null). */
+function _buildRow(p, item, now, status, notes) {
+  return HEADERS.map(function (h) {
+    var key = FIELD[h];
+    if (key === '_time') return now;
+    if (key === '_status') return status;
+    if (key === 'notes') return notes != null ? String(notes) : '';
+    // Prekės laukas: pirmiausia iš item, jei nėra — iš payload viršaus.
+    if (item && item[key] != null) return String(item[key]);
+    return p[key] != null ? String(p[key]) : '';
+  });
 }
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -238,6 +252,18 @@ function testSizeReviewMulti() {
         ai_reason: 'Sweatshirt: L plotis tinka liemeniui.',
       },
     ],
+  });
+  Logger.log(JSON.stringify(res, null, 2));
+  return res;
+}
+
+/** Rankinis testas: TRŪKSTA info (Run → testSizeReviewMissing).
+ *  Užregistruoja eilutę su statusu „TRŪKSTA INFO" — nieko nepildo. */
+function testSizeReviewMissing() {
+  var res = handleSizeReview({
+    action: 'size_review',
+    chat_summary: 'Klientas klausė apie dydį, bet nepateikė nei užsakymo nr., nei el. pašto.',
+    notes: 'Klientas neatsakė į klausimą apie užsakymą.',
   });
   Logger.log(JSON.stringify(res, null, 2));
   return res;
