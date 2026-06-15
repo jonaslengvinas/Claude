@@ -13,8 +13,9 @@ ir tracking kodu.** Viskas sukasi nemokamame Google Apps Script + Google Sheets.
 2. Viršuje: **Extensions → Apps Script**
 3. Ištrink demo `myFunction()`.
 4. Įkelk visus failus iš `apps_script/`: `Code.gs`, `Config.gs`, `Lockers.gs`,
-   `Omniva.gs`, `Shopify.gs`, `Sheet.gs`, `Verify.gs`, ir `Dashboard.html`
-   (`+ → HTML` failui sukurti, pavadink **Dashboard**). **Išsaugok.**
+   `Omniva.gs`, `Shopify.gs`, `Sheet.gs`, `SizeReview.gs`, `Verify.gs`, ir
+   `Dashboard.html` (`+ → HTML` failui sukurti, pavadink **Dashboard**). **Išsaugok.**
+   > `SizeReview.gs` priima Flyweight AI dydžių konsultaciją — žr. `docs/AI_SIZE_CONSULTATION.md`.
 
 ## 2. Deploy — padaryk pasiekiamą internetu
 1. **Deploy → New deployment** → tipas **Web app**

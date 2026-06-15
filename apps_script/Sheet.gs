@@ -8,6 +8,7 @@
  *   D) Pakeisti pastomatą (rankinis)     — Naujas pastomatas / Patvirtinti / Rezultatas
  *   E) Grąžinimai ir pastabos            — Grąžinta / Pastabos
  *   F) Techninis                         — OrderID
+ *   G) AI dydžių konsultacija (Flyweight) — AI dydžio komentaras / AI statusas
  */
 
 var SHEET_NAME = 'Orders';
@@ -25,6 +26,8 @@ var HEADERS = [
   'Grąžinta', 'Pastabos',
   // F) Techninis
   'OrderID',
+  // G) AI dydžių konsultacija (Flyweight) — pridėta gale, kad esami stulpeliai nepasislinktų
+  'AI dydžio komentaras', 'AI statusas',
 ];
 
 /** Stulpelio (rec lauko) raktas pagal antraštę. */
@@ -38,6 +41,7 @@ var HEADER_KEY = {
   'Naujas pastomatas': 'newLocker', 'Patvirtinti (OK)': 'confirm',
   'Sukurti grąžinimą (OK)': 'makeReturn', 'Veiksmo rezultatas': 'changeResult',
   'Grąžinta': 'returned', 'Pastabos': 'notes', 'OrderID': 'orderId',
+  'AI dydžio komentaras': 'aiSizeComment', 'AI statusas': 'aiStatus',
 };
 
 /** Stulpelio numeris (1-based) pagal antraštę. */
