@@ -36,21 +36,14 @@ function doPost(e) {
     return _json({ ok: false, error: 'neteisingas arba trūkstamas token' });
   }
 
-  var payload;
+  var order;
   try {
-    payload = JSON.parse(e.postData.contents);
+    order = JSON.parse(e.postData.contents);
   } catch (err) {
     return _json({ ok: false, error: 'blogas JSON' });
   }
 
-  // Flyweight AI dydžių konsultacija (atskiras kelias — gamybos užsakymų srauto NELIEČIA).
-  // Atskiriam pagal ?action=size_review URL'e ARBA pagal payload žymą.
-  var action = (e.parameter && e.parameter.action) || payload.action || '';
-  if (action === 'size_review') {
-    return _json(handleSizeReview(payload));
-  }
-
-  var result = processOrder(payload);
+  var result = processOrder(order);
   return _json(result);
 }
 
