@@ -37,8 +37,15 @@ Prieš statant Pabbly, reikia pamatyti tikrą lead laišką. Tai nulems, ar Chat
    ji pateks į pokalbio istoriją laiške.
 5. Atlik **testinį pokalbį** (apsimesk klientu, kuris jau užsakė) ir gauk laišką.
 
+**Svarbu:** mes patys verčiame asistentą gale parašyti **fiksuoto formato bloką**
+`--- SIZE REVIEW (for our team) --- … --- END ---` (žr. PROMPTAS.md → CONSULTATION
+SUMMARY). Tas blokas yra paprasta pokalbio žinutė, todėl pakliūva į Lead-Collect laiško
+**pokalbio istoriją**. Flyweight'ui NEreikia kurti struktūruotos santraukos — ją parašo
+pats botas. Tikrinam būtent, ar šis blokas pateko į laišką.
+
 **Ką tikrinam gautame laiške:**
-- Ar santrauka visada vienodos struktūros (laukai tie patys, ta pati tvarka)?
+- Ar visa pokalbio istorija (su asistento žinutėmis) yra laiške, ar tik bendra meta-santrauka?
+- Ar `--- SIZE REVIEW ---` blokas matosi laiške?
 - Ar yra užsakymo nr. ir el. paštas?
 - Kaip atrodo keli produktai?
 
