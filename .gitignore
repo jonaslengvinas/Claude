@@ -8,3 +8,6 @@ data/geocode_cache.json
 __pycache__/
 *.pyc
 .venv/
+# Klientu duomenys / PII - nestumiame i remote
+*.csv
+fb_audience_value_based.csv
