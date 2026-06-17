@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "shopify": {
     "sentence": {
@@ -3369,7 +3378,33 @@
       "inventory_out_of_stock_continue_selling": "Laos otsas, kuid saadaval tellimiseks",
       "sku": "SKU kood",
       "duties_included": "Tollimaksud hinna sees",
-      "duties_and_taxes_included": "Tollimaksud ja maksud hinna sees"
+      "duties_and_taxes_included": "Tollimaksud ja maksud hinna sees",
+      "pickup_availability": {
+        "view_store_info": "Vaata poe teavet",
+        "check_other_stores": "Kontrolli saadavust teistes poodides",
+        "pick_up_available": "Järeletulek võimalik",
+        "pick_up_available_at_html": "Järeletulek võimalik: <span class=\"color-foreground\">{{ location_name }}</span>",
+        "pick_up_unavailable_at_html": "Järeletulek hetkel pole võimalik: <span class=\"color-foreground\">{{ location_name }}</span>",
+        "unavailable": "Järeletuleku teavet ei õnnestunud laadida",
+        "refresh": "Värskenda"
+      },
+      "media": {
+        "open_media": "Ava meedia {{ index }} modaalaknas",
+        "play_model": "Käivita 3D-vaatur",
+        "play_video": "Esita video",
+        "gallery_viewer": "Galerii vaatur",
+        "load_image": "Laadi pilt {{ index }} galeriivaates",
+        "load_model": "Laadi 3D-mudel {{ index }} galeriivaates",
+        "load_video": "Esita video {{ index }} galeriivaates",
+        "image_available": "Pilt {{ index }} on nüüd galeriivaates saadaval"
+      },
+      "volume_pricing": {
+        "title": "Koguseline hinnakujundus",
+        "note": "Saadaval koguseline hinnakujundus",
+        "minimum": "{{ quantity }}+",
+        "price_range": "{{ minimum }} - {{ maximum }}",
+        "price_at_each_html": "{{ price }}/tk"
+      }
     },
     "facets": {
       "apply": "Rakenda",
@@ -3394,12 +3429,28 @@
         "few": "{{ count }} toodet",
         "many": "{{ count }} toodet",
         "one": "{{ count }} toode"
+      },
+      "filters_selected": {
+        "one": "{{ count }} valitud",
+        "other": "{{ count }} valitud",
+        "few": "{{ count }} valitud",
+        "many": "{{ count }} valitud"
+      },
+      "product_count": {
+        "one": "{{ product_count }} / {{ count }} tootest",
+        "other": "{{ product_count }} / {{ count }} tootest",
+        "few": "{{ product_count }} / {{ count }} tootest",
+        "many": "{{ product_count }} / {{ count }} tootest"
       }
+    },
+    "modal": {
+      "label": "Meediagalerii"
     }
   },
   "sections": {
     "featured_collection": {
-      "view_all": "Vaata kõike"
+      "view_all": "Vaata kõike",
+      "view_all_label": "Vaata kõiki kollektsiooni „{{ collection_name }}“ tooteid"
     },
     "collection_list": {
       "view_all": "Vaata kõike"
@@ -3429,12 +3480,108 @@
       "login": {
         "title": "Kas teil on konto?",
         "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Logige sisse</a> ja makske kiiremini."
+      },
+      "duties_and_taxes_included_shipping_at_checkout_without_policy": "Tollimaksud ja maksud on hinna sees. Allahindlused ja saatmiskulud arvutatakse kassas.",
+      "taxes_included_shipping_at_checkout_without_policy": "Maksud on hinna sees. Allahindlused ja saatmiskulud arvutatakse kassas.",
+      "duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html": "Tollimaksud on hinna sees. Maksud, allahindlused ja <a href=\"{{ link }}\">saatmiskulud</a> arvutatakse kassas.",
+      "duties_included_taxes_at_checkout_shipping_at_checkout_without_policy": "Tollimaksud on hinna sees. Maksud, allahindlused ja saatmiskulud arvutatakse kassas.",
+      "taxes_at_checkout_shipping_at_checkout_with_policy_html": "Maksud, allahindlused ja <a href=\"{{ link }}\">saatmiskulud</a> arvutatakse kassas.",
+      "taxes_at_checkout_shipping_at_checkout_without_policy": "Maksud, allahindlused ja saatmiskulud arvutatakse kassas."
+    },
+    "announcements": {
+      "previous_announcement": "Eelmine teadaanne",
+      "next_announcement": "Järgmine teadaanne",
+      "carousel": "Karussell",
+      "announcement": "Teadaanne",
+      "announcement_bar": "Teadaannete riba"
+    },
+    "header": {
+      "announcement": "Teadaanne",
+      "menu": "Menüü",
+      "cart_count": {
+        "one": "{{ count }} toode",
+        "other": "{{ count }} toodet",
+        "few": "{{ count }} toodet",
+        "many": "{{ count }} toodet"
       }
+    },
+    "footer": {
+      "payment": "Makseviisid"
+    },
+    "featured_blog": {
+      "view_all": "Vaata kõike",
+      "onboarding_title": "Blogipostitus",
+      "onboarding_content": "Anna klientidele oma blogipostituse kokkuvõte"
+    },
+    "collection_template": {
+      "empty": "Tooteid ei leitud",
+      "title": "Kollektsioon",
+      "use_fewer_filters_html": "Kasuta vähem filtreid või <a class=\"{{ class }}\" href=\"{{ link }}\">eemalda kõik</a>"
+    },
+    "video": {
+      "load_video": "Laadi video: {{ description }}"
+    },
+    "slideshow": {
+      "load_slide": "Laadi slaid",
+      "previous_slideshow": "Eelmine slaid",
+      "next_slideshow": "Järgmine slaid",
+      "pause_slideshow": "Peata slaidiseanss",
+      "play_slideshow": "Esita slaidiseanss",
+      "carousel": "Karussell",
+      "slide": "Slaid"
+    },
+    "page": {
+      "title": "Lehekülje pealkiri"
+    },
+    "quick_order_list": {
+      "product_total": "Toote vahesumma",
+      "view_cart": "Vaata ostukorvi",
+      "each": "{{ money }}/tk",
+      "product": "Toode",
+      "variant": "Variant",
+      "variant_total": "Variandi summa",
+      "items_added": {
+        "one": "{{ quantity }} toode lisatud",
+        "other": "{{ quantity }} toodet lisatud",
+        "few": "{{ quantity }} toodet lisatud",
+        "many": "{{ quantity }} toodet lisatud"
+      },
+      "items_removed": {
+        "one": "{{ quantity }} toode eemaldatud",
+        "other": "{{ quantity }} toodet eemaldatud",
+        "few": "{{ quantity }} toodet eemaldatud",
+        "many": "{{ quantity }} toodet eemaldatud"
+      },
+      "product_variants": "Toote variandid",
+      "total_items": "Tooteid kokku",
+      "remove_all_single_item_confirmation": "Eemaldada 1 toode ostukorvist?",
+      "remove_all_items_confirmation": "Eemaldada kõik {{ quantity }} toodet ostukorvist?",
+      "remove_all": "Eemalda kõik",
+      "cancel": "Tühista",
+      "min_error": "Selle toote miinimumkogus on {{ min }}",
+      "max_error": "Selle toote maksimumkogus on {{ max }}",
+      "step_error": "Seda toodet saab lisada ainult {{ step }} kaupa"
+    },
+    "cart_upsell": {
+      "heading": "🔥 Soovitused sinu suurusele",
+      "empty_cart_heading": "🔥 Kõige populaarsemad",
+      "add_to_cart": "Ostukorvi",
+      "adding": "Lisatakse",
+      "added": "Lisatud",
+      "error": "Viga",
+      "empty": "Hetkel ei leidnud sinu suurusele soovitusi",
+      "badge": "SALE",
+      "no_image": "Pilt puudub",
+      "show_more": "Näita rohkem",
+      "show_less": "Näita vähem",
+      "size_label": "Suurus",
+      "best_seller_badge": "ENIMMÜÜDUD"
     }
   },
   "newsletter": {
     "label": "E-posti aadress",
-    "success": "Täname, et tellite"
+    "success": "Täname, et tellite",
+    "button_label": "Telli"
   },
   "general": {
     "continue_shopping": "Jätka ostlemist",
@@ -3452,6 +3599,46 @@
       "view": "Vaata ostukorvi ({{ count }})",
       "item_added": "Toode lisati teie ostukorvi",
       "view_empty_cart": "Vaata ostukorvi"
+    },
+    "password_page": {
+      "login_form_heading": "Sisene poodi parooliga:",
+      "login_password_button": "Sisene parooliga",
+      "login_form_password_label": "Parool",
+      "login_form_password_placeholder": "Sinu parool",
+      "login_form_error": "Vale parool!",
+      "login_form_submit": "Sisesta",
+      "admin_link_html": "Kas oled poe omanik? <a href=\"/admin\" class=\"link underlined-link\">Logi siin sisse</a>",
+      "powered_by_shopify_html": "Selle poe pakub {{ shopify }}"
+    },
+    "social": {
+      "alt_text": {
+        "share_on_facebook": "Jaga Facebookis",
+        "share_on_twitter": "Jaga X-is",
+        "share_on_pinterest": "Pinni Pinterestis"
+      },
+      "links": {
+        "twitter": "X (Twitter)",
+        "facebook": "Facebook",
+        "pinterest": "Pinterest",
+        "instagram": "Instagram",
+        "tumblr": "Tumblr",
+        "snapchat": "Snapchat",
+        "youtube": "YouTube",
+        "vimeo": "Vimeo",
+        "tiktok": "TikTok"
+      }
+    },
+    "share": {
+      "copy_to_clipboard": "Kopeeri link",
+      "share_url": "Link",
+      "success_message": "Link kopeeritud lõikelauale",
+      "close": "Sulge jagamine"
+    },
+    "slider": {
+      "of": "/",
+      "next_slide": "Libista paremale",
+      "previous_slide": "Libista vasakule",
+      "name": "Slaider"
     }
   },
   "templates": {
@@ -3468,10 +3655,251 @@
         "few": "{{ count }} toodet",
         "many": "{{ count }} toodet"
       },
-      "products": "Tooted"
+      "products": "Tooted",
+      "no_results": "Päringule „{{ terms }}“ ei leitud tulemusi. Kontrolli õigekirja või kasuta teist sõna või fraasi.",
+      "page": "Lehekülg",
+      "title": "Otsingutulemused",
+      "results_with_count": {
+        "one": "{{ count }} tulemus",
+        "other": "{{ count }} tulemust",
+        "few": "{{ count }} tulemust",
+        "many": "{{ count }} tulemust"
+      },
+      "search_for": "Otsi „{{ terms }}“",
+      "results_with_count_and_term": {
+        "one": "Päringule „{{ terms }}“ leiti {{ count }} tulemus",
+        "other": "Päringule „{{ terms }}“ leiti {{ count }} tulemust",
+        "few": "Päringule „{{ terms }}“ leiti {{ count }} tulemust",
+        "many": "Päringule „{{ terms }}“ leiti {{ count }} tulemust"
+      },
+      "results_pages_with_count": {
+        "one": "{{ count }} lehekülg",
+        "other": "{{ count }} lehekülge",
+        "few": "{{ count }} lehekülge",
+        "many": "{{ count }} lehekülge"
+      },
+      "suggestions": "Soovitused",
+      "pages": "Leheküljed"
     },
     "cart": {
       "cart": "Ostukorv"
+    },
+    "contact": {
+      "form": {
+        "name": "Nimi",
+        "email": "E-post",
+        "phone": "Telefoninumber",
+        "comment": "Kommentaar",
+        "send": "Saada",
+        "post_success": "Aitäh, et võtsid meiega ühendust. Vastame nii kiiresti kui võimalik.",
+        "error_heading": "Palun paranda järgmist:",
+        "title": "Kontaktvorm"
+      }
+    },
+    "404": {
+      "title": "Lehekülge ei leitud",
+      "subtext": "404"
+    }
+  },
+  "accessibility": {
+    "skip_to_text": "Liigu sisu juurde",
+    "close": "Sulge",
+    "unit_price_separator": "kohta",
+    "vendor": "Tarnija:",
+    "error": "Viga",
+    "refresh_page": "Valiku tegemine laadib kogu lehe uuesti.",
+    "loading": "Laadimine...",
+    "link_messages": {
+      "new_window": "Avaneb uues aknas.",
+      "external": "Avab välise veebisaidi."
+    },
+    "skip_to_product_info": "Liigu toote teabe juurde",
+    "total_reviews": "arvustusi kokku",
+    "star_reviews_info": "{{ rating_value }} / {{ rating_max }} tärni",
+    "collapsible_content_title": "Ahendatav sisu",
+    "complementary_products": "Täiendavad tooted"
+  },
+  "blogs": {
+    "article": {
+      "blog": "Blogi",
+      "read_more_title": "Loe edasi: {{ title }}",
+      "moderated": "Pane tähele, et kommentaarid tuleb enne avaldamist heaks kiita.",
+      "comment_form_title": "Jäta kommentaar",
+      "name": "Nimi",
+      "email": "E-post",
+      "message": "Kommentaar",
+      "post": "Postita kommentaar",
+      "back_to_blog": "Tagasi blogisse",
+      "share": "Jaga seda artiklit",
+      "success": "Sinu kommentaar postitati edukalt! Aitäh!",
+      "success_moderated": "Sinu kommentaar postitati edukalt. Avaldame selle peagi, kuna meie blogi on modereeritud.",
+      "comments": {
+        "one": "{{ count }} kommentaar",
+        "other": "{{ count }} kommentaari",
+        "few": "{{ count }} kommentaari",
+        "many": "{{ count }} kommentaari"
+      }
+    }
+  },
+  "onboarding": {
+    "product_title": "Näidistoote pealkiri",
+    "collection_title": "Sinu kollektsiooni nimi"
+  },
+  "localization": {
+    "country_label": "Riik / piirkond",
+    "language_label": "Keel",
+    "update_language": "Uuenda keelt",
+    "update_country": "Uuenda riiki / piirkonda",
+    "search": "Otsi",
+    "popular_countries_regions": "Populaarsed riigid / piirkonnad",
+    "country_results_count": "Leitud riike / piirkondi: {{ count }}"
+  },
+  "customer": {
+    "account": {
+      "title": "Konto",
+      "details": "Konto andmed",
+      "view_addresses": "Vaata aadresse",
+      "return": "Tagasi konto andmete juurde"
+    },
+    "account_fallback": "Konto",
+    "log_in": "Logi sisse",
+    "log_out": "Logi välja",
+    "activate_account": {
+      "title": "Aktiveeri konto",
+      "subtext": "Konto aktiveerimiseks loo parool.",
+      "password": "Parool",
+      "password_confirm": "Kinnita parool",
+      "submit": "Aktiveeri konto",
+      "cancel": "Lükka kutse tagasi"
+    },
+    "addresses": {
+      "title": "Aadressid",
+      "default": "Vaikimisi",
+      "add_new": "Lisa uus aadress",
+      "edit_address": "Muuda aadressi",
+      "first_name": "Eesnimi",
+      "last_name": "Perekonnanimi",
+      "company": "Ettevõte",
+      "address1": "Aadress 1",
+      "address2": "Aadress 2",
+      "city": "Linn",
+      "country": "Riik / piirkond",
+      "province": "Maakond",
+      "zip": "Postiindeks",
+      "phone": "Telefon",
+      "set_default": "Määra vaikeaadressiks",
+      "add": "Lisa aadress",
+      "update": "Uuenda aadressi",
+      "cancel": "Tühista",
+      "edit": "Muuda",
+      "delete": "Kustuta",
+      "delete_confirm": "Kas oled kindel, et soovid selle aadressi kustutada?"
+    },
+    "login_page": {
+      "cancel": "Tühista",
+      "create_account": "Loo konto",
+      "email": "E-post",
+      "forgot_password": "Unustasid parooli?",
+      "guest_continue": "Jätka",
+      "guest_title": "Jätka külalisena",
+      "password": "Parool",
+      "title": "Logi sisse",
+      "sign_in": "Logi sisse",
+      "submit": "Esita",
+      "alternate_provider_separator": "või"
+    },
+    "order": {
+      "title": "Tellimus {{ name }}",
+      "date_html": "Esitatud {{ date }}",
+      "cancelled_html": "Tellimus tühistatud {{ date }}",
+      "cancelled_reason": "Põhjus: {{ reason }}",
+      "billing_address": "Arve esitamise aadress",
+      "payment_status": "Makse olek",
+      "shipping_address": "Kohaletoimetamise aadress",
+      "fulfillment_status": "Täitmise olek",
+      "discount": "Soodustus",
+      "shipping": "Saatmine",
+      "tax": "Maks",
+      "product": "Toode",
+      "sku": "SKU",
+      "price": "Hind",
+      "quantity": "Kogus",
+      "total": "Kokku",
+      "fulfilled_at_html": "Täidetud {{ date }}",
+      "track_shipment": "Jälgi saadetist",
+      "tracking_url": "Jälgimislink",
+      "tracking_company": "Vedaja",
+      "tracking_number": "Jälgimisnumber",
+      "subtotal": "Vahesumma",
+      "total_duties": "Tollimaksud",
+      "total_refunded": "Tagastatud"
+    },
+    "orders": {
+      "title": "Tellimuste ajalugu",
+      "order_number": "Tellimus",
+      "order_number_link": "Tellimuse number {{ number }}",
+      "date": "Kuupäev",
+      "payment_status": "Makse olek",
+      "fulfillment_status": "Täitmise olek",
+      "total": "Kokku",
+      "none": "Sa pole veel tellimusi esitanud."
+    },
+    "recover_password": {
+      "title": "Lähtesta parool",
+      "subtext": "Saadame sulle e-kirja parooli lähtestamiseks",
+      "success": "Saatsime sulle e-kirja lingiga parooli uuendamiseks."
+    },
+    "register": {
+      "title": "Loo konto",
+      "first_name": "Eesnimi",
+      "last_name": "Perekonnanimi",
+      "email": "E-post",
+      "password": "Parool",
+      "submit": "Loo"
+    },
+    "reset_password": {
+      "title": "Lähtesta konto parool",
+      "subtext": "Sisesta uus parool",
+      "password": "Parool",
+      "password_confirm": "Kinnita parool",
+      "submit": "Lähtesta parool"
+    }
+  },
+  "gift_cards": {
+    "issued": {
+      "title": "Siin on sinu {{ value }} väärtuses kinkekaart poele {{ shop }}!",
+      "subtext": "Sinu kinkekaart",
+      "gift_card_code": "Kinkekaardi kood",
+      "shop_link": "Külasta veebipoodi",
+      "add_to_apple_wallet": "Lisa Apple Wallet'isse",
+      "qr_image_alt": "QR-kood — skanni kinkekaardi kasutamiseks",
+      "copy_code": "Kopeeri kinkekaardi kood",
+      "expired": "Aegunud",
+      "copy_code_success": "Kood edukalt kopeeritud",
+      "how_to_use_gift_card": "Kasuta kinkekaardi koodi internetis või QR-koodi poes",
+      "expiration_date": "Aegub {{ expires_on }}"
+    }
+  },
+  "recipient": {
+    "form": {
+      "checkbox": "Soovin saata selle kingitusena",
+      "email_label": "Saaja e-post",
+      "email": "E-post",
+      "name_label": "Saaja nimi (valikuline)",
+      "name": "Nimi",
+      "message_label": "Sõnum (valikuline)",
+      "message": "Sõnum",
+      "max_characters": "Kuni {{ max_chars }} märki",
+      "email_label_optional_for_no_js_behavior": "Saaja e-post (valikuline)",
+      "send_on": "AAAA-KK-PP",
+      "send_on_label": "Saatmise kuupäev (valikuline)",
+      "expanded": "Kinkekaardi saaja vorm avatud",
+      "collapsed": "Kinkekaardi saaja vorm suletud"
+    }
+  },
+  "customer_accounts": {
+    "order_details": {
+      "taxes_included": "Sisaldab {{ amount }} käibemaksu"
     }
   }
 }
