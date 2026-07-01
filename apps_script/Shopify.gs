@@ -175,6 +175,40 @@ function fulfillOrderWithTracking(orderId, barcode, trackUrl) {
 }
 
 /**
+ * Įrašo Omniva tracking'ą į Shopify užsakymą:
+ *   - jei dar NEįvykdytas (yra atvirų fulfillment orders) -> sukuria fulfillment;
+ *   - jei JAU įvykdytas -> atnaujina esamos fulfillment tracking info nauju kodu.
+ * Naudojama „Nauja siunta" atveju, kai užsakymas jau buvo įvykdytas su senu kodu.
+ */
+function setOmnivaTrackingOnShopify(orderId, barcode, trackUrl) {
+  var d1 = shopifyGraphQL(
+    'query($id:ID!){ order(id:$id){ fulfillmentOrders(first:10){ edges{ node{ id status } } } fulfillments(first:10){ id status } } }',
+    { id: 'gid://shopify/Order/' + orderId });
+  var order = d1.order || {};
+  var foEdges = (order.fulfillmentOrders && order.fulfillmentOrders.edges) || [];
+  var openIds = foEdges
+    .filter(function (e) { return e.node.status === 'OPEN' || e.node.status === 'IN_PROGRESS'; })
+    .map(function (e) { return e.node.id; });
+
+  if (openIds.length) {
+    return fulfillOrderWithTracking(orderId, barcode, trackUrl);
+  }
+
+  var fulfillments = (order.fulfillments || []).filter(function (f) { return f.status === 'SUCCESS'; });
+  if (!fulfillments.length) {
+    throw new Error('Nėra nei atvirų fulfillment orders, nei įvykdytų fulfillment — negaliu įrašyti tracking.');
+  }
+  var fId = fulfillments[fulfillments.length - 1].id;
+  var notify = String(cfg('NOTIFY_CUSTOMER')).toLowerCase() === 'true';
+  var d2 = shopifyGraphQL(
+    'mutation u($id:ID!,$t:FulfillmentTrackingInput!,$n:Boolean){ fulfillmentTrackingInfoUpdateV2(fulfillmentId:$id, trackingInfoInput:$t, notifyCustomer:$n){ fulfillment{ id } userErrors{ field message } } }',
+    { id: fId, n: notify, t: { number: barcode, url: trackUrl, company: 'Omniva' } });
+  var ue = d2.fulfillmentTrackingInfoUpdateV2 && d2.fulfillmentTrackingInfoUpdateV2.userErrors;
+  if (ue && ue.length) throw new Error('Tracking update: ' + ue.map(function (e) { return e.message; }).join('; '));
+  return d2.fulfillmentTrackingInfoUpdateV2.fulfillment;
+}
+
+/**
  * Ištraukia kliento pasirinktą pastomatą iš užsakymo, jei toks yra
  * (note_attributes arba line item properties). Grąžina {id, name} arba null.
  */

@@ -1183,6 +1183,109 @@ function uiFulfillExisting(orderName) {
   return { ok: true, orders: listOrders(200) };
 }
 
+/**
+ * Įrašo Omniva tracking'ą į Shopify užsakymą:
+ *   - jei dar NEįvykdytas (yra atvirų fulfillment orders) -> sukuria fulfillment;
+ *   - jei JAU įvykdytas -> atnaujina esamos fulfillment tracking info nauju kodu.
+ * Naudojama „Nauja siunta" atveju, kai užsakymas jau buvo įvykdytas su senu kodu.
+ */
+function setOmnivaTrackingOnShopify(orderId, barcode, trackUrl) {
+  var d1 = shopifyGraphQL(
+    'query($id:ID!){ order(id:$id){ fulfillmentOrders(first:10){ edges{ node{ id status } } } fulfillments(first:10){ id status } } }',
+    { id: 'gid://shopify/Order/' + orderId });
+  var order = d1.order || {};
+  var foEdges = (order.fulfillmentOrders && order.fulfillmentOrders.edges) || [];
+  var openIds = foEdges
+    .filter(function (e) { return e.node.status === 'OPEN' || e.node.status === 'IN_PROGRESS'; })
+    .map(function (e) { return e.node.id; });
+
+  // Dar neįvykdyta -> įprasta eiga (sukuriam fulfillment su nauju tracking).
+  if (openIds.length) {
+    return fulfillOrderWithTracking(orderId, barcode, trackUrl);
+  }
+
+  // Jau įvykdyta -> atnaujinam naujausios fulfillment tracking info.
+  var fulfillments = (order.fulfillments || []).filter(function (f) { return f.status === 'SUCCESS'; });
+  if (!fulfillments.length) {
+    throw new Error('Nėra nei atvirų fulfillment orders, nei įvykdytų fulfillment — negaliu įrašyti tracking.');
+  }
+  var fId = fulfillments[fulfillments.length - 1].id;
+  var notify = String(cfg('NOTIFY_CUSTOMER')).toLowerCase() === 'true';
+  var d2 = shopifyGraphQL(
+    'mutation u($id:ID!,$t:FulfillmentTrackingInput!,$n:Boolean){ fulfillmentTrackingInfoUpdateV2(fulfillmentId:$id, trackingInfoInput:$t, notifyCustomer:$n){ fulfillment{ id } userErrors{ field message } } }',
+    { id: fId, n: notify, t: { number: barcode, url: trackUrl, company: 'Omniva' } });
+  var ue = d2.fulfillmentTrackingInfoUpdateV2 && d2.fulfillmentTrackingInfoUpdateV2.userErrors;
+  if (ue && ue.length) throw new Error('Tracking update: ' + ue.map(function (e) { return e.message; }).join('; '));
+  return d2.fulfillmentTrackingInfoUpdateV2.fulfillment;
+}
+
+/**
+ * „Nauja siunta" — tam PAČIAM užsakymui/klientui sukuria NAUJĄ Omniva siuntą
+ * (naujas tracking kodas + naujas lipdukas), naudodama tą patį priskirtą pastomatą
+ * ir kliento duomenis. Sąmoningai APEINA dublikatų apsaugą (processOrder ją blokuotų).
+ *
+ * Naudojimas: klientas suklydo paštomatą/telefoną (jau pataisyta lentelėje),
+ * siunta pamesta, arba reikia pakartotinės siuntos.
+ *
+ * Shopify: perrašo „Additional details" nauju kodu/lipduku ir atnaujina tracking
+ * (jei jau įvykdyta) arba įvykdo (jei dar ne).
+ */
+function uiCreateNewShipment(orderName) {
+  var o = getOrder(orderName);
+  if (!o) throw new Error('Užsakymas nerastas: ' + orderName);
+  if (!omnivaReady()) throw new Error('Trūksta Omniva raktų (Nustatymai).');
+
+  // Tas pats priskirtas pastomatas (pagal ID). Jei reikia kito — pirma „Pastomatas" mygtuku.
+  var locker = lockerById(o['Šalis'], o['Pastomato ID']);
+  if (!locker) {
+    throw new Error('Nepavyko rasti pastomato pagal ID „' + o['Pastomato ID'] + '". Perparink pastomatą ir bandyk vėl.');
+  }
+
+  var oldTracking = String(o['Tracking'] || '');
+
+  // Omniva reikalauja unikalaus partnerShipmentId — pridedam trumpą sufiksą,
+  // kad nauja siunta nesikirstų su senąja (jis matysis ir ant lipduko po užsakymo nr).
+  var omnivaOrder = rowToOmnivaOrder(o);
+  omnivaOrder.partner_shipment_id = String(o['Užsakymas'] || orderName) + '-' + String(Date.now()).slice(-4);
+
+  // 1) Nauja Omniva siunta -> naujas barcode.
+  var ship = registerShipment(omnivaOrder, locker);
+  var barcode = ship.barcode;
+
+  // 2) Naujas lipdukas į Drive.
+  var labelUrl = '';
+  try { labelUrl = generateAndStoreLabel(orderName, barcode, cfg('LABEL_TO_EMAIL') || null); } catch (e) {}
+
+  // 3) Perrašom lentelę nauju kodu/lipduku (senasis paminimas pastaboje).
+  upsertOrder({
+    order: orderName, tracking: barcode, label: labelUrl,
+    locker: locker.name, lockerId: locker.id,
+    shipmentOk: '✅', labelOk: labelUrl ? '✅' : '❌', status: 'Įvykdyta',
+    notes: 'NAUJA siunta rankiniu būdu. Senas kodas: ' + (oldTracking || '—') + ' → naujas: ' + barcode,
+  });
+
+  // 4) Shopify (tik LIVE): perrašom info + atnaujinam/įvykdom tracking nauju kodu.
+  var shopifyMsg = 'Shopify neliestas (TEST arba be OrderID).';
+  if (isLive() && shopifyReady() && o['OrderID']) {
+    try {
+      writeOrderDetails(o['OrderID'], {
+        'Paštomatas': locker.name,
+        'Paštomato adresas': locker.address,
+        'Omniva tracking': barcode,
+        'Tracking nuoroda': trackingUrl(barcode),
+        'Lipdukas (PDF)': labelUrl || '',
+      });
+      setOmnivaTrackingOnShopify(o['OrderID'], barcode, trackingUrl(barcode));
+      shopifyMsg = 'Shopify tracking atnaujintas nauju kodu.';
+      upsertOrder({ order: orderName, fulfilledOk: '✅' });
+    } catch (e) {
+      shopifyMsg = 'Shopify klaida: ' + e.message;
+    }
+  }
+
+  return { ok: true, tracking: barcode, oldTracking: oldTracking, label: labelUrl, shopify: shopifyMsg, orders: listOrders(200) };
+}
+
 // ---------------------------------------------------------------------------
 // Rankiniai veiksmai dashboard'e (lipdukas, pastomato keitimas, tel. keitimas)
 // ---------------------------------------------------------------------------

@@ -198,7 +198,8 @@
       var canFulfill = o['OrderID'] && trk && trk.indexOf('TEST')!==0 && String(o['Fulfilled Shopify']||'').indexOf('✅')<0;
       var actions = (canFulfill ? '<button class="act" onclick="fulfillNow(\''+name+'\')">Įvykdyti</button> ' : '')
                   + '<button class="act ghost" onclick="reassign(\''+name+'\',\''+esc(o['Šalis']||'LT')+'\')">Pastomatas</button> '
-                  + '<button class="act ghost" onclick="changePhone(\''+name+'\')">Tel.</button>';
+                  + '<button class="act ghost" onclick="changePhone(\''+name+'\')">Tel.</button> '
+                  + '<button class="act warn" onclick="newShipment(\''+name+'\')">Nauja siunta</button>';
       var tr=document.createElement('tr');
       tr.innerHTML='<td>'+esc(o['Laikas'])+'</td><td>'+name+'</td><td>'+esc(o['Klientas'])+'</td>'
         +'<td title="'+esc(o['3 artimiausi'])+'">'+esc(o['Pastomatas'])+'</td><td>'+esc(o['km'])+'</td><td>'+esc(o['Tracking'])+'</td>'
@@ -226,6 +227,18 @@
       .withSuccessHandler(function(r){ renderOrders(r.orders); toast('Lipdukas paruoštas'); })
       .withFailureHandler(function(e){ alert('Klaida: '+e.message); })
       .uiGenerateLabel(name);
+  }
+
+  function newShipment(name){
+    if(!confirm('Sukurti NAUJĄ siuntą užsakymui '+name+'?\n\nSukuria naują Omniva siuntą su NAUJU tracking kodu ir nauju lipduku (tas pats paštomatas ir klientas). Senasis kodas bus pakeistas nauju ir lentelėje, ir Shopify.\n\nNaudok kai klientas suklydo paštomatą/telefoną, siunta pamesta ar reikia pakartotinės siuntos.')) return;
+    toast('Kuriama nauja siunta…');
+    google.script.run
+      .withSuccessHandler(function(r){
+        renderOrders(r.orders);
+        toast('Nauja siunta: '+r.tracking+(r.label?' · lipdukas paruoštas':'')+' · '+r.shopify);
+      })
+      .withFailureHandler(function(e){ alert('Klaida: '+e.message); })
+      .uiCreateNewShipment(name);
   }
 
   function fulfillNow(name){
