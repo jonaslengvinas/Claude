@@ -211,8 +211,9 @@ function registerInboundShipment(receiverLocker, opts) {
   if (opts.senderEmail) sender.contactEmail = opts.senderEmail;
 
   var receiver = {
+    // Gavėjas (tu). SVARBU: ReceiverAddresseeDto NETURI „altName" lauko — jį deda tik
+    // siuntėjas. Įdėjus jį gavėjui, Omniva atmeta visą siuntą (JSON parse error).
     personName: cfg('SENDER_NAME'),
-    altName: cfg('SENDER_NAME'),
     address: { country: country, offloadPostcode: String(receiverLocker.id) },
   };
   if (cfg('SENDER_PHONE')) receiver.contactMobile = cfg('SENDER_PHONE');
