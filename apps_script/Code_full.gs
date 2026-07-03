@@ -501,6 +501,42 @@ function registerReturnShipment(o, returnLocker) {
   return { barcode: extractBarcode(res), raw: res };
 }
 
+/**
+ * „Siųsti man" siunta: GAVĖJAS = tu (savo paštomate), SIUNTĖJAS = bet kas.
+ * Skirtingai nei grąžinimas, nesusieta su jokiu užsakymu — tinka, kai reikia,
+ * kad kažkas atsiųstų tau siuntą iš bet kurio paštomato be grąžinimo kodų.
+ * opts: { ref, senderName, senderPhone, senderEmail }
+ */
+function registerInboundShipment(receiverLocker, opts) {
+  opts = opts || {};
+  var country = cfg('SENDER_COUNTRY') || 'LT';
+
+  var sender = {
+    personName: opts.senderName || 'Siuntėjas',
+    address: { country: country },
+  };
+  if (opts.senderPhone) sender.contactMobile = opts.senderPhone;
+  if (opts.senderEmail) sender.contactEmail = opts.senderEmail;
+
+  var receiver = {
+    personName: cfg('SENDER_NAME'),
+    altName: cfg('SENDER_NAME'),
+    address: { country: country, offloadPostcode: String(receiverLocker.id) },
+  };
+  if (cfg('SENDER_PHONE')) receiver.contactMobile = cfg('SENDER_PHONE');
+  if (cfg('SENDER_EMAIL')) receiver.contactEmail = cfg('SENDER_EMAIL');
+
+  var shipment = {
+    partnerShipmentId: String(opts.ref || ('IN-' + Date.now())),
+    mainService: 'PARCEL',
+    deliveryChannel: 'PARCEL_MACHINE',
+    receiverAddressee: receiver,
+    senderAddressee: sender,
+  };
+  var res = omnivaPost('/shipments/business-to-client', { customerCode: cfg('OMNIVA_CUSTOMER_CODE'), shipments: [shipment] });
+  return { barcode: extractBarcode(res), raw: res };
+}
+
 /** Lipduko PDF. Be el. pašto grąžina base64 PDF atsakyme. */
 function requestLabel(barcodes, toEmail) {
   // Omniva tikisi [{ barcode: "..." }], ne ["..."]
@@ -1003,7 +1039,7 @@ function getFulfillmentOrders(orderId) {
  * Sukuria fulfillment su Omniva tracking. notify_customer pagal nustatymą
  * (numatyta false — laišką siunčia Print Order Pro, ne Shopify).
  */
-function fulfillOrderWithTracking(orderId, barcode, trackUrl) {
+function fulfillOrderWithTracking(orderId, barcode, trackUrl, notifyOverride) {
   // Atvirus fulfillment orders imam per GraphQL (REST fulfillment naujose API versijose nepatikimas).
   var d1 = shopifyGraphQL(
     'query($id:ID!){ order(id:$id){ fulfillmentOrders(first:10){ edges{ node{ id status } } } } }',
@@ -1014,7 +1050,9 @@ function fulfillOrderWithTracking(orderId, barcode, trackUrl) {
     .map(function (e) { return e.node.id; });
   if (!openIds.length) throw new Error('Užsakymas neturi atvirų fulfillment orders (gal jau įvykdytas?).');
 
-  var notify = String(cfg('NOTIFY_CUSTOMER')).toLowerCase() === 'true';
+  var notify = (typeof notifyOverride === 'boolean')
+    ? notifyOverride
+    : (String(cfg('NOTIFY_CUSTOMER')).toLowerCase() === 'true');
   var d2 = shopifyGraphQL(
     'mutation f($fulfillment: FulfillmentV2Input!){ fulfillmentCreateV2(fulfillment:$fulfillment){ fulfillment{ id status } userErrors{ field message } } }',
     { fulfillment: {
@@ -1189,7 +1227,7 @@ function uiFulfillExisting(orderName) {
  *   - jei JAU įvykdytas -> atnaujina esamos fulfillment tracking info nauju kodu.
  * Naudojama „Nauja siunta" atveju, kai užsakymas jau buvo įvykdytas su senu kodu.
  */
-function setOmnivaTrackingOnShopify(orderId, barcode, trackUrl) {
+function setOmnivaTrackingOnShopify(orderId, barcode, trackUrl, notifyOverride) {
   var d1 = shopifyGraphQL(
     'query($id:ID!){ order(id:$id){ fulfillmentOrders(first:10){ edges{ node{ id status } } } fulfillments(first:10){ id status } } }',
     { id: 'gid://shopify/Order/' + orderId });
@@ -1201,7 +1239,7 @@ function setOmnivaTrackingOnShopify(orderId, barcode, trackUrl) {
 
   // Dar neįvykdyta -> įprasta eiga (sukuriam fulfillment su nauju tracking).
   if (openIds.length) {
-    return fulfillOrderWithTracking(orderId, barcode, trackUrl);
+    return fulfillOrderWithTracking(orderId, barcode, trackUrl, notifyOverride);
   }
 
   // Jau įvykdyta -> atnaujinam naujausios fulfillment tracking info.
@@ -1210,7 +1248,9 @@ function setOmnivaTrackingOnShopify(orderId, barcode, trackUrl) {
     throw new Error('Nėra nei atvirų fulfillment orders, nei įvykdytų fulfillment — negaliu įrašyti tracking.');
   }
   var fId = fulfillments[fulfillments.length - 1].id;
-  var notify = String(cfg('NOTIFY_CUSTOMER')).toLowerCase() === 'true';
+  var notify = (typeof notifyOverride === 'boolean')
+    ? notifyOverride
+    : (String(cfg('NOTIFY_CUSTOMER')).toLowerCase() === 'true');
   var d2 = shopifyGraphQL(
     'mutation u($id:ID!,$t:FulfillmentTrackingInput!,$n:Boolean){ fulfillmentTrackingInfoUpdateV2(fulfillmentId:$id, trackingInfoInput:$t, notifyCustomer:$n){ fulfillment{ id } userErrors{ field message } } }',
     { id: fId, n: notify, t: { number: barcode, url: trackUrl, company: 'Omniva' } });
@@ -1230,7 +1270,9 @@ function setOmnivaTrackingOnShopify(orderId, barcode, trackUrl) {
  * Shopify: perrašo „Additional details" nauju kodu/lipduku ir atnaujina tracking
  * (jei jau įvykdyta) arba įvykdo (jei dar ne).
  */
-function uiCreateNewShipment(orderName) {
+function uiCreateNewShipment(orderName, notifyCustomer) {
+  // Numatyta: PRANEŠTI klientui (naujas kodas/paštomatas jam svarbus).
+  var notify = (notifyCustomer === false) ? false : true;
   var o = getOrder(orderName);
   if (!o) throw new Error('Užsakymas nerastas: ' + orderName);
   if (!omnivaReady()) throw new Error('Trūksta Omniva raktų (Nustatymai).');
@@ -1275,8 +1317,8 @@ function uiCreateNewShipment(orderName) {
         'Tracking nuoroda': trackingUrl(barcode),
         'Lipdukas (PDF)': labelUrl || '',
       });
-      setOmnivaTrackingOnShopify(o['OrderID'], barcode, trackingUrl(barcode));
-      shopifyMsg = 'Shopify tracking atnaujintas nauju kodu.';
+      setOmnivaTrackingOnShopify(o['OrderID'], barcode, trackingUrl(barcode), notify);
+      shopifyMsg = 'Shopify tracking atnaujintas nauju kodu' + (notify ? ' · klientui pranešta.' : '.');
       upsertOrder({ order: orderName, fulfilledOk: '✅' });
     } catch (e) {
       shopifyMsg = 'Shopify klaida: ' + e.message;
@@ -1422,6 +1464,51 @@ function createReturnLabel(orderName) {
   // Originalioje eilutėje „Grąžinta" stulpelyje — grąžinimo lipduko nuoroda (pasiekiama bet kam)
   if (labelUrl) markReturned(orderName, labelUrl);
   return { ok: true, tracking: barcode, label: labelUrl, locker: locker.name };
+}
+
+/**
+ * „Siunta man" — sukuria naują eilutę + Omniva siuntą, kuria bet kas iš bet kurio
+ * paštomato gali atsiųsti tau siuntą į tavo paštomatą (RETURN_LOCKER, pvz. Jonažolių).
+ * Nesusieta su užsakymu. Grąžina tracking + lipduko PDF nuorodą.
+ * senderName / senderPhone — neprivalomi (kad siuntėjas gautų Omniva pranešimus).
+ */
+function uiCreateInboundLabel(senderName, senderPhone) {
+  var rl = cfg('RETURN_LOCKER');
+  if (!rl) throw new Error('Nustatymuose nenurodytas tavo paštomatas (RETURN_LOCKER).');
+  var country = cfg('SENDER_COUNTRY') || 'LT';
+  var locker = /^\d+$/.test(String(rl).trim()) ? lockerById(country, rl) : lockerByName(country, rl);
+  if (!locker) throw new Error('Tavo paštomatas nerastas: ' + rl);
+  if (!omnivaReady()) throw new Error('Trūksta Omniva raktų (Nustatymai).');
+
+  var ref = 'MAN-' + Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyMMdd-HHmmss');
+  var phone = senderPhone ? normalizePhone(senderPhone, country) : '';
+
+  var ship = registerInboundShipment(locker, {
+    ref: ref,
+    senderName: senderName || 'Siuntėjas',
+    senderPhone: phone,
+  });
+  var barcode = ship.barcode;
+
+  var labelUrl = '';
+  try { labelUrl = generateAndStoreLabel(ref, barcode, cfg('LABEL_TO_EMAIL') || null); } catch (e) {}
+
+  upsertOrder({
+    order: ref,
+    customer: senderName || 'Siuntėjas',
+    phone: phone,
+    country: country,
+    locker: locker.name,
+    lockerId: locker.id,
+    tracking: barcode,
+    label: labelUrl,
+    shipmentOk: '📥',
+    labelOk: labelUrl ? '✅' : '—',
+    status: 'Siunta man',
+    notes: 'Įeinanti siunta: bet kas → tavo paštomatas „' + locker.name + '". Ref: ' + ref,
+  });
+
+  return { ok: true, tracking: barcode, label: labelUrl, locker: locker.name, ref: ref, orders: listOrders(200) };
 }
 
 /** Keičia kliento telefoną ir perdaro siuntą/lipduką su nauju numeriu. */

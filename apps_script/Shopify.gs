@@ -150,7 +150,7 @@ function getFulfillmentOrders(orderId) {
  * Sukuria fulfillment su Omniva tracking. notify_customer pagal nustatymą
  * (numatyta false — laišką siunčia Print Order Pro, ne Shopify).
  */
-function fulfillOrderWithTracking(orderId, barcode, trackUrl) {
+function fulfillOrderWithTracking(orderId, barcode, trackUrl, notifyOverride) {
   // Atvirus fulfillment orders imam per GraphQL (REST fulfillment naujose API versijose nepatikimas).
   var d1 = shopifyGraphQL(
     'query($id:ID!){ order(id:$id){ fulfillmentOrders(first:10){ edges{ node{ id status } } } } }',
@@ -161,7 +161,9 @@ function fulfillOrderWithTracking(orderId, barcode, trackUrl) {
     .map(function (e) { return e.node.id; });
   if (!openIds.length) throw new Error('Užsakymas neturi atvirų fulfillment orders (gal jau įvykdytas?).');
 
-  var notify = String(cfg('NOTIFY_CUSTOMER')).toLowerCase() === 'true';
+  var notify = (typeof notifyOverride === 'boolean')
+    ? notifyOverride
+    : (String(cfg('NOTIFY_CUSTOMER')).toLowerCase() === 'true');
   var d2 = shopifyGraphQL(
     'mutation f($fulfillment: FulfillmentV2Input!){ fulfillmentCreateV2(fulfillment:$fulfillment){ fulfillment{ id status } userErrors{ field message } } }',
     { fulfillment: {
@@ -180,7 +182,7 @@ function fulfillOrderWithTracking(orderId, barcode, trackUrl) {
  *   - jei JAU įvykdytas -> atnaujina esamos fulfillment tracking info nauju kodu.
  * Naudojama „Nauja siunta" atveju, kai užsakymas jau buvo įvykdytas su senu kodu.
  */
-function setOmnivaTrackingOnShopify(orderId, barcode, trackUrl) {
+function setOmnivaTrackingOnShopify(orderId, barcode, trackUrl, notifyOverride) {
   var d1 = shopifyGraphQL(
     'query($id:ID!){ order(id:$id){ fulfillmentOrders(first:10){ edges{ node{ id status } } } fulfillments(first:10){ id status } } }',
     { id: 'gid://shopify/Order/' + orderId });
@@ -191,7 +193,7 @@ function setOmnivaTrackingOnShopify(orderId, barcode, trackUrl) {
     .map(function (e) { return e.node.id; });
 
   if (openIds.length) {
-    return fulfillOrderWithTracking(orderId, barcode, trackUrl);
+    return fulfillOrderWithTracking(orderId, barcode, trackUrl, notifyOverride);
   }
 
   var fulfillments = (order.fulfillments || []).filter(function (f) { return f.status === 'SUCCESS'; });
@@ -199,7 +201,9 @@ function setOmnivaTrackingOnShopify(orderId, barcode, trackUrl) {
     throw new Error('Nėra nei atvirų fulfillment orders, nei įvykdytų fulfillment — negaliu įrašyti tracking.');
   }
   var fId = fulfillments[fulfillments.length - 1].id;
-  var notify = String(cfg('NOTIFY_CUSTOMER')).toLowerCase() === 'true';
+  var notify = (typeof notifyOverride === 'boolean')
+    ? notifyOverride
+    : (String(cfg('NOTIFY_CUSTOMER')).toLowerCase() === 'true');
   var d2 = shopifyGraphQL(
     'mutation u($id:ID!,$t:FulfillmentTrackingInput!,$n:Boolean){ fulfillmentTrackingInfoUpdateV2(fulfillmentId:$id, trackingInfoInput:$t, notifyCustomer:$n){ fulfillment{ id } userErrors{ field message } } }',
     { id: fId, n: notify, t: { number: barcode, url: trackUrl, company: 'Omniva' } });

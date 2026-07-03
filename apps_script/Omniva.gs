@@ -186,6 +186,42 @@ function registerReturnShipment(o, returnLocker) {
   return { barcode: extractBarcode(res), raw: res };
 }
 
+/**
+ * „Siųsti man" siunta: GAVĖJAS = tu (savo paštomate), SIUNTĖJAS = bet kas.
+ * Skirtingai nei grąžinimas, nesusieta su jokiu užsakymu — tinka, kai reikia,
+ * kad kažkas atsiųstų tau siuntą iš bet kurio paštomato be grąžinimo kodų.
+ * opts: { ref, senderName, senderPhone, senderEmail }
+ */
+function registerInboundShipment(receiverLocker, opts) {
+  opts = opts || {};
+  var country = cfg('SENDER_COUNTRY') || 'LT';
+
+  var sender = {
+    personName: opts.senderName || 'Siuntėjas',
+    address: { country: country },
+  };
+  if (opts.senderPhone) sender.contactMobile = opts.senderPhone;
+  if (opts.senderEmail) sender.contactEmail = opts.senderEmail;
+
+  var receiver = {
+    personName: cfg('SENDER_NAME'),
+    altName: cfg('SENDER_NAME'),
+    address: { country: country, offloadPostcode: String(receiverLocker.id) },
+  };
+  if (cfg('SENDER_PHONE')) receiver.contactMobile = cfg('SENDER_PHONE');
+  if (cfg('SENDER_EMAIL')) receiver.contactEmail = cfg('SENDER_EMAIL');
+
+  var shipment = {
+    partnerShipmentId: String(opts.ref || ('IN-' + Date.now())),
+    mainService: 'PARCEL',
+    deliveryChannel: 'PARCEL_MACHINE',
+    receiverAddressee: receiver,
+    senderAddressee: sender,
+  };
+  var res = omnivaPost('/shipments/business-to-client', { customerCode: cfg('OMNIVA_CUSTOMER_CODE'), shipments: [shipment] });
+  return { barcode: extractBarcode(res), raw: res };
+}
+
 /** Lipduko PDF. Be el. pašto grąžina base64 PDF atsakyme. */
 function requestLabel(barcodes, toEmail) {
   // Omniva tikisi [{ barcode: "..." }], ne ["..."]

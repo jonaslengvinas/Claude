@@ -82,6 +82,7 @@
               <option value="2">EE (Tallinn)</option>
             </select>
             <button class="act ghost" onclick="createTest()">➕ Bandomasis užsakymas</button>
+            <button class="act warn" onclick="inboundLabel()">📥 Siunta man</button>
             <button class="act ghost" onclick="loadData()">↻ Atnaujinti</button>
           </div>
         </div>
@@ -231,6 +232,7 @@
 
   function newShipment(name){
     if(!confirm('Sukurti NAUJĄ siuntą užsakymui '+name+'?\n\nSukuria naują Omniva siuntą su NAUJU tracking kodu ir nauju lipduku (tas pats paštomatas ir klientas). Senasis kodas bus pakeistas nauju ir lentelėje, ir Shopify.\n\nNaudok kai klientas suklydo paštomatą/telefoną, siunta pamesta ar reikia pakartotinės siuntos.')) return;
+    var notify = confirm('Pranešti klientui apie naują siuntą?\n\nOK = pranešti (rekomenduojama, jei keitėsi paštomatas/telefonas)\nCancel = nekurti pranešimo, tik atnaujinti tyliai');
     toast('Kuriama nauja siunta…');
     google.script.run
       .withSuccessHandler(function(r){
@@ -238,7 +240,23 @@
         toast('Nauja siunta: '+r.tracking+(r.label?' · lipdukas paruoštas':'')+' · '+r.shopify);
       })
       .withFailureHandler(function(e){ alert('Klaida: '+e.message); })
-      .uiCreateNewShipment(name);
+      .uiCreateNewShipment(name, notify);
+  }
+
+  function inboundLabel(){
+    var who = prompt('Sukurti „Siunta man" lipduką (bet kas → tavo paštomatas).\n\nSiuntėjo vardas (neprivaloma):','');
+    if(who===null) return; // atšaukė
+    var phone = prompt('Siuntėjo telefonas (neprivaloma, kad gautų Omniva pranešimus):','');
+    if(phone===null) phone='';
+    toast('Kuriama įeinanti siunta…');
+    google.script.run
+      .withSuccessHandler(function(r){
+        renderOrders(r.orders);
+        toast('Siunta man: '+r.tracking+(r.label?' · lipdukas paruoštas':''));
+        if(r.label) window.open(r.label,'_blank');
+      })
+      .withFailureHandler(function(e){ alert('Klaida: '+e.message); })
+      .uiCreateInboundLabel(who, phone);
   }
 
   function fulfillNow(name){

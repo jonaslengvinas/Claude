@@ -131,7 +131,9 @@ function uiFulfillExisting(orderName) {
  * Shopify: perrašo „Additional details" nauju kodu/lipduku ir atnaujina tracking
  * (jei jau įvykdyta) arba įvykdo (jei dar ne).
  */
-function uiCreateNewShipment(orderName) {
+function uiCreateNewShipment(orderName, notifyCustomer) {
+  // Numatyta: PRANEŠTI klientui (naujas kodas/paštomatas jam svarbus).
+  var notify = (notifyCustomer === false) ? false : true;
   var o = getOrder(orderName);
   if (!o) throw new Error('Užsakymas nerastas: ' + orderName);
   if (!omnivaReady()) throw new Error('Trūksta Omniva raktų (Nustatymai).');
@@ -169,8 +171,8 @@ function uiCreateNewShipment(orderName) {
         'Tracking nuoroda': trackingUrl(barcode),
         'Lipdukas (PDF)': labelUrl || '',
       });
-      setOmnivaTrackingOnShopify(o['OrderID'], barcode, trackingUrl(barcode));
-      shopifyMsg = 'Shopify tracking atnaujintas nauju kodu.';
+      setOmnivaTrackingOnShopify(o['OrderID'], barcode, trackingUrl(barcode), notify);
+      shopifyMsg = 'Shopify tracking atnaujintas nauju kodu' + (notify ? ' · klientui pranešta.' : '.');
       upsertOrder({ order: orderName, fulfilledOk: '✅' });
     } catch (e) {
       shopifyMsg = 'Shopify klaida: ' + e.message;
@@ -178,6 +180,50 @@ function uiCreateNewShipment(orderName) {
   }
 
   return { ok: true, tracking: barcode, oldTracking: oldTracking, label: labelUrl, shopify: shopifyMsg, orders: listOrders(200) };
+}
+
+/**
+ * „Siunta man" — sukuria naują eilutę + Omniva siuntą, kuria bet kas iš bet kurio
+ * paštomato gali atsiųsti tau siuntą į tavo paštomatą (RETURN_LOCKER, pvz. Jonažolių).
+ * Nesusieta su užsakymu. Grąžina tracking + lipduko PDF nuorodą.
+ */
+function uiCreateInboundLabel(senderName, senderPhone) {
+  var rl = cfg('RETURN_LOCKER');
+  if (!rl) throw new Error('Nustatymuose nenurodytas tavo paštomatas (RETURN_LOCKER).');
+  var country = cfg('SENDER_COUNTRY') || 'LT';
+  var locker = /^\d+$/.test(String(rl).trim()) ? lockerById(country, rl) : lockerByName(country, rl);
+  if (!locker) throw new Error('Tavo paštomatas nerastas: ' + rl);
+  if (!omnivaReady()) throw new Error('Trūksta Omniva raktų (Nustatymai).');
+
+  var ref = 'MAN-' + Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyMMdd-HHmmss');
+  var phone = senderPhone ? normalizePhone(senderPhone, country) : '';
+
+  var ship = registerInboundShipment(locker, {
+    ref: ref,
+    senderName: senderName || 'Siuntėjas',
+    senderPhone: phone,
+  });
+  var barcode = ship.barcode;
+
+  var labelUrl = '';
+  try { labelUrl = generateAndStoreLabel(ref, barcode, cfg('LABEL_TO_EMAIL') || null); } catch (e) {}
+
+  upsertOrder({
+    order: ref,
+    customer: senderName || 'Siuntėjas',
+    phone: phone,
+    country: country,
+    locker: locker.name,
+    lockerId: locker.id,
+    tracking: barcode,
+    label: labelUrl,
+    shipmentOk: '📥',
+    labelOk: labelUrl ? '✅' : '—',
+    status: 'Siunta man',
+    notes: 'Įeinanti siunta: bet kas → tavo paštomatas „' + locker.name + '". Ref: ' + ref,
+  });
+
+  return { ok: true, tracking: barcode, label: labelUrl, locker: locker.name, ref: ref, orders: listOrders(200) };
 }
 
 // ---------------------------------------------------------------------------
