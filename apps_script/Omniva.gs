@@ -196,9 +196,16 @@ function registerInboundShipment(receiverLocker, opts) {
   opts = opts || {};
   var country = cfg('SENDER_COUNTRY') || 'LT';
 
+  // Siuntėjo adresas — tavo SENDER_* (Omniva reikalauja pilno, galiojančio
+  // siuntėjo adreso su pašto kodu; tuščias adresas -> siunta ATMETAMA).
   var sender = {
     personName: opts.senderName || 'Siuntėjas',
-    address: { country: country },
+    address: {
+      country: country,
+      street: cfg('SENDER_STREET') || '',
+      postcode: cfg('SENDER_POSTCODE') || '',
+      deliverypoint: cfg('SENDER_CITY') || '',
+    },
   };
   if (opts.senderPhone) sender.contactMobile = opts.senderPhone;
   if (opts.senderEmail) sender.contactEmail = opts.senderEmail;
