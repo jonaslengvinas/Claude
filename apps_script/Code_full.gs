@@ -515,6 +515,8 @@ function registerInboundShipment(receiverLocker, opts) {
   // siuntėjo adreso su pašto kodu; tuščias adresas -> siunta ATMETAMA).
   var sender = {
     personName: opts.senderName || 'Siuntėjas',
+    // altName perrašo ant lipduko rodomą vardą (kitaip rodo paskyros pavadinimą „Lengvina MB").
+    altName: opts.senderName || 'Siuntėjas',
     address: {
       country: country,
       street: cfg('SENDER_STREET') || '',
